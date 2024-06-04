@@ -1,1 +1,16 @@
-hs
+{
+  "ApiVersion": 2,
+  "Name": "<b><color=lime>Custom</a></b> <i>REWORK (API 2.0)</i> ",
+  "Description": "<i><color=orange>REWORK:В этом режиме вы можете сделать свой мини режим по типу покупок , паркура на админку или что пожелаете</a></i>",
+  "StartClientVersion": 573,
+  "MapLists": [
+    {
+      "MapListId": 324,
+      "Name": "Официальные карты"
+    }
+  ],
+  "Parameters": {
+    "Bool": [
+    ]
+  }
+}
