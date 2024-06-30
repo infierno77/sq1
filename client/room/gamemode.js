@@ -11,22 +11,6 @@ import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, B
 const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF4A9878", ADMIN = "D411BD94CAE31F89", BANNED = "9D481006E2EC6AD", COLORS = [ColorsLib.ColorToHex(ColorsLib.Colors.Red), ColorsLib.ColorToHex(ColorsLib.Colors.Blue), ColorsLib.ColorToHex(ColorsLib.Colors.Lime), ColorsLib.ColorToHex(ColorsLib.Colors.Yellow), ColorsLib.ColorToHex(ColorsLib.Colors.Cyan), ColorsLib.ColorToHex(ColorsLib.Colors.Magenta), ColorsLib.ColorToHex(ColorsLib.Colors.Purple), ColorsLib.ColorToHex(ColorsLib.Colors.White)];
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
-globalThis.Box = Box;
-globalThis.Police = Police;
-globalThis.License = License;
-globalThis.FLicense = FLicense;
-globalThis.Dice = Dice;
-globalThis.Info = Info;
-globalThis.Calculator = Calculator;
-globalThis.Work = Work;
-globalThis.Transfer = Transfer;
-globalThis.Tes = Tes;
-globalThis.Stat = Stat;
-globalThis.Xarcha = Xarcha;
-globalThis.Fly = Fly;
-globalThis.Zek = Zek;
-globalThis.Blue = Blue;
-globalThis.Zombie = Zombie;
 globalThis.Ban = Ban;
 globalThis.Admin = Admin;
 globalThis.JQUtils = JQUtils;
@@ -58,8 +42,8 @@ API.LeaderBoard.PlayerLeaderBoardValues = [
     },
     {
         Value: "Scores",
-        DisplayName: "<b><color=yellow>Mᴏɴᴇʏ</a></b>",
-        ShortDisplayName: "<b><color=yellow>Mᴏɴᴇʏ</a></b>"
+        DisplayName: "<b><color=yellow>Scores</a></b>",
+        ShortDisplayName: "<b><color=yellow>Scores</a></b>"
     },
     {
         Value: "Dollars",
@@ -70,16 +54,6 @@ API.LeaderBoard.PlayerLeaderBoardValues = [
         Value: "rid",
         DisplayName: "<b><color=lime>Rɪᴅ</a></b>",
         ShortDisplayName: "<b><color=lime>Rɪᴅ</a></b>"
-    },
-    {
-        Value: "Job",
-        DisplayName: "<b><color=red>Job</a></b>",
-        ShortDisplayName: "<b><color=red>Job</a></b>"
-    },
-    {
-        Value: "License",
-        DisplayName: "<b><color=cyan>License</a></b>",
-        ShortDisplayName: "<b><color=cyan>License</a></b>"
     }
 ];
 
