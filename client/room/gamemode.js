@@ -32,9 +32,9 @@ API.Build.GetContext().BlocksSet.Value = API.BuildBlocksSet.AllClear;
 API.Build.GetContext().CollapseChangeEnable.Value = true;
 API.Build.GetContext().FlyEnable.Value = false;
 // Создание команд
-let PlayersTeam = JQUtils.CreateTeam("players", { name: "<i><b><color=purple>Pʟᴀʏ</a>ᴇʀs</b></i>", undername: "ᴘʟᴀʏᴇʀ", isPretty: false }, ColorsLib.Colors.Black, 1);
-let BuildersTeam = JQUtils.CreateTeam("builders", { name: "<i><b><color=purple>Aᴅᴍ</a>ɪɴs</b></i>", undername: "ᴀᴅᴍɪɴ", isPretty: false }, ColorsLib.Colors.Black, 1);
-let HintTeam = JQUtils.CreateTeam("players", { name: "<i><b><color=purple>Pʟᴀʏ</a>ᴇʀs</b></i>", undername: "ᴘʟᴀʏᴇʀ", isPretty: false }, ColorsLib.Colors.Black, 1);
+let PlayersTeam = JQUtils.CreateTeam("players", { name: "<i><b><color=orange>Pʟᴀʏ</a>ᴇrs</b></i>", undername: "ᴘʟᴀʏᴇʀ", isPretty: false }, ColorsLib.Colors.Black, 1);
+let BuildersTeam = JQUtils.CreateTeam("builders", { name: "<i><b><color=orange>Aᴅᴍ</a>ɪɴs</b></i>", undername: "ᴀᴅᴍɪɴ", isPretty: false }, ColorsLib.Colors.Black, 1);
+let HintTeam = JQUtils.CreateTeam("players", { name: "<i><b><color=orange>Pʟᴀʏ</a>ᴇrs</b></i>", undername: "ᴘʟᴀʏᴇʀ", isPretty: false }, ColorsLib.Colors.Black, 1);
 
 // Конфигурация
 if (API.GameMode.Parameters.GetBool("Fly")) API.contextedProperties.GetContext().MaxHp.Value = 1;
@@ -51,8 +51,8 @@ API.LeaderBoard.PlayerLeaderBoardValues = [
     },
     {
         Value: "rid",
-        DisplayName: "ʀɪᴅ",
-        ShortDisplayName: "ʀɪᴅ"
+        DisplayName: "Rɪᴅ",
+        ShortDisplayName: "Rɪᴅ"
     },
     {
         Value: "banned",
@@ -73,8 +73,8 @@ API.Ui.GetContext().TeamProp2.Value = {
     Team: "players", Prop: "hint"
 };
 
-Teams.Get("players").Properties.Get("hint").Value = "<size=70><color=purple>Eɴɢ</a>ɪɴᴇ 2</size]";
-Teams.Get("builders").Properties.Get("hint").Value = "<size=70>Vᴇʀsɪᴏɴ 0.1</size>";
+Teams.Get("players").Properties.Get("hint").Value = "<size=70><color=orange>Eɴɢ</a>ɪɴᴇ 2</size>";
+Teams.Get("builders").Properties.Get("hint").Value = "<size=70><color=orange>Vᴇʀ</a>sɪᴏɴ 0.1</size>";
 // События
 
 function e_join(p) {
