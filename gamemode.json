@@ -1,8 +1,8 @@
 {
   "ApiVersion": 2,
-  "Name": "<b><color=lime>Custom</a></b> <i>REWORK (API 2.0)</i> ",
-  "Description": "<i><color=orange>REWORK:В этом режиме вы можете сделать свой мини режим по типу покупок , паркура на админку или что пожелаете</a></i>",
-  "StartClientVersion": 573,
+  "Name": "<b><color=orange>Eɴɢ</a>ɪɴᴇ 2</b> <i>«ᴀᴘɪ 2.0»</i>",
+  "Description": "<i><color=orange>В данном режиме вы имеете возможность создать свой небольшой режим какой вы только сможете придумать</a></i>",
+  "StartClientVersion": 574,
   "MapLists": [
     {
       "MapListId": 324,
@@ -11,6 +11,19 @@
   ],
   "Parameters": {
     "Bool": [
+      {
+        "Name": "PartialDesruction",
+        "DisplayName": "<b><i>Возможность ᴘᴀзᴘушить только блоки игᴘоков</b></i>"
+      },
+      {
+        "Name": "LoosenBlocks",
+        "DisplayName": "<b><i>Возможность ᴘᴀзᴘушить любой блок</b></i>"
+      },
+      {
+        "Name": "Fly",
+        "DisplayName": "<i><b>Позволить летать всем игᴘокᴀм</b></i>",
+        "Default": true
+      }
     ]
   }
 }
