@@ -32,9 +32,9 @@ API.Build.GetContext().BlocksSet.Value = API.BuildBlocksSet.AllClear;
 API.Build.GetContext().CollapseChangeEnable.Value = true;
 API.Build.GetContext().FlyEnable.Value = false;
 // Создание команд
-let PlayersTeam = JQUtils.CreateTeam("players", { name: "<color=orange>Игᴘ</a>ᴏᴋи ", undername: "игᴘоки", isPretty: false }, ColorsLib.Colors.Black, 1);
-let BuildersTeam = JQUtils.CreateTeam("builders", { name: "<color=orange>ᴀдᴍ</a>иʜы ", undername: "ᴀдмины", isPretty: false }, ColorsLib.Colors.Black, 1);
-let HintTeam = JQUtils.CreateTeam("players", { name: "<color=orange>Игᴘ</a>ᴏᴋи ", undername: "игᴘоки", isPretty: false }, ColorsLib.Colors.Black, 1);
+let PlayersTeam = JQUtils.CreateTeam("players", { name: "Eɴɢɪɴᴇ 2", undername: "ᴘʟᴀʏᴇʀ", isPretty: true }, ColorsLib.Colors.White, 1);
+let BuildersTeam = JQUtils.CreateTeam("builders", { name: "Eɴɢɪɴᴇ 2 ", undername: "ᴀᴅᴍɪɴ", isPretty: true }, ColorsLib.Colors.Purple, 1);
+let HintTeam = JQUtils.CreateTeam("players", { name: "Eɴɢɪɴᴇ 2 ", undername: "ᴘʟᴀʏᴇʀ", isPretty: true }, ColorsLib.Colors.White, 1);
 
 // Конфигурация
 if (API.GameMode.Parameters.GetBool("Fly")) API.contextedProperties.GetContext().MaxHp.Value = 1;
@@ -45,24 +45,24 @@ if (API.GameMode.Parameters.GetBool("godmode_people")) PlayersTeam.DamageIn.Valu
 // Интерфейс
 API.LeaderBoard.PlayerLeaderBoardValues = [
     {
-        Value: "rid",
-        DisplayName: "Рум айди",
-        ShortDisplayName: "Рум айди"
-    },
-    {
-        Value: "Scores",
-        DisplayName: "Очки",
-        ShortDisplayName: "Очки"
-    },
-    {
         Value: "Статус",
-        DisplayName: "Статус",
-        ShortDisplayName: "Статус"
+        DisplayName: "Sᴛᴀᴛᴜs",
+        ShortDisplayName: "Sᴛᴀᴛᴜs"
+    },
+    {
+        Value: "rid",
+        DisplayName: "ʀɪᴅ",
+        ShortDisplayName: "ʀɪᴅ"
     },
     {
         Value: "banned",
-        DisplayName: "Наличие бана",
-        ShortDisplayName: "Наличие бана"
+        DisplayName: "ʙᴀɴ :",
+        ShortDisplayName: "ʙᴀɴ :"
+    },
+    {
+        Value: "Scores",
+        DisplayName: "Mᴏɴᴇʏ",
+        ShortDisplayName: "Mᴏɴᴇʏ"
     }
 ];
 
@@ -73,8 +73,8 @@ API.Ui.GetContext().TeamProp2.Value = {
     Team: "players", Prop: "hint"
 };
 
-Teams.Get("players").Properties.Get("hint").Value = "Custom";
-Teams.Get("builders").Properties.Get("hint").Value = "<b><i>Режим больше не поддерживается! 0.7.4</i></b>";
+Teams.Get("players").Properties.Get("hint").Value = "<color=purple>Eɴɢ</a>ɪɴᴇ 2";
+Teams.Get("builders").Properties.Get("hint").Value = "Vᴇʀsɪᴏɴ 0.1";
 // События
 
 function e_join(p) {
@@ -162,33 +162,18 @@ API.Teams.OnPlayerChangeTeam.Add(function (p) {
     else {
         p.Spawns.Spawn();
         p.Spawns.Spawn()
-	p.Properties.Get("Статус").Value = "<b>Гость</b>";
-    if (p.id == "3BC2893133C5CB43") {
-        p.Properties.Get("Статус").Value = "<i><color=orange>ВЕТЕРАН</color></i>";
-	}
-    if (p.id == "3BD29C5C0B8A294F") {
-        p.Properties.Get("Статус").Value = "<i><color=lime>Nekneim</color></i>";
-    }
+	p.Properties.Get("Статус").Value = "<b>Guest</b>";
     if (p.id == "FCB44B3BFF4A9878") {
-        p.Properties.Get("Статус").Value = "<i><color=lime>ZTTP</color></i>";
+        p.Properties.Get("Статус").Value = "<i><color=lime>Создатель</color></i>";
         }
-    if (p.id == "4B0B86366DAC8245") {
-        p.Properties.Get("Статус").Value = "<i><color=lime>ВЕТЕРАН</color></i>";
-    }
-    if (p.id == "2827CD16AE7CC982") {
-        p.Properties.Get("Статус").Value = "<i><color=lime>ВЕТЕРАН</color></i>";
-    }
-    if (p.id == "D411BD94CAE31F89") {
-        p.Properties.Get("Статус").Value = "<i><b><color=red>qupe</a></b></i>";
-	}
-       p.PopUp("(Создай зону Help если не знаешь тегов зон) <color=red>Последняя версия v0.7.4 ,</a><color=lime>Режим больше не поддерживается и обновлений больше не будет</a>");
+       p.PopUp("Версия режима 0.1, в разработке");
     }
 });
 
 	Damage.OnKill.Add(function(player, killed) {
   if (player.id !== killed.id) { 
     ++player.Properties.Kills.Value;
-    player.Properties.Scores.Value += 120;
+    player.Properties.Scores.Value += 10;
   }
 });
 
