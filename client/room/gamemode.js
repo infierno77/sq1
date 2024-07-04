@@ -32,9 +32,9 @@ API.Build.GetContext().BlocksSet.Value = API.BuildBlocksSet.AllClear;
 API.Build.GetContext().CollapseChangeEnable.Value = true;
 API.Build.GetContext().FlyEnable.Value = false;
 // Создание команд
-let PlayersTeam = JQUtils.CreateTeam("players", { name: "<size=32><b><i><color=orange>Eɴɢ</a>ɪɴᴇ 2</i></b></size>", undername: "<b><i>игᴘоки<i><b>", isPretty: false }, ColorsLib.Colors.Black, 1);
-let BuildersTeam = JQUtils.CreateTeam("builders", { name: "<size=32><b><i><color=orange>Eɴɢ</a>ɪɴᴇ 2</i></b></size>", undername: "<b><i>ᴀдмины<i><b>", isPretty: false }, ColorsLib.Colors.Black, 1);
-let HintTeam = JQUtils.CreateTeam("players", { name: "<size=120><b><i><color=orange>Eɴɢ</a>ɪɴᴇ 2</i></b></size>", undername: "<b><i>игᴘоки<i><b>", isPretty: false }, ColorsLib.Colors.Black, 1);
+let PlayersTeam = JQUtils.CreateTeam("players", { name: "<color=orange>Eɴɢ</a>ɪɴᴇ 2", undername: "игᴘоки", isPretty: true }, ColorsLib.Colors.Black, 1);
+let BuildersTeam = JQUtils.CreateTeam("builders", { name: "<color=orange>Eɴɢ</a>ɪɴᴇ 2", undername: "ᴀдмины", isPretty: true }, ColorsLib.Colors.Black, 1);
+let HintTeam = JQUtils.CreateTeam("players", { name: "<color=orange>Eɴɢ</a>ɪɴᴇ 2", undername: "игᴘоки", isPretty: true }, ColorsLib.Colors.Black, 1);
 
 // Конфигурация
 if (API.GameMode.Parameters.GetBool("Fly")) API.contextedProperties.GetContext().MaxHp.Value = 1;
