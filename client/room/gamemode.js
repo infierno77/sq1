@@ -32,9 +32,9 @@ API.Build.GetContext().BlocksSet.Value = API.BuildBlocksSet.AllClear;
 API.Build.GetContext().CollapseChangeEnable.Value = true;
 API.Build.GetContext().FlyEnable.Value = false;
 // Создание команд
-let PlayersTeam = JQUtils.CreateTeam("players", { name: "Eɴɢɪɴᴇ 2", undername: "ᴘʟᴀʏᴇʀ", isPretty: true }, ColorsLib.Colors.White, 1);
-let BuildersTeam = JQUtils.CreateTeam("builders", { name: "Eɴɢɪɴᴇ 2 ", undername: "ᴀᴅᴍɪɴ", isPretty: true }, ColorsLib.Colors.Purple, 1);
-let HintTeam = JQUtils.CreateTeam("players", { name: "Eɴɢɪɴᴇ 2 ", undername: "ᴘʟᴀʏᴇʀ", isPretty: true }, ColorsLib.Colors.White, 1);
+let PlayersTeam = JQUtils.CreateTeam("players", { name: "<i><b><color=purple>Pʟᴀʏ</a>ᴇʀs</b></i>", undername: "ᴘʟᴀʏᴇʀ", isPretty: false }, ColorsLib.Colors.Black, 1);
+let BuildersTeam = JQUtils.CreateTeam("builders", { name: "<i><b><color=purple>Aᴅᴍ</a>ɪɴs</b></i>", undername: "ᴀᴅᴍɪɴ", isPretty: false }, ColorsLib.Colors.Black, 1);
+let HintTeam = JQUtils.CreateTeam("players", { name: "<i><b><color=purple>Pʟᴀʏ</a>ᴇʀs</b></i>", undername: "ᴘʟᴀʏᴇʀ", isPretty: false }, ColorsLib.Colors.Black, 1);
 
 // Конфигурация
 if (API.GameMode.Parameters.GetBool("Fly")) API.contextedProperties.GetContext().MaxHp.Value = 1;
@@ -73,8 +73,8 @@ API.Ui.GetContext().TeamProp2.Value = {
     Team: "players", Prop: "hint"
 };
 
-Teams.Get("players").Properties.Get("hint").Value = "<color=purple>Eɴɢ</a>ɪɴᴇ 2";
-Teams.Get("builders").Properties.Get("hint").Value = "Vᴇʀsɪᴏɴ 0.1";
+Teams.Get("players").Properties.Get("hint").Value = "<size=70><color=purple>Eɴɢ</a>ɪɴᴇ 2</size]";
+Teams.Get("builders").Properties.Get("hint").Value = "<size=70>Vᴇʀsɪᴏɴ 0.1</size>";
 // События
 
 function e_join(p) {
@@ -157,7 +157,6 @@ API.contextedProperties.GetContext(BuildersTeam).SkinType.Value = 0;
 API.Teams.OnPlayerChangeTeam.Add(function (p) {
     if (p.Properties.Get("banned").Value) {
         p.Spawns.Despawn();
-        p.PopUp("suka blyat");
     }
     else {
         p.Spawns.Spawn();
