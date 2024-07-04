@@ -14,7 +14,7 @@ const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
 globalThis.Ban = Ban;
-globalThis.Admin = Admin;
+globalThis.Admin = Adm;
 globalThis.JQUtils = JQUtils;
 globalThis.ColorsLib = ColorsLib;
 globalThis.ReTick = tickrate;
