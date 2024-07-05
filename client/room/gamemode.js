@@ -174,7 +174,7 @@ API.Teams.OnPlayerChangeTeam.Add(function (p) {
 	contextedProperties.GetContext().SkinType.Value = 2;
     }
        p.PopUp("<b>Версия режима 0.1, (в разработке)</b>");
-       p.Properties.Get("Scores").Value += 500;
+       p.Properties.Get("Scores").Value = 500;
     }
 });
 
