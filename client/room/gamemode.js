@@ -396,15 +396,15 @@ function ЦенаОсн(id, newPrice) {
         player.PopUp(`Цена покупки основного оружия установлена на ${newPrice} очков!`);
     }
 }
-function ЦенаВтор(id, newPrice) {
-    secondWeaponPrice = newPrice; // Обновляем значение mainWeaponPrice
+function ЦенаВтор(id, nnewPrice) {
+    secondWeaponPrice = nnewPrice; // Обновляем значение mainWeaponPrice
 
     // Получаем всех игроков в комнате
     let players = API.Players.GetAll();
 
     for (let player of players) {
-        player.Properties.Get("Цена оружия").Value = newPrice; // Устанавливаем новую цену для игрока
-        player.PopUp(`Цена покупки основного оружия установлена на ${newPrice} очков!`);
+        player.Properties.Get("Цена оружия").Value = nnewPrice; // Устанавливаем новую цену для игрока
+        player.PopUp(`Цена покупки основного оружия установлена на ${nnewPrice} очков!`);
     }
 }
 function Help(id) {
