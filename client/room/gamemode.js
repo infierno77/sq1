@@ -15,7 +15,6 @@ const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF
 globalThis.API = API;
 globalThis.Help = Help;
 globalThis.ЦенаОсн = ЦенаОсн;
-globalThis.ЦенаВтор = ЦенаВтор;
 globalThis.Коробка = Коробка;
 globalThis.Кубик = Кубик;
 globalThis.Время = Время;
@@ -282,29 +281,6 @@ BuyMainTrigger.OnEnter.Add(function(player){
     player.Ui.Hint.Value = `Недостаточно средств для покупки основного оружия!`;
   }
 });
-var secondWeaponPrice = 5000; // Установите начальное значение стоимости основного оружия
-
-var BuySecTrigger = AreaPlayerTriggerService.Get("Sec");
-BuySecTrigger.Tags = ["Sec"];
-BuySecTrigger.Enable = true;
-BuySecTrigger.OnEnter.Add(function(player){
-  player.Ui.Hint.Value = `Вторичное оружие, цена: ${secondWeaponPrice} очков, у тебя: ${player.Properties.Scores.Value} очков`;
-  
-  // by qupe
-  if (player.inventory.Secondary.Value) {
-    player.Ui.Hint.Value = `Вы уже купили основное оружие ${player.inventory.Secondary.Value}!`;
-    return;
-  }
-  
-  if (player.Properties.Scores.Value > secondWeaponPrice - 1) {
-    player.Ui.Hint.Value = `Ты купил вторичное оружие, твой баланс очков: ${player.Properties.Scores.Value} очков`;
-    player.Properties.Scores.Value -= secondWeaponPrice;
-    player.inventory.Secondary.Value = true;
-    player.Spawns.Spawn();
-  } else {
-    player.Ui.Hint.Value = `Недостаточно средств для покупки вторичного оружия!`;
-  }
-});
 // пример имени: /Ban(1);
 API.Chat.OnMessage.Add(function(message) {
     if (message.TeamId == BuildersTeam.Id && message.Text[0] == "/")
@@ -394,17 +370,6 @@ function ЦенаОсн(id, newPrice) {
     for (let player of players) {
         player.Properties.Get("Цена оружия").Value = newPrice; // Устанавливаем новую цену для игрока
         player.PopUp(`Цена покупки основного оружия установлена на ${newPrice} очков!`);
-    }
-}
-function ЦенаВтор(id, nnewPrice) {
-    secondWeaponPrice = nnewPrice; // Обновляем значение mainWeaponPrice
-
-    // Получаем всех игроков в комнате
-    let players = API.Players.GetAll();
-
-    for (let player of players) {
-        player.Properties.Get("Цена оружия").Value = nnewPrice; // Устанавливаем новую цену для игрока
-        player.PopUp(`Цена покупки основного оружия установлена на ${nnewPrice} очков!`);
     }
 }
 function Help(id) {
