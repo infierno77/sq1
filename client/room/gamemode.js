@@ -13,6 +13,7 @@ import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, B
 const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF4A9878", ADMIN = "D411BD94CAE31F89", BANNED = "9D481006E2EC6AD", COLORS = [ColorsLib.ColorToHex(ColorsLib.Colors.Red), ColorsLib.ColorToHex(ColorsLib.Colors.Blue), ColorsLib.ColorToHex(ColorsLib.Colors.Lime), ColorsLib.ColorToHex(ColorsLib.Colors.Yellow), ColorsLib.ColorToHex(ColorsLib.Colors.Cyan), ColorsLib.ColorToHex(ColorsLib.Colors.Magenta), ColorsLib.ColorToHex(ColorsLib.Colors.Purple), ColorsLib.ColorToHex(ColorsLib.Colors.White)];
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
+globalThis.set = set;
 globalThis.Коробка = Коробка;
 globalThis.Кубик = Кубик;
 globalThis.Время = Время;
@@ -255,8 +256,30 @@ function tickrate() {
         }
     }*/
 }
-// Список зон
-// команду в чат начинающуюся на 
+// Список зо
+var mainWeaponPrice = 10000; // Установите начальное значение стоимости основного оружия
+
+var BuyMainTrigger = AreaPlayerTriggerService.Get("Основа");
+BuyMainTrigger.Tags = ["Основа"];
+BuyMainTrigger.Enable = true;
+BuyMainTrigger.OnEnter.Add(function(player){
+  player.Ui.Hint.Value = `Основное оружие, цена: ${mainWeaponPrice} очков, у тебя: ${player.Properties.Scores.Value} очков`;
+  
+  // by qupe
+  if (player.inventory.Main.Value) {
+    player.Ui.Hint.Value = `Вы уже купили основное оружие ${player.inventory.Main.Value}!`;
+    return;
+  }
+  
+  if (player.Properties.Scores.Value > mainWeaponPrice - 1) {
+    player.Ui.Hint.Value = `Ты купил основное оружие, твой баланс очков: ${player.Properties.Scores.Value} очков`;
+    player.Properties.Scores.Value -= mainWeaponPrice;
+    player.inventory.Main.Value = true;
+    player.Spawns.Spawn();
+  } else {
+    player.Ui.Hint.Value = `Недостаточно средств для покупки основного оружия!`;
+  }
+});
 // пример имени: /Ban(1);
 API.Chat.OnMessage.Add(function(message) {
     if (message.TeamId == BuildersTeam.Id && message.Text[0] == "/")
@@ -333,5 +356,18 @@ function Коробка(id) {
         } else {
             p.PopUp("Не хватает средств");
         }
+    }
+}
+// Установите начальное значение стоимости основного оружия
+
+function set(id, newPrice) {
+    mainWeaponPrice = newPrice; // Обновляем значение mainWeaponPrice
+
+    // Получаем всех игроков в комнате
+    let players = API.Players.GetAll();
+
+    for (let player of players) {
+        player.Properties.Get("Цена оружия").Value = newPrice; // Устанавливаем новую цену для игрока
+        player.PopUp(`Цена покупки основного оружия установлена на ${newPrice} очков!`);
     }
 }
