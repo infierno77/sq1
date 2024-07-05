@@ -88,7 +88,7 @@ function e_join(p) {
             p.Properties.Get("banned").Value = API.Properties.GetContext().Get("banned" + p.Id).Value || false;
             p.Properties.Get("rid").Value = p.IdInRoom;
             p.Properties.Get("Time").Value = 0; // Инициализация игрового времени
-            p.Properties.Get("Scores").Value = 0; // Инициализация очков
+            p.Properties.Get("Scores").Value = 500; // Инициализация очков
             let team = API.Properties.GetContext().Get("team" + p.Id).Value || "players";
             API.Teams.Get(team).Add(p);
         }
