@@ -13,6 +13,7 @@ import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, B
 const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF4A9878", ADMIN = "D411BD94CAE31F89", BANNED = "9D481006E2EC6AD", COLORS = [ColorsLib.ColorToHex(ColorsLib.Colors.Red), ColorsLib.ColorToHex(ColorsLib.Colors.Blue), ColorsLib.ColorToHex(ColorsLib.Colors.Lime), ColorsLib.ColorToHex(ColorsLib.Colors.Yellow), ColorsLib.ColorToHex(ColorsLib.Colors.Cyan), ColorsLib.ColorToHex(ColorsLib.Colors.Magenta), ColorsLib.ColorToHex(ColorsLib.Colors.Purple), ColorsLib.ColorToHex(ColorsLib.Colors.White)];
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
+globalThis.Коробка = Коробка;
 globalThis.Кубик = Кубик;
 globalThis.Время = Время;
 globalThis.Статус = Статус;
@@ -313,3 +314,38 @@ function Кубик(id) {
     // Display the rolled number to the player
     player.PopUp("<b>Выпавшее число: </b>" + diceRoll);
 }
+function Коробка(id) {
+  let player = API.Players.GetByRoomId(parseInt(id));
+    
+  var rewards = [
+    { type: "Premium", name: "Premium" },
+    { type: "Scores", minAmount: 50, maxAmount: 500 }
+  ];
+
+  player.Ui.Hint.Value = `Ящик стоит 200 очков, у тебя на счету: ${player.Properties.Scores.Value} очков`;
+  if (player.Properties.Scores.Value >= 0) {
+    player.Ui.Hint.Value = `Ты приобрел ящик за 200 очков, на твоем счету: ${player.Properties.Scores.Value - 200} очков`;
+    player.Properties.Scores.Value -= 0;
+
+    if (!player.inventory.Box.Value) {
+      var rewardIndex = Math.random();
+      
+      if (rewardIndex < 0.007) { // 0.7% chance
+        player.Properties.Get("Статус").Value = "<b><color=yellow>Premium</a></b>";
+        player.Ui.Hint.Value = `Ты открыл ящик и получил статус Premium`;
+      } else {
+        var scoresAmount = Math.floor(Math.random() * 491) + 10; // Random number between 10 and 500
+        player.Properties.Scores.Value += scoresAmount;
+        player.Ui.Hint.Value = `Ты открыл ящик и получил ${scoresAmount} очков`;
+      }
+
+      player.inventory.Box.Value = true;
+      player.Properties.hasBoughtBox = true;
+      player.Spawns.Spawn();
+    } else {
+      player.Ui.Hint.Value = `У тебя уже есть ящик в инвентаре`;
+    }
+  } else {
+    player.Ui.Hint.Value = `Недостаточно очков для покупки ящика`;
+  }
+});
