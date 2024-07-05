@@ -46,23 +46,23 @@ if (API.GameMode.Parameters.GetBool("godmode_people")) PlayersTeam.DamageIn.Valu
 API.LeaderBoard.PlayerLeaderBoardValues = [
     {
         Value: "Статус",
-        DisplayName: "| <color=lime><i><b>Статус</b></i></a> |",
-        ShortDisplayName: "| <color=lime><i><b>Статус</b></i></a> |"
+        DisplayName: "<color=lime><i><b>Статус</b></i></a>",
+        ShortDisplayName: "<color=lime><i><b>Статус</b></i></a>"
     },
     {
         Value: "rid",
-        DisplayName: "<color=red><i><b>Rɪᴅ</b></i></a> |",
-        ShortDisplayName: "<color=red><i><b>Rɪᴅ</b></i></a> |"
+        DisplayName: "<color=red><i><b>Rɪᴅ</b></i></a>",
+        ShortDisplayName: "<color=red><i><b>Rɪᴅ</b></i></a>"
     },
     {
         Value: "banned",
-        DisplayName: "Бан |",
-        ShortDisplayName: "Бан |"
+        DisplayName: "Бан",
+        ShortDisplayName: "Бан"
     },
     {
         Value: "Scores",
-        DisplayName: "<i><color=yellow><b>Монеты</b></a></i> |",
-        ShortDisplayName: "<i><color=yellow><b>Монеты</b></a></i> |"
+        DisplayName: "<i><color=yellow><b>Монеты</b></a></i>",
+        ShortDisplayName: "<i><color=yellow><b>Монеты</b></a></i>"
     }
 ];
 
