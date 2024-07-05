@@ -316,4 +316,4 @@ function Никнейм(id) {
     player.SetNickname(nick);
 
     player.PopUp("Сгенерированный никнейм: " + nick); // Display the new nickname in a popup
-		}
+}
