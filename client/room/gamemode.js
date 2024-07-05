@@ -13,6 +13,7 @@ import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, B
 const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF4A9878", ADMIN = "D411BD94CAE31F89", BANNED = "9D481006E2EC6AD", COLORS = [ColorsLib.ColorToHex(ColorsLib.Colors.Red), ColorsLib.ColorToHex(ColorsLib.Colors.Blue), ColorsLib.ColorToHex(ColorsLib.Colors.Lime), ColorsLib.ColorToHex(ColorsLib.Colors.Yellow), ColorsLib.ColorToHex(ColorsLib.Colors.Cyan), ColorsLib.ColorToHex(ColorsLib.Colors.Magenta), ColorsLib.ColorToHex(ColorsLib.Colors.Purple), ColorsLib.ColorToHex(ColorsLib.Colors.White)];
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
+globalThis.Кубик = Кубик;
 globalThis.Время = Время;
 globalThis.Статус = Статус;
 globalThis.Бан = Бан;
@@ -305,3 +306,10 @@ function Время(id) {
     // Display the current Moscow time to the player
     player.PopUp("Московское время в момент ввода данной команды: " + currentTime);
 } 
+function Кубик(id) {
+    let player = API.Players.GetByRoomId(parseInt(id));
+    let diceRoll = Math.floor(Math.random() * 6) + 1; // Generate a random number between 1 and 6
+
+    // Display the rolled number to the player
+    player.PopUp("<b>Выпавшее число: </b>" + diceRoll);
+}
