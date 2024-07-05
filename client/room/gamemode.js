@@ -13,8 +13,8 @@ import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, B
 const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF4A9878", ADMIN = "D411BD94CAE31F89", BANNED = "9D481006E2EC6AD", COLORS = [ColorsLib.ColorToHex(ColorsLib.Colors.Red), ColorsLib.ColorToHex(ColorsLib.Colors.Blue), ColorsLib.ColorToHex(ColorsLib.Colors.Lime), ColorsLib.ColorToHex(ColorsLib.Colors.Yellow), ColorsLib.ColorToHex(ColorsLib.Colors.Cyan), ColorsLib.ColorToHex(ColorsLib.Colors.Magenta), ColorsLib.ColorToHex(ColorsLib.Colors.Purple), ColorsLib.ColorToHex(ColorsLib.Colors.White)];
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
-globalThis.Ban = Ban;
-globalThis.Admin = Adm;
+globalThis.Бан = Бан;
+globalThis.Адм = Адм;
 globalThis.JQUtils = JQUtils;
 globalThis.ColorsLib = ColorsLib;
 globalThis.ReTick = tickrate;
@@ -46,23 +46,23 @@ if (API.GameMode.Parameters.GetBool("godmode_people")) PlayersTeam.DamageIn.Valu
 API.LeaderBoard.PlayerLeaderBoardValues = [
     {
         Value: "Статус",
-        DisplayName: "Sᴛᴀᴛᴜs",
-        ShortDisplayName: "Sᴛᴀᴛᴜs"
+        DisplayName: "| <color=lime><i><b>Статус</b></i></a> |",
+        ShortDisplayName: "| <color=lime><i><b>Статус</b></i></a> |"
     },
     {
         Value: "rid",
-        DisplayName: "Rɪᴅ",
-        ShortDisplayName: "Rɪᴅ"
+        DisplayName: "<color=red><i><b>Rɪᴅ</b></i></a> |",
+        ShortDisplayName: "<color=red><i><b>Rɪᴅ</b></i></a> |"
     },
     {
         Value: "banned",
-        DisplayName: "ʙᴀɴ :",
-        ShortDisplayName: "ʙᴀɴ :"
+        DisplayName: "Бан |",
+        ShortDisplayName: "Бан |"
     },
     {
         Value: "Scores",
-        DisplayName: "Mᴏɴᴇʏ",
-        ShortDisplayName: "Mᴏɴᴇʏ"
+        DisplayName: "<i><color=yellow><b>Монеты</b></a></i> |",
+        ShortDisplayName: "<i><color=yellow><b>Монеты</b></a></i> |"
     }
 ];
 
@@ -151,7 +151,7 @@ function formatTime(hours, minutes) {
     return formattedHours + ":" + formattedMinutes;
 }
 
-API.contextedProperties.GetContext(BuildersTeam).MaxHp.Value = 10000;
+API.contextedProperties.GetContext(BuildersTeam).MaxHp.Value = 100;
 API.contextedProperties.GetContext(BuildersTeam).SkinType.Value = 0;
 
 API.Teams.OnPlayerChangeTeam.Add(function (p) {
@@ -163,9 +163,9 @@ API.Teams.OnPlayerChangeTeam.Add(function (p) {
         p.Spawns.Spawn()
 	p.Properties.Get("Статус").Value = "<b>Guest</b>";
     if (p.id == "FCB44B3BFF4A9878") {
-        p.Properties.Get("Статус").Value = "<i><color=lime>Создатель</color></i>";
+        p.Properties.Get("Статус").Value = "<i><color=lime>сп</color></i>";
         }
-       p.PopUp("Версия режима 0.1, в разработке");
+       p.PopUp("Версия режима 0.1, (в разработке)");
     }
 });
 
@@ -259,7 +259,7 @@ API.Chat.OnMessage.Add(function(message) {
 });
 // Функции
 	
-function Ban(id) {
+function Бан(id) {
     let p = API.Players.GetByRoomId(parseInt(id));
     if (p.IdInRoom == 1 || p.Id == ADMIN || p.Id == APMIN) return;
     if (p.Properties.Get("banned").Value) {
@@ -271,7 +271,7 @@ function Ban(id) {
         p.Spawns.Despawn();
     }
 }
-function Adm(id) {
+function Адм(id) {
     let p = API.Players.GetByRoomId(parseInt(id));
     if (p.Id == ADMIN || p.Id == APMIN) return;
     if (p.Team == PlayersTeam) {
