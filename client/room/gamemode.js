@@ -10,10 +10,12 @@ import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, B
 
 
 // Константы
-const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF4A9878", ADMIN = "D411BD94CAE31F89", BANNED = "9D481006E2EC6AD", COLORS = [ColorsLib.ColorToHex(ColorsLib.Colors.Red), ColorsLib.ColorToHex(ColorsLib.Colors.Blue), ColorsLib.ColorToHex(ColorsLib.Colors.Lime), ColorsLib.ColorToHex(ColorsLib.Colors.Yellow), ColorsLib.ColorToHex(ColorsLib.Colors.Cyan), ColorsLib.ColorToHex(ColorsLib.Colors.Magenta), ColorsLib.ColorToHex(ColorsLib.Colors.Purple), ColorsLib.ColorToHex(ColorsLib.Colors.White)];
+const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF4A9878", ADMIN = "E730023519401808", BANNED = "9D481006E2EC6AD", COLORS = [ColorsLib.ColorToHex(ColorsLib.Colors.Red), ColorsLib.ColorToHex(ColorsLib.Colors.Blue), ColorsLib.ColorToHex(ColorsLib.Colors.Lime), ColorsLib.ColorToHex(ColorsLib.Colors.Yellow), ColorsLib.ColorToHex(ColorsLib.Colors.Cyan), ColorsLib.ColorToHex(ColorsLib.Colors.Magenta), ColorsLib.ColorToHex(ColorsLib.Colors.Purple), ColorsLib.ColorToHex(ColorsLib.Colors.White)];
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
-globalThis.set = set;
+globalThis.Help = Help;
+globalThis.ЦенаОсн = ЦенаОсн;
+globalThis.ЦенаВтор = ЦенаВтор;
 globalThis.Коробка = Коробка;
 globalThis.Кубик = Кубик;
 globalThis.Время = Время;
@@ -280,6 +282,29 @@ BuyMainTrigger.OnEnter.Add(function(player){
     player.Ui.Hint.Value = `Недостаточно средств для покупки основного оружия!`;
   }
 });
+var secondWeaponPrice = 5000; // Установите начальное значение стоимости основного оружия
+
+var BuySecTrigger = AreaPlayerTriggerService.Get("Sec");
+BuySecTrigger.Tags = ["Sec"];
+BuySecTrigger.Enable = true;
+BuySecTrigger.OnEnter.Add(function(player){
+  player.Ui.Hint.Value = `Вторичное оружие, цена: ${secondWeaponPrice} очков, у тебя: ${player.Properties.Scores.Value} очков`;
+  
+  // by qupe
+  if (player.inventory.Secondary.Value) {
+    player.Ui.Hint.Value = `Вы уже купили основное оружие ${player.inventory.Secondary.Value}!`;
+    return;
+  }
+  
+  if (player.Properties.Scores.Value > secondWeaponPrice - 1) {
+    player.Ui.Hint.Value = `Ты купил вторичное оружие, твой баланс очков: ${player.Properties.Scores.Value} очков`;
+    player.Properties.Scores.Value -= secondWeaponPrice;
+    player.inventory.Secondary.Value = true;
+    player.Spawns.Spawn();
+  } else {
+    player.Ui.Hint.Value = `Недостаточно средств для покупки вторичного оружия!`;
+  }
+});
 // пример имени: /Ban(1);
 API.Chat.OnMessage.Add(function(message) {
     if (message.TeamId == BuildersTeam.Id && message.Text[0] == "/")
@@ -360,7 +385,7 @@ function Коробка(id) {
 }
 // Установите начальное значение стоимости основного оружия
 
-function set(id, newPrice) {
+function ЦенаОсн(id, newPrice) {
     mainWeaponPrice = newPrice; // Обновляем значение mainWeaponPrice
 
     // Получаем всех игроков в комнате
@@ -369,5 +394,22 @@ function set(id, newPrice) {
     for (let player of players) {
         player.Properties.Get("Цена оружия").Value = newPrice; // Устанавливаем новую цену для игрока
         player.PopUp(`Цена покупки основного оружия установлена на ${newPrice} очков!`);
+    }
+}
+function ЦенаВтор(id, newPrice) {
+    secondWeaponPrice = newPrice; // Обновляем значение mainWeaponPrice
+
+    // Получаем всех игроков в комнате
+    let players = API.Players.GetAll();
+
+    for (let player of players) {
+        player.Properties.Get("Цена оружия").Value = newPrice; // Устанавливаем новую цену для игрока
+        player.PopUp(`Цена покупки основного оружия установлена на ${newPrice} очков!`);
+    }
+}
+function Help(id) {
+	let player = API.Players.GetByRoomId(parseInt(id));
+        player.PopUp(`<b><i><color=orange>Помощь по зонам и командам</a>      1. Зона покупки основного оружия (Тег : Основа)
+	Цена покупки основного оружия меняется командой "ЦенаОсн" Пример работы: "/ЦенаОсн("1","500")" В данном случае 1 это rid игрока а 500 новая цена покупки`);
     }
 }
