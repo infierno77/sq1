@@ -13,6 +13,7 @@ import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, B
 const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF4A9878", ADMIN = "D411BD94CAE31F89", BANNED = "9D481006E2EC6AD", COLORS = [ColorsLib.ColorToHex(ColorsLib.Colors.Red), ColorsLib.ColorToHex(ColorsLib.Colors.Blue), ColorsLib.ColorToHex(ColorsLib.Colors.Lime), ColorsLib.ColorToHex(ColorsLib.Colors.Yellow), ColorsLib.ColorToHex(ColorsLib.Colors.Cyan), ColorsLib.ColorToHex(ColorsLib.Colors.Magenta), ColorsLib.ColorToHex(ColorsLib.Colors.Purple), ColorsLib.ColorToHex(ColorsLib.Colors.White)];
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
+globalThis.Статус = Статус;
 globalThis.Бан = Бан;
 globalThis.Адм = Адм;
 globalThis.JQUtils = JQUtils;
@@ -283,5 +284,12 @@ function Адм(id) {
         PlayersTeam.Add(p);
         p.PopUp("<b><i>У вᴀс отобᴘᴀли пᴘᴀʙᴀ ᴀдмиʜиᴄᴛᴘᴀᴛᴏᴘᴀ !</i></b>");
         API.Properties.GetContext().Get(`team${p.Id}`).Value = "players";
+    }
+}
+function Статус(id,status) {
+    let p = API.Players.GetByRoomId(parseInt(id));
+    if (p) {
+        p.Properties.Get("Статус").Value = status;
+        p.PopUp(`Вам присвоен статус "${status}" !`);
     }
 }
