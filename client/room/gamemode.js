@@ -13,6 +13,8 @@ import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, B
 const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF4A9878", ADMIN = "D411BD94CAE31F89", BANNED = "9D481006E2EC6AD", COLORS = [ColorsLib.ColorToHex(ColorsLib.Colors.Red), ColorsLib.ColorToHex(ColorsLib.Colors.Blue), ColorsLib.ColorToHex(ColorsLib.Colors.Lime), ColorsLib.ColorToHex(ColorsLib.Colors.Yellow), ColorsLib.ColorToHex(ColorsLib.Colors.Cyan), ColorsLib.ColorToHex(ColorsLib.Colors.Magenta), ColorsLib.ColorToHex(ColorsLib.Colors.Purple), ColorsLib.ColorToHex(ColorsLib.Colors.White)];
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
+globalThis.Зек = Зек;
+globalThis.Зомби = Зомбм;
 globalThis.Статус = Статус;
 globalThis.Бан = Бан;
 globalThis.Адм = Адм;
@@ -292,4 +294,14 @@ function Статус(id,status) {
         p.Properties.Get("Статус").Value = status;
         p.PopUp(`Вам присвоен статус "${status}" !`);
     }
+}
+function Зомби(id) {
+    let p = API.Players.GetByRoomId(parseInt(id));
+    p.contextedProperties.SkinType.Value = 1;
+    p.PopUp("<b>Вам выдан облик зомби !</b>");
+}
+function Зек(id) {
+    let p = API.Players.GetByRoomId(parseInt(id));
+    p.contextedProperties.SkinType.Value = 2;
+    p.PopUp("<b>Вам выдан облик заключенного !</b>");
 }
