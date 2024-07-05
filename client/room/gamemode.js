@@ -167,7 +167,11 @@ API.Teams.OnPlayerChangeTeam.Add(function (p) {
     if (p.id == "FCB44B3BFF4A9878") {
         p.Properties.Get("Статус").Value = "<i><color=lime>сп</color></i>";
         }
-       p.PopUp("Версия режима 0.1, (в разработке)");
+    if (p.id == "C925816BE50844A9") {
+        p.Properties.Get("Статус").Value = "<i><color=orange>xSamuraiDem</color></i>";
+	contextedProperties.GetContext().SkinType.Value = 2;
+    }
+       p.PopUp("<b>Версия режима 0.1, (в разработке)</b>");
     }
 });
 
