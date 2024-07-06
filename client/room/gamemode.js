@@ -345,7 +345,7 @@ function Статус(id,status) {
 function Нхп(id,hp) {
     let p = API.Players.GetByRoomId(parseInt(id));
     if (p) {
-        contextedProperties.GetContext().MaxHp.Value = hp;
+        API.contextedProperties.GetContext().MaxHp.Value = hp;
         p.PopUp(`Ваше количество хп "${hp}" !`);
     }
 }
