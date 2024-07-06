@@ -17,7 +17,7 @@ globalThis.Syu = Syu;
 globalThis.Help = Help;
 globalThis.Полёт = Полёт;
 globalThis.ЦенаОсн = ЦенаОсн;
-globalThis.Коробка = Коробка;
+globalThis.БКоробка = БКоробка;
 globalThis.Кубик = Кубик;
 globalThis.Время = Время;
 globalThis.Статус = Статус;
@@ -283,13 +283,13 @@ BuyMainTrigger.OnEnter.Add(function(player){
     player.Ui.Hint.Value = `Недостаточно средств для покупки основного оружия!`;
   }
 });
-var scoreAmount = 1;
+var scoreAmount = 50;
 
-var BuyMainTrigge = AreaPlayerTriggerService.Get("Основа");
+var BuyMainTrigge = AreaPlayerTriggerService.Get("фарм");
 BuyMainTrigge.Tags = ["фарм"];
 BuyMainTrigge.Enable = true;
 BuyMainTrigge.OnEnter.Add(function(player){
-  player.Ui.Hint.Value = `Ты зашел в зону "Фаpм" и получил очки!`;
+  player.Ui.Hint.Value = `Ты получил 50 монет !`;
   
   player.Properties.Scores.Value += scoreAmount; // примерная сумма очков, которую игрок получит за вход в зону "Основа"
 });
@@ -351,23 +351,23 @@ function Кубик(id) {
     // Display the rolled number to the player
     player.PopUp("<b>Выпавшее число: </b>" + diceRoll);
 }
-function Коробка(id) {
+function БКоробка(id) {
     let p = API.Players.GetByRoomId(parseInt(id));
     if (p) {
-        if (p.Properties.Get("Scores").Value >= 50) {
+        if (player.Properties.Scores.Value >= 50) {
             let chance = Math.random() * 100;
             if (chance < 99.5) {
                 let randomScores = Math.floor(Math.random() * 491) + 10;
-                p.Properties.Get("Scores").Value += randomScores;
+                player.Properties.Scores.Value += randomScores;
                 p.PopUp(`Вы получили ${randomScores} Scores!`);
-                p.Properties.Get("Scores").Value -= 50;
+                player.Properties.Scores.Value -= 50;
             } else {
-                p.Properties.Get("Статус").Value = "Premium";
-                p.PopUp(`Вам присвоен статус "Premium"!`);
-                p.Properties.Get("Scores").Value -= 50;
+                p.Properties.Get("Статус").Value = "<b>Premium</b>";
+                p.PopUp(`Вам выпал статус "Premium"!`);
+                player.Properties.Scores.Value -= 50;
             }
         } else {
-            p.PopUp("Не хватает средств");
+            p.PopUp("Не хватает монет");
         }
     }
 }
@@ -395,15 +395,4 @@ function Полёт(id) {
     let p = API.Players.GetByRoomId(parseInt(id));
     p.Build.FlyEnable.Value = true;
     p.PopUp("Вам выдан полёт!");
-}
-function Syu(id, newAmount) {
-    scoreAmount = newAmount; // Обновляем значение scoreAmount
-
-    // Получаем всех игроков в комнате
-    let players = API.Players.GetAll();
-
-    for (let player of players) {
-        scoreAmount = newAmount; // Устанавливаем новое количество очков для игрока
-        player.PopUp(`Количество получаемых очков в зоне изменено на ${newAmount}!`);
-    }
 }
