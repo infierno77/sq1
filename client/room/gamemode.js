@@ -13,6 +13,7 @@ import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, B
 const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF4A9878", ADMIN = "E730023519401808", BANNED = "9D481006E2EC6AD", COLORS = [ColorsLib.ColorToHex(ColorsLib.Colors.Red), ColorsLib.ColorToHex(ColorsLib.Colors.Blue), ColorsLib.ColorToHex(ColorsLib.Colors.Lime), ColorsLib.ColorToHex(ColorsLib.Colors.Yellow), ColorsLib.ColorToHex(ColorsLib.Colors.Cyan), ColorsLib.ColorToHex(ColorsLib.Colors.Magenta), ColorsLib.ColorToHex(ColorsLib.Colors.Purple), ColorsLib.ColorToHex(ColorsLib.Colors.White)];
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
+globalThis.Проп = Проп;
 globalThis.Help = Help;
 globalThis.Хинт = Хинт;
 globalThis.Полёт = Полёт;
@@ -404,5 +405,17 @@ function Хинт(id,newHint) {
     let players = API.Players.GetAll();
 
     for (let player of players) {
+    }
+}
+function Проп(id,customPlayersHint,customBuildersHint) {
+    let team = API.Players.GetByRoomId(parseInt(id));
+    
+    Teams.Get("players").Properties.Get("hint").Value = customPlayersHint;
+    Teams.Get("builders").Properties.Get("hint").Value = customBuildersHint;
+    
+    if (team.Team == players) {
+        team.PopUp("Теперь ты игрок");
+    } else {
+        team.PopUp("Теперь ты админ");
     }
 }
