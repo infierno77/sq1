@@ -260,15 +260,6 @@ function tickrate() {
     }*/
 }
 // Список зо
-var farmSize = 0
-
-var Plus10ScoresTrigger = AreaPlayerTriggerService.Get("фарм")
-Plus10ScoresTrigger.Tags = ["фарм"];
-Plus10ScoresTrigger.Enable = true;
-Plus10ScoresTrigger.OnEnter.Add(function(player){
-  player.Properties.Scores.Value += farmSize;
-  player.Ui.Hint.Value = `Ты получаешь ${farmSize} очков, текущий баланс: ${player.Properties.Scores.Value} очков`;
-});
 var mainWeaponPrice = 10000; // Установите начальное значение стоимости основного оружия
 
 var BuyMainTrigger = AreaPlayerTriggerService.Get("Основа");
