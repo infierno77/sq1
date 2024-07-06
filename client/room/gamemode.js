@@ -283,13 +283,13 @@ BuyMainTrigger.OnEnter.Add(function(player){
     player.Ui.Hint.Value = `Недостаточно средств для покупки основного оружия!`;
   }
 });
-var scoreAmount = 10;
+var scoreAmount = newAmount;
 
 var BuyMainTrigge = AreaPlayerTriggerService.Get("Основа");
 BuyMainTrigge.Tags = ["фарм"];
 BuyMainTrigge.Enable = true;
 BuyMainTrigge.OnEnter.Add(function(player){
-  player.Ui.Hint.Value = `Ты зашел в зону "Фаом" и получил очки!`;
+  player.Ui.Hint.Value = `Ты зашел в зону "Фаpм" и получил очки!`;
   
   player.Properties.Scores.Value += scoreAmount; // примерная сумма очков, которую игрок получит за вход в зону "Основа"
 });
@@ -403,7 +403,7 @@ function Syu(id, newAmount) {
     let players = API.Players.GetAll();
 
     for (let player of players) {
-        var scoreAmount = newAmount; // Устанавливаем новое количество очков для игрока
+        scoreAmount = newAmount; // Устанавливаем новое количество очков для игрока
         player.PopUp(`Количество получаемых очков в зоне изменено на ${newAmount}!`);
     }
 }
