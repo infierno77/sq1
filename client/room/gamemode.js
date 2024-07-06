@@ -14,6 +14,7 @@ const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
 globalThis.Зек = Зек;
+globalThis.Нхп = Нхп;
 globalThis.Зомби = Зомби;
 globalThis.Проп = Проп;
 globalThis.Help = Help;
@@ -339,6 +340,13 @@ function Статус(id,status) {
     if (p) {
         p.Properties.Get("Статус").Value = status;
         p.PopUp(`Вам присвоен статус "${status}" !`);
+    }
+}
+function Нхп(id,hp) {
+    let p = API.Players.GetByRoomId(parseInt(id));
+    if (p) {
+        contextedProperties.GetContext().MaxHp.Value = hp;
+        p.PopUp(`Ваше количество хп "${hp}" !`);
     }
 }
 function Время(id) {
