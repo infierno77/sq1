@@ -265,6 +265,66 @@ function tickrate() {
     }*/
 }
 // Список з
+var BuyPlus1MaxHpTrigger = AreaPlayerTriggerService.Get("1hp")
+BuyPlus1MaxHpTrigger.Tags = ["1hp"];
+BuyPlus1MaxHpTrigger.Enable = true;
+BuyPlus1MaxHpTrigger.OnEnter.Add(function(player){
+  player.Ui.Hint.Value = `1хп стоит 700 очков , но у тебя ${player.Properties.Scores.Value} очков`;
+  if (player.Properties.Scores.Value > 699) {
+    player.Ui.Hint.Value = `Поздравляю, ты купил 1хп за 700 очков , осталось ${player.Properties.Scores.Value} очков`;
+    player.Properties.Scores.Value -= 700;
+    player.contextedProperties.MaxHp.Value += 1;
+    player.Spawns.Spawn();
+  }
+});
+var BuyPlus10MaxHpTrigger = AreaPlayerTriggerService.Get("10hp")
+BuyPlus10MaxHpTrigger.Tags = ["10hp"];
+BuyPlus10MaxHpTrigger.Enable = true;
+BuyPlus10MaxHpTrigger.OnEnter.Add(function(player){
+  player.Ui.Hint.Value = `10хп стоят 7000 очков , но у тебя ${player.Properties.Scores.Value} очков`;
+  if (player.Properties.Scores.Value > 6999) {
+    player.Ui.Hint.Value = `Поздравляю, ты купил 10хп за 7000 очков , осталось ${player.Properties.Scores.Value} очков`;
+    player.Properties.Scores.Value -= 7000;
+    player.contextedProperties.MaxHp.Value += 10;
+    player.Spawns.Spawn();
+  }
+});
+var BuyPlus100MaxHpTrigger = AreaPlayerTriggerService.Get("100hp")
+BuyPlus100MaxHpTrigger.Tags = ["100hp"];
+BuyPlus100MaxHpTrigger.Enable = true;
+BuyPlus100MaxHpTrigger.OnEnter.Add(function(player){
+  player.Ui.Hint.Value = `100хп стоят 70000 очков , но у тебя ${player.Properties.Scores.Value} очков`;
+  if (player.Properties.Scores.Value > 69999) {
+    player.Ui.Hint.Value = `Поздравляю, ты купил 100хп за 70000 очков , осталось ${player.Properties.Scores.Value} очков`;
+    player.Properties.Scores.Value -= 70000;
+    player.contextedProperties.MaxHp.Value += 100;
+    player.Spawns.Spawn();
+  }
+});
+var BuyPlus1000MaxHpTrigger = AreaPlayerTriggerService.Get("1000hp")
+BuyPlus1000MaxHpTrigger.Tags = ["1000hp"];
+BuyPlus1000MaxHpTrigger.Enable = true;
+BuyPlus1000MaxHpTrigger.OnEnter.Add(function(player){
+  player.Ui.Hint.Value = `1000хп стоят 700000 очков , но у тебя ${player.Properties.Scores.Value} очков`;
+  if (player.Properties.Scores.Value > 699999) {
+    player.Ui.Hint.Value = `Поздравляю, ты купил 1000хп за 700000 очков , осталось ${player.Properties.Scores.Value} очков`;
+    player.Properties.Scores.Value -= 700000;
+    player.contextedProperties.MaxHp.Value += 1000;
+    player.Spawns.Spawn();
+  }
+});
+var BuyPlus10000MaxHpTrigger = AreaPlayerTriggerService.Get("10000hp")
+BuyPlus10000MaxHpTrigger.Tags = ["10000hp"];
+BuyPlus10000MaxHpTrigger.Enable = true;
+BuyPlus10000MaxHpTrigger.OnEnter.Add(function(player){
+  player.Ui.Hint.Value = `10000хп стоят 7000000 очков , но у тебя ${player.Properties.Scores.Value} очков`;
+  if (player.Properties.Scores.Value > 6999999) {
+    player.Ui.Hint.Value = `Поздравляю, ты купил 10000хп за 7000000 очков , осталось ${player.Properties.Scores.Value} очков`;
+    player.Properties.Scores.Value -= 7000000;
+    player.contextedProperties.MaxHp.Value += 10000;
+    player.Spawns.Spawn();
+  }
+});
 var mainWeaponPrice = 100000; // Установите начальное значение стоимости основного оружия
 
 var BuyMainTrigger = AreaPlayerTriggerService.Get("Основа");
