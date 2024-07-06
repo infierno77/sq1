@@ -403,7 +403,7 @@ function Syu(id, newAmount) {
     let players = API.Players.GetAll();
 
     for (let player of players) {
-        player.Properties.Get("Количество очков").Value = newAmount; // Устанавливаем новое количество очков для игрока
+        var scoreAmount = newAmount; // Устанавливаем новое количество очков для игрока
         player.PopUp(`Количество получаемых очков в зоне изменено на ${newAmount}!`);
     }
 }
