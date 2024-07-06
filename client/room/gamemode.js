@@ -734,6 +734,8 @@ function Рулетка() {
     let randomIndex = Math.floor(Math.random() * players.length); // Генерируем случайный индекс
     let randomPlayer = players[randomIndex]; // Выбираем случайного игрока
     if (randomPlayer) {
-        randomPlayer.PopUp("Вы были выбраны случайным образом!"); // Выводим PopUp с сообщением для выбранного игрока
+        players.forEach(player => {
+            player.PopUp(`Выбран случайный игрок: ${randomPlayer.Name}`); // Выводим PopUp с сообщением для всех игроков
+        });
     }
 }
