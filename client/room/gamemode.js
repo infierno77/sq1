@@ -14,6 +14,7 @@ const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
 globalThis.Help = Help;
+globalThis.Hint = Hint;
 globalThis.Полёт = Полёт;
 globalThis.ЦенаОсн = ЦенаОсн;
 globalThis.БКоробка = БКоробка;
@@ -174,9 +175,10 @@ API.Teams.OnPlayerChangeTeam.Add(function (p) {
         }
     if (p.id == "C925816BE50844A9") {
         p.Properties.Get("Статус").Value = "<i><color=orange>xSamuraiDem</color></i>";
-	contextedProperties.GetContext().SkinType.Value = 2;
+	contextedProperties.GetContext().SkinType.Value = 6;
     }
-       p.PopUp("<b>Версия режима 0.1, (в разработке)</b>");
+       var spawnHint = "<b>Версия режима 0.1, (в разработке)</b>"
+       p.PopUp(spawnHint);
        p.Properties.Get("Scores").Value = 500;
     }
 });
@@ -394,4 +396,13 @@ function Полёт(id) {
     let p = API.Players.GetByRoomId(parseInt(id));
     p.Build.FlyEnable.Value = true;
     p.PopUp("Вам выдан полёт!");
+}
+function Хинт(id,newHint) {
+    spawnHint = newHint; // Обновляем значение mainWeaponPrice
+
+    // Получаем всех игроков в комнате
+    let players = API.Players.GetAll();
+
+    for (let player of players) {
+    }
 }
