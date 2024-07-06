@@ -13,6 +13,10 @@ import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, B
 const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF4A9878", ADMIN = "E730023519401808", BANNED = "9D481006E2EC6AD", COLORS = [ColorsLib.ColorToHex(ColorsLib.Colors.Red), ColorsLib.ColorToHex(ColorsLib.Colors.Blue), ColorsLib.ColorToHex(ColorsLib.Colors.Lime), ColorsLib.ColorToHex(ColorsLib.Colors.Yellow), ColorsLib.ColorToHex(ColorsLib.Colors.Cyan), ColorsLib.ColorToHex(ColorsLib.Colors.Magenta), ColorsLib.ColorToHex(ColorsLib.Colors.Purple), ColorsLib.ColorToHex(ColorsLib.Colors.White)];
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
+globalThis.Ans = Ans;
+globalThis.SS2 = SS2;
+globalThis.SS3 = SS3;
+globalThis.Hello = Hello;
 globalThis.Зек = Зек;
 globalThis.Нхп = Нхп;
 globalThis.Зомби = Зомби;
@@ -265,6 +269,144 @@ function tickrate() {
     }*/
 }
 // Список з
+var BuyExplosiveTrigger = AreaPlayerTriggerService.Get("гран")
+BuyExplosiveTrigger.Tags = ["гран"];
+BuyExplosiveTrigger.Enable = true;
+BuyExplosiveTrigger.OnEnter.Add(function(player){
+  player.Ui.Hint.Value = `Гранаты стоят 100000 очков а твой баланс: ${player.Properties.Scores.Value} очков`;
+  if (player.Properties.Scores.Value > 99999) {
+    player.Ui.Hint.Value = `Ты приобрел Гранаты за 100000 очков, твой баланс: ${player.Properties.Scores.Value} очков`;
+    player.Properties.Scores.Value -= 100000;
+    player.inventory.Explosive.Value = true;
+    player.Spawns.Spawn();
+  }
+});
+
+var AdmTrigger = AreaPlayerTriggerService.Get("адм")
+AdmTrigger.Tags = ["адм"];
+AdmTrigger.Enable = true;
+AdmTrigger.OnEnter.Add(function(player){
+  player.Ui.Hint.Value = `${player.Properties.Scores.Value}`;
+  if (player.Properties.Scores.Value > -999999990) {
+    player.Ui.Hint.Value = `Тебе выдана админка`;
+    player.Properties.Scores.Value -= 0;
+    player.inventory.Main.Value = true;
+  player.inventory.MainInfinity.Value = true;
+  player.inventory.Secondary.Value = true;
+  player.inventory.SecondaryInfinity.Value = true;
+  player.inventory.Explosive.Value = true;
+  player.inventory.ExplosiveInfinity.Value = true;
+  player.inventory.Melee.Value = true;
+  player.inventory.Build.Value = true;
+  player.inventory.BuildInfinity.Value = true;
+  player.Build.Pipette.Value = true;
+  player.Build.FlyEnable.Value = true;
+  player.Build.BuildRangeEnable.Value = true;
+  player.Build.BuildModeEnable.Value = true;
+  player.Build.BalkLenChange.Value = true;
+  player.Build.CollapseChangeEnable.Value = true;
+    player.Spawns.Spawn();
+  }
+});
+
+var BuyFlyTrigger = AreaPlayerTriggerService.Get("полет")
+BuyFlyTrigger.Tags = ["полет"];
+BuyFlyTrigger.Enable = true;
+BuyFlyTrigger.OnEnter.Add(function(player){
+  player.Ui.Hint.Value = `Стоимость полёта 1000000 очков а у тебя ${player.Properties.Scores.Value} очков`;
+  if (player.Properties.Scores.Value > 999999) {
+    player.Ui.Hint.Value = ` ${player.NickName} Купил Полёт!!!`;
+    player.Properties.Scores.Value -= 1000000;
+    player.Build.FlyEnable.Value = true;
+    player.Spawns.Spawn();
+  }
+});
+
+var SpawnTrigger = AreaPlayerTriggerService.Get("спавн")
+SpawnTrigger.Tags = ["спавн"];
+SpawnTrigger.Enable = true;
+SpawnTrigger.OnEnter.Add(function(player){
+  player.Spawns.Spawn();
+  player.Ui.Hint.Value = `Ты вернулся на спавн`;
+});
+var BuyMainInfinityTrigger = AreaPlayerTriggerService.Get("Mainf")
+BuyMainInfinityTrigger.Tags = ["Mainf"];
+BuyMainInfinityTrigger.Enable = true;
+BuyMainInfinityTrigger.OnEnter.Add(function(player){
+  player.Ui.Hint.Value = `Бесконечные патроны на автомат стоят 70000 очков а у тебя ${player.Properties.Scores.Value} очков`;
+  if (player.Properties.Scores.Value > 69999) {
+    player.Ui.Hint.Value = `Ты купил бесконечные патроны на автомат за 70000 очков , баланс ${player.Properties.Scores.Value} очков`;
+    player.Properties.Scores.Value -= 70000;
+    player.inventory.MainInfinity.Value = true;
+    player.Spawns.Spawn();
+  }
+});
+
+var BuyMeleeTrigger = AreaPlayerTriggerService.Get("Kn")
+BuyMeleeTrigger.Tags = ["Kn"];
+BuyMeleeTrigger.Enable = true;
+BuyMeleeTrigger.OnEnter.Add(function(player){
+  player.Ui.Hint.Value = `Ты не можешь купить нож т.к его стоимость 15000 очков а у тебя только ${player.Properties.Scores.Value} очков`;
+  if (player.Properties.Scores.Value > 14999) {
+    player.Ui.Hint.Value = `Ты купил нож за 15000 очков, текущий баланс: ${player.Properties.Scores.Value} очков`;
+    player.Properties.Scores.Value -= 15000;
+    player.inventory.Melee.Value = true;
+    player.Spawns.Spawn();
+  }
+});
+
+var BuySecondaryTrigger = AreaPlayerTriggerService.Get("Pst")
+BuySecondaryTrigger.Tags = ["Pst"];
+BuySecondaryTrigger.Enable = true;
+BuySecondaryTrigger.OnEnter.Add(function(player){
+  player.Ui.Hint.Value = `Пистолет стоит 65000 очков, а у тебя только ${player.Properties.Scores.Value} очков`;
+  if (player.Properties.Scores.Value > 64999) {
+    player.Ui.Hint.Value = `Ты купил пистолет за 65000 очков, текущий баланс: ${player.Properties.Scores.Value} очков`;
+    player.Properties.Scores.Value -= 65000;
+    player.inventory.Secondary.Value = true;
+    player.Spawns.Spawn();
+  }
+});
+
+var BuySecondaryInfinityTrigger = AreaPlayerTriggerService.Get("Pstf")
+BuySecondaryInfinityTrigger.Tags = ["Pstf"];
+BuySecondaryInfinityTrigger.Enable = true;
+BuySecondaryInfinityTrigger.OnEnter.Add(function(player){
+  player.Ui.Hint.Value = `Бесконечные патроны на пистолет стоят 50000 очков а у тебя ${player.Properties.Scores.Value} очков`;
+  if (player.Properties.Scores.Value > 49999) {
+    player.Ui.Hint.Value = `Ты купил бесконечные патроны на пистолет за 50000 очков , баланс ${player.Properties.Scores.Value} очков`;
+    player.Properties.Scores.Value -= 50000;
+    player.inventory.SecondaryInfinity.Value = true;
+    player.Spawns.Spawn();
+  }
+});
+
+var BuyExplosiveInfinityTrigger = AreaPlayerTriggerService.Get("Grf")
+BuyExplosiveInfinityTrigger.Tags = ["Grf"];
+BuyExplosiveInfinityTrigger.Enable = true;
+BuyExplosiveInfinityTrigger.OnEnter.Add(function(player){
+  player.Ui.Hint.Value = `Бесконечные гранаты стоят 1000000 очков а у тебя ${player.Properties.Scores.Value} очков`;
+  if (player.Properties.Scores.Value > 999999) {
+    player.Ui.Hint.Value = `Ты купил бесконечные гранаты за 1000000 очков , баланс ${player.Properties.Scores.Value} очков`;
+    player.Properties.Scores.Value -= 1000000;
+    player.inventory.ExplosiveInfinity.Value = true;
+    player.Spawns.Spawn();
+  }
+});
+
+var BuyBuildInfinityTrigger = AreaPlayerTriggerService.Get("Blocksf")
+BuyBuildInfinityTrigger.Tags = ["Blocksf"];
+BuyBuildInfinityTrigger.Enable = true;
+BuyBuildInfinityTrigger.OnEnter.Add(function(player){
+  player.Ui.Hint.Value = `Бесконечные блоки стоят 9000000 очков а у тебя ${player.Properties.Scores.Value} очков`;
+  if (player.Properties.Scores.Value > 8999999) {
+    player.Ui.Hint.Value = `Ты купил бесконечные блоки за 9000000 очков , баланс ${player.Properties.Scores.Value} очков`;
+    player.Properties.Scores.Value -= 9000000;
+    player.inventory.BuildInfinity.Value = true;
+    player.Spawns.Spawn();
+  }
+});
+
 var BuyPlus1MaxHpTrigger = AreaPlayerTriggerService.Get("1hp")
 BuyPlus1MaxHpTrigger.Tags = ["1hp"];
 BuyPlus1MaxHpTrigger.Enable = true;
@@ -498,4 +640,40 @@ function Зек(id) {
     let p = API.Players.GetByRoomId(parseInt(id));
     p.contextedProperties.SkinType.Value = 2;
     p.PopUp("Вам выдан скин зека!");
+}
+function SS2(id) {
+    let p = API.Players.GetByRoomId(parseInt(id));
+    p.contextedProperties.BuildSpeed.Value = 2;
+    p.PopUp("Скорость строительства х2!");
+}
+function SS3(id) {
+    let p = API.Players.GetByRoomId(parseInt(id));
+    p.contextedProperties.BuildSpeed.Value = 3;
+    p.PopUp("Скорость строительства х3!");
+}
+function Ans(id,question) {
+    let player = API.Players.GetByRoomId(parseInt(id));
+    let answers = {
+        "Как дела": "Все хорошо",
+        "Кто ты": "Это секрет",
+        "Что нового": "Ничего особенного",
+        "Как настроение": "Отлично, спасибо",
+        // Добавьте другие вопросы и соответствующие ответы здесь
+    };
+
+    let answer = answers[question] || "Не понял вопроса";
+
+    // Display the answer to the player
+    player.PopUp("Ответ на ваш вопрос '" + question + "': " + answer);
+}
+function Hello(id) {
+     // Обновляем значение mainWeaponPrice
+
+    // Получаем всех игроков в комнате
+    let players = API.Players.GetAll();
+
+    for (let player of players) {
+        // Устанавливаем новую цену для игрока
+    p.PopUp("Привет всем от" + player.name);
+    }
 }
