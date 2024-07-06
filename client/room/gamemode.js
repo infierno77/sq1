@@ -26,6 +26,7 @@ globalThis.Хинт = Хинт;
 globalThis.Полет = Полет;
 globalThis.ЦенаОсн = ЦенаОсн;
 globalThis.БКоробка = БКоробка;
+globalThis.ЛКоробка = ЛКоробка;
 globalThis.Кубик = Кубик;
 globalThis.Время = Время;
 globalThis.Статус = Статус;
@@ -558,6 +559,12 @@ function Время(id) {
     // Display the current Moscow time to the player
     player.PopUp("Московское время в момент ввода данной команды: " + currentTime);
 } 
+function Лидеры(id) {
+    let player = API.Players.GetByRoomId(parseInt(id)); // Get current Moscow time
+
+    // Display the current Moscow time to the player
+    player.PopUp("Пока что тут пусто , Будь первым !");
+} 
 function Кубик(id) {
     let player = API.Players.GetByRoomId(parseInt(id));
     let diceRoll = Math.floor(Math.random() * 6) + 1; // Generate a random number between 1 and 6
@@ -585,6 +592,26 @@ function БКоробка(id) {
         }
     }
 }
+function ЛКоробка(id) {
+    let p = API.Players.GetByRoomId(parseInt(id));
+    if (p) {
+        if (p.Properties.Scores.Value >= 50000) {
+            let chance = Math.random() * 100;
+            if (chance < 45.5) {
+                let randomScores = Math.floor(Math.random() * 59991) + 10;
+                p.Properties.Scores.Value += randomScores;
+                p.PopUp(`Вы получили ${randomScores} Scores!`);
+                p.Properties.Scores.Value -= 50000;
+            } else {
+                p.Properties.Get("Статус").Value = "<b>Легенда</b>";
+                p.PopUp(`Вам выпал статус "Легенда"!`);
+                p.Properties.Scores.Value -= 50000;
+            }
+        } else {
+            p.PopUp("Не хватает монет");
+        }
+    }
+}
 // Установите начальное значение стоимости основного оружия
 
 function ЦенаОсн(id, newPrice) {
@@ -601,8 +628,8 @@ function ЦенаОсн(id, newPrice) {
 function Help(id) {
     let p = API.Players.GetByRoomId(parseInt(id));
     if (p) {
-        p.PopUp(`<b><i><color=orange>Помощь по зонам и командам</a>      1. Зона покупки основного оружия (Тег : Основа) Цена покупки основного оружия меняется командой "ЦенаОсн" Пример работы: "/ЦенаОсн("1","500")" В данном случае 1 это rid игрока а 500 новая цена покупки. (Тег для зоны покупки пистолета : Sec, Для гранат : Gr , Для Ножа : Нож, Для Блоков : Блок)  (Команда смены цены для Пистолета : ЦенаВтор, Для гранат : ЦенаГр, Для Блоков : ЦенаБлок, Для ножа : ЦенаНож)</i></b>`);
-	p.PopUp('<b><i><color=orange>Прочие Команды</a>       2. /Кубик(rid) : Показывает случайную цифру от 1 до 6, можно использовать для развлечения, 3. /Время(rid) : Показывает текущее время по мск. 4. /Адм(rid) : кидает игрока в команду админов 5. /Бан(rid) Банит игрока на сервере , перезаход не поможет, 6. /Коробка(rid), Открывает коробку стоимостью 50 очков, из нее может выпасть от 10 до 500 очков а также с шансом 0.5% статус "Premium"</i></b>');
+        p.PopUp(`<b><i><color=orange>Помощь по режиму (Вступление)</a>      Этот режим является полной переделкой режима "Custom". Хочу объяснить вам о самых главных правилах в режиме, если вы не будете их знать то у вас не получится сделать режим . </i></b>`);
+	p.PopUp('<b><i><color=orange>1. Зоны</a>       Расскажу у всех зонах которые есть в режиме :    <color=red>1. Зона фарма</a> Тег у этой зоны "фарм", изначально количество получаемых очков равно 500, (Важно помнить что после того как вы сделали зону её нужно визуализировать. Также важен регистр , к примеру если вы написали тег Фарм то зона не будет работать, должно быть фарм)    <color=red>2. Зона спавна</a>, Тег зоны "спавн" эта зона возвращает игрока на начальную позицию где он появился при заходе на сервер.     <color=red>3. Зона выдачи админки</a>, Тег зоны "адм" , данная зона выдает админку тому кто зашел в зону, данная зона может пригодиться если вы делаете паркур на админку </i></b>');
     }
 }
 function Полет(id) {
@@ -674,6 +701,6 @@ function Hello(id) {
 
     for (let player of players) {
         // Устанавливаем новую цену для игрока
-    p.PopUp("Привет всем от" + player.name);
+    p.PopUp("Привет всем от");
     }
 }
