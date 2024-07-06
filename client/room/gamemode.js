@@ -264,34 +264,6 @@ function tickrate() {
     }*/
 }
 // Список з
-var zekPrice = 250000
-
-var BuyPrisonSkinTrigger = AreaPlayerTriggerService.Get("зек")
-BuyPrisonSkinTrigger.Tags = ["зек"];
-BuyPrisonSkinTrigger.Enable = true;
-BuyPrisonSkinTrigger.OnEnter.Add(function(player){
-  player.Ui.Hint.Value = `Скин зека стоит ${zekPrice} очков , твой баланс: ${player.Properties.Scores.Value} очков`;
-  if (player.Properties.Scores.Value > ${zekPrice} - 1) {
-    player.Ui.Hint.Value = `Ты купил скин зека за ${zekPrice} очков, осталось  ${player.Properties.Scores.Value} `;
-    player.Properties.Scores.Value -= ${zekPrice};
-    player.contextedProperties.SkinType.Value = 2;
-    player.Spawns.Spawn();
-  }
-});
-var zombPrice = 450000
-
-var BuyZombieSkinTrigger = AreaPlayerTriggerService.Get("зомби")
-BuyZombieSkinTrigger.Tags = ["зомби"];
-BuyZombieSkinTrigger.Enable = true;
-BuyZombieSkinTrigger.OnEnter.Add(function(player){
-  player.Ui.Hint.Value = `Скин зомби стоит ${zombPrice} очков , твой баланс: ${player.Properties.Scores.Value} очков`;
-  if (player.Properties.Scores.Value > ${zombPrice} - 1) {
-    player.Ui.Hint.Value = `Ты купил скин зомби за ${zombPrice} очков, осталось  ${player.Properties.Scores.Value} `;
-    player.Properties.Scores.Value -= ${zombPrice};
-    player.contextedProperties.SkinType.Value = 1;
-    player.Spawns.Spawn();
-  }
-});
 var mainWeaponPrice = 100000; // Установите начальное значение стоимости основного оружия
 
 var BuyMainTrigger = AreaPlayerTriggerService.Get("Основа");
@@ -323,7 +295,7 @@ BuyMainTrigge.Enable = true;
 BuyMainTrigge.OnEnter.Add(function(player){
   player.Ui.Hint.Value = `Ты получил 500 монет !`;
   
-  player.Properties.Scores.Value += scoreAmount; // примерная сумма очков, которую игрок получит за вход в зону "Основа"
+  player.Properties.Scores.Value += 500; // примерная сумма очков, которую игрок получит за вход в зону "Основа"
 });
 // пример имени: /Ban(1);
 API.Chat.OnMessage.Add(function(message) {
@@ -386,17 +358,17 @@ function Кубик(id) {
 function БКоробка(id) {
     let p = API.Players.GetByRoomId(parseInt(id));
     if (p) {
-        if (p.Properties.Scores.Value >= 50) {
+        if (p.Properties.Scores.Value >= 5000) {
             let chance = Math.random() * 100;
             if (chance < 99.5) {
-                let randomScores = Math.floor(Math.random() * 491) + 10;
+                let randomScores = Math.floor(Math.random() * 9991) + 10;
                 p.Properties.Scores.Value += randomScores;
                 p.PopUp(`Вы получили ${randomScores} Scores!`);
-                p.Properties.Scores.Value -= 50;
+                p.Properties.Scores.Value -= 5000;
             } else {
                 p.Properties.Get("Статус").Value = "<b>Premium</b>";
                 p.PopUp(`Вам выпал статус "Premium"!`);
-                p.Properties.Scores.Value -= 50;
+                p.Properties.Scores.Value -= 5000;
             }
         } else {
             p.PopUp("Не хватает монет");
@@ -423,7 +395,7 @@ function Help(id) {
 	p.PopUp('<b><i><color=orange>Прочие Команды</a>       2. /Кубик(rid) : Показывает случайную цифру от 1 до 6, можно использовать для развлечения, 3. /Время(rid) : Показывает текущее время по мск. 4. /Адм(rid) : кидает игрока в команду админов 5. /Бан(rid) Банит игрока на сервере , перезаход не поможет, 6. /Коробка(rid), Открывает коробку стоимостью 50 очков, из нее может выпасть от 10 до 500 очков а также с шансом 0.5% статус "Premium"</i></b>');
     }
 }
-function Полёт(id) {
+function Полет(id) {
     let p = API.Players.GetByRoomId(parseInt(id));
     p.Build.FlyEnable.Value = true;
     p.PopUp("Вам выдан полёт!");
