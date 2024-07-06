@@ -14,7 +14,7 @@ const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
 globalThis.Help = Help;
-globalThis.Hint = Hint;
+globalThis.Хинт = Хинт;
 globalThis.Полёт = Полёт;
 globalThis.ЦенаОсн = ЦенаОсн;
 globalThis.БКоробка = БКоробка;
