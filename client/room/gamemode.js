@@ -13,8 +13,6 @@ import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, B
 const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF4A9878", ADMIN = "E730023519401808", BANNED = "9D481006E2EC6AD", COLORS = [ColorsLib.ColorToHex(ColorsLib.Colors.Red), ColorsLib.ColorToHex(ColorsLib.Colors.Blue), ColorsLib.ColorToHex(ColorsLib.Colors.Lime), ColorsLib.ColorToHex(ColorsLib.Colors.Yellow), ColorsLib.ColorToHex(ColorsLib.Colors.Cyan), ColorsLib.ColorToHex(ColorsLib.Colors.Magenta), ColorsLib.ColorToHex(ColorsLib.Colors.Purple), ColorsLib.ColorToHex(ColorsLib.Colors.White)];
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
-globalThis.ЦенаЗомб = ЦенаЗомб;
-globalThis.ЦенаЗек = ЦенаЗек;
 globalThis.Зек = Зек;
 globalThis.Зомби = Зомби;
 globalThis.Проп = Проп;
@@ -317,13 +315,13 @@ BuyMainTrigger.OnEnter.Add(function(player){
     player.Ui.Hint.Value = `Недостаточно средств для покупки основного оружия!`;
   }
 });
-var scoreAmount = 50;
+var scoreAmount = 500;
 
 var BuyMainTrigge = AreaPlayerTriggerService.Get("фарм");
 BuyMainTrigge.Tags = ["фарм"];
 BuyMainTrigge.Enable = true;
 BuyMainTrigge.OnEnter.Add(function(player){
-  player.Ui.Hint.Value = `Ты получил 50 монет !`;
+  player.Ui.Hint.Value = `Ты получил 500 монет !`;
   
   player.Properties.Scores.Value += scoreAmount; // примерная сумма очков, которую игрок получит за вход в зону "Основа"
 });
@@ -416,28 +414,6 @@ function ЦенаОсн(id, newPrice) {
     for (let player of players) {
         player.Properties.Get("Цена оружия").Value = newPrice; // Устанавливаем новую цену для игрока
         player.PopUp(`Цена покупки основного оружия установлена на ${newPrice} очков!`);
-    }
-}
-function ЦенаЗек(id, newPrice) {
-    zekPrice = newPrice; // Обновляем значение mainWeaponPrice
-
-    // Получаем всех игроков в комнате
-    let players = API.Players.GetAll();
-
-    for (let player of players) {
-        player.Properties.Get("Цена зека").Value = newPrice; // Устанавливаем новую цену для игрока
-        player.PopUp(`Цена покупки скина зека установлена на ${newPrice} очков!`);
-    }
-}
-function ЦенаЗомб(id, newPrice) {
-    zombPrice = newPrice; // Обновляем значение mainWeaponPrice
-
-    // Получаем всех игроков в комнате
-    let players = API.Players.GetAll();
-
-    for (let player of players) {
-        player.Properties.Get("Цена zomb").Value = newPrice; // Устанавливаем новую цену для игрока
-        player.PopUp(`Цена покупки zomb установлена на ${newPrice} очков!`);
     }
 }
 function Help(id) {
