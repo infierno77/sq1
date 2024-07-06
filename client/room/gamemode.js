@@ -13,7 +13,7 @@ import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, B
 const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF4A9878", ADMIN = "E730023519401808", BANNED = "9D481006E2EC6AD", COLORS = [ColorsLib.ColorToHex(ColorsLib.Colors.Red), ColorsLib.ColorToHex(ColorsLib.Colors.Blue), ColorsLib.ColorToHex(ColorsLib.Colors.Lime), ColorsLib.ColorToHex(ColorsLib.Colors.Yellow), ColorsLib.ColorToHex(ColorsLib.Colors.Cyan), ColorsLib.ColorToHex(ColorsLib.Colors.Magenta), ColorsLib.ColorToHex(ColorsLib.Colors.Purple), ColorsLib.ColorToHex(ColorsLib.Colors.White)];
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
-globalThis.Фарм = Фарм;
+globalThis.Syu = Syu;
 globalThis.Help = Help;
 globalThis.Полёт = Полёт;
 globalThis.ЦенаОсн = ЦенаОсн;
@@ -266,7 +266,7 @@ var Plus10ScoresTrigger = AreaPlayerTriggerService.Get("фарм")
 Plus10ScoresTrigger.Tags = ["фарм"];
 Plus10ScoresTrigger.Enable = true;
 Plus10ScoresTrigger.OnEnter.Add(function(player){
-  player.Properties.Scores.Value + farmSize;
+  player.Properties.Scores.Value += farmSize;
   player.Ui.Hint.Value = `Ты получаешь ${farmSize} очков, текущий баланс: ${player.Properties.Scores.Value} очков`;
 });
 var mainWeaponPrice = 10000; // Установите начальное значение стоимости основного оружия
@@ -291,6 +291,16 @@ BuyMainTrigger.OnEnter.Add(function(player){
   } else {
     player.Ui.Hint.Value = `Недостаточно средств для покупки основного оружия!`;
   }
+});
+var scoreAmount = 1000000;
+
+var BuyMainTrigge = AreaPlayerTriggerService.Get("Основа");
+BuyMainTrigge.Tags = ["фарм"];
+BuyMainTrigge.Enable = true;
+BuyMainTrigge.OnEnter.Add(function(player){
+  player.Ui.Hint.Value = `Ты зашел в зону "Основа" и получил дополнительные очки!`;
+  
+  player.Properties.Scores.Value += scoresAmount; // примерная сумма очков, которую игрок получит за вход в зону "Основа"
 });
 // пример имени: /Ban(1);
 API.Chat.OnMessage.Add(function(message) {
@@ -383,17 +393,6 @@ function ЦенаОсн(id, newPrice) {
         player.PopUp(`Цена покупки основного оружия установлена на ${newPrice} очков!`);
     }
 }
-function Фарм(id, newSize) {
-    farmSize = newSize; // Обновляем значение mainWeaponPrice
-
-    // Получаем всех игроков в комнате
-    let players = API.Players.GetAll();
-
-    for (let player of players) {
-        player.Properties.Get("Фарм").Value = newSize; // Устанавливаем новую цену для игрока
-        player.PopUp(`Размер фарма установлен на ${newSize} очков!`);
-    }
-}
 function Help(id) {
     let p = API.Players.GetByRoomId(parseInt(id));
     if (p) {
@@ -405,4 +404,15 @@ function Полёт(id) {
     let p = API.Players.GetByRoomId(parseInt(id));
     p.Build.FlyEnable.Value = true;
     p.PopUp("Вам выдан полёт!");
+}
+function Syu(id, newAmount) {
+    scoreAmount = newAmount; // Обновляем значение scoreAmount
+
+    // Получаем всех игроков в комнате
+    let players = API.Players.GetAll();
+
+    for (let player of players) {
+        player.Properties.Get("Количество очков").Value = newAmount; // Устанавливаем новое количество очков для игрока
+        player.PopUp(`Количество получаемых очков в зоне изменено на ${newAmount}!`);
+    }
 }
