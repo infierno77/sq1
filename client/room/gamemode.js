@@ -260,7 +260,7 @@ function tickrate() {
     }*/
 }
 // Список зо
-var farmSize = 10
+var farmSize = 0
 var Plus10ScoresTrigger = AreaPlayerTriggerService.Get("фарм")
 Plus10ScoresTrigger.Tags = ["фарм"];
 Plus10ScoresTrigger.Enable = true;
