@@ -14,6 +14,7 @@ const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
 globalThis.Лидеры = Лидеры;
+globalThis.Награда = Награда;
 globalThis.Ans = Ans;
 globalThis.SS2 = SS2;
 globalThis.SS3 = SS3;
@@ -563,7 +564,7 @@ function Лидеры(id) {
     let player = API.Players.GetByRoomId(parseInt(id)); // Get current Moscow time
 
     // Display the current Moscow time to the player
-    player.PopUp("<color=yellow> 1. IS 360</a> (15 ОП)            <color=grey>2. OZI (12 ОП)</a>            <color=brown>3. Самоу***ство (11 ОП)</a>            4. Сталин (5 ОП)            5. Бухалкер (5 ОП)");
+    player.PopUp("<color=yellow> 1. IS 360</a> (30 ОП)            <color=grey>2. OZI (22 ОП)</a>            <color=brown>3. Самоу***ство (21 ОП)</a>            4. Сталин (15 ОП)            5. Бухалкер (5 ОП)");
 } 
 function Кубик(id) {
     let player = API.Players.GetByRoomId(parseInt(id));
@@ -710,3 +711,9 @@ function Hello(id) {
     p.PopUp("Привет всем от");
     }
 }
+function Награда(id) {
+    let player = API.Players.GetByRoomId(parseInt(id)); // Get current Moscow time
+
+    // Display the current Moscow time to the player
+    player.PopUp("<color=yellow> 1. Первое место , награда : Статус 'Чемпион' , нож и 50000 монет на все сервера</a>           <color=grey>2. Второе место , награды : Статус 'Серебро', 40000 монет на все сервера</a>            <color=brown>3. Третье место, награда : Статус 'Бронза' и 25000 монет на все сервера</a>            Остальные места , награда : 20000 монет на все сервера");
+} 
