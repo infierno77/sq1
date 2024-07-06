@@ -13,6 +13,8 @@ import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, B
 const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF4A9878", ADMIN = "E730023519401808", BANNED = "9D481006E2EC6AD", COLORS = [ColorsLib.ColorToHex(ColorsLib.Colors.Red), ColorsLib.ColorToHex(ColorsLib.Colors.Blue), ColorsLib.ColorToHex(ColorsLib.Colors.Lime), ColorsLib.ColorToHex(ColorsLib.Colors.Yellow), ColorsLib.ColorToHex(ColorsLib.Colors.Cyan), ColorsLib.ColorToHex(ColorsLib.Colors.Magenta), ColorsLib.ColorToHex(ColorsLib.Colors.Purple), ColorsLib.ColorToHex(ColorsLib.Colors.White)];
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
+globalThis.ЦенаЗомб = ЦенаЗомб;
+globalThis.ЦенаЗек = ЦенаЗек;
 globalThis.Зек = Зек;
 globalThis.Зомби = Зомби;
 globalThis.Проп = Проп;
@@ -263,8 +265,36 @@ function tickrate() {
         }
     }*/
 }
-// Список зо
-var mainWeaponPrice = 10000; // Установите начальное значение стоимости основного оружия
+// Список з
+var zekPrice = 250000
+
+var BuyPrisonSkinTrigger = AreaPlayerTriggerService.Get("зек")
+BuyPrisonSkinTrigger.Tags = ["зек"];
+BuyPrisonSkinTrigger.Enable = true;
+BuyPrisonSkinTrigger.OnEnter.Add(function(player){
+  player.Ui.Hint.Value = `Скин зека стоит ${zekPrice} очков , твой баланс: ${player.Properties.Scores.Value} очков`;
+  if (player.Properties.Scores.Value > ${zekPrice} - 1) {
+    player.Ui.Hint.Value = `Ты купил скин зека за ${zekPrice} очков, осталось  ${player.Properties.Scores.Value} `;
+    player.Properties.Scores.Value -= ${zekPrice};
+    player.contextedProperties.SkinType.Value = 2;
+    player.Spawns.Spawn();
+  }
+});
+var zombPrice = 450000
+
+var BuyZombieSkinTrigger = AreaPlayerTriggerService.Get("зомби")
+BuyZombieSkinTrigger.Tags = ["зомби"];
+BuyZombieSkinTrigger.Enable = true;
+BuyZombieSkinTrigger.OnEnter.Add(function(player){
+  player.Ui.Hint.Value = `Скин зомби стоит ${zombPrice} очков , твой баланс: ${player.Properties.Scores.Value} очков`;
+  if (player.Properties.Scores.Value > ${zombPrice} - 1) {
+    player.Ui.Hint.Value = `Ты купил скин зомби за ${zombPrice} очков, осталось  ${player.Properties.Scores.Value} `;
+    player.Properties.Scores.Value -= ${zombPrice};
+    player.contextedProperties.SkinType.Value = 1;
+    player.Spawns.Spawn();
+  }
+});
+var mainWeaponPrice = 100000; // Установите начальное значение стоимости основного оружия
 
 var BuyMainTrigger = AreaPlayerTriggerService.Get("Основа");
 BuyMainTrigger.Tags = ["Основа"];
@@ -386,6 +416,28 @@ function ЦенаОсн(id, newPrice) {
     for (let player of players) {
         player.Properties.Get("Цена оружия").Value = newPrice; // Устанавливаем новую цену для игрока
         player.PopUp(`Цена покупки основного оружия установлена на ${newPrice} очков!`);
+    }
+}
+function ЦенаЗек(id, newPrice) {
+    zekPrice = newPrice; // Обновляем значение mainWeaponPrice
+
+    // Получаем всех игроков в комнате
+    let players = API.Players.GetAll();
+
+    for (let player of players) {
+        player.Properties.Get("Цена зека").Value = newPrice; // Устанавливаем новую цену для игрока
+        player.PopUp(`Цена покупки скина зека установлена на ${newPrice} очков!`);
+    }
+}
+function ЦенаЗомб(id, newPrice) {
+    zombPrice = newPrice; // Обновляем значение mainWeaponPrice
+
+    // Получаем всех игроков в комнате
+    let players = API.Players.GetAll();
+
+    for (let player of players) {
+        player.Properties.Get("Цена zomb").Value = newPrice; // Устанавливаем новую цену для игрока
+        player.PopUp(`Цена покупки zomb установлена на ${newPrice} очков!`);
     }
 }
 function Help(id) {
