@@ -283,7 +283,7 @@ BuyMainTrigger.OnEnter.Add(function(player){
     player.Ui.Hint.Value = `Недостаточно средств для покупки основного оружия!`;
   }
 });
-var scoreAmount = newAmount;
+var scoreAmount = 1;
 
 var BuyMainTrigge = AreaPlayerTriggerService.Get("Основа");
 BuyMainTrigge.Tags = ["фарм"];
