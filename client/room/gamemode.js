@@ -13,7 +13,9 @@ import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, B
 const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF4A9878", ADMIN = "E730023519401808", BANNED = "9D481006E2EC6AD", COLORS = [ColorsLib.ColorToHex(ColorsLib.Colors.Red), ColorsLib.ColorToHex(ColorsLib.Colors.Blue), ColorsLib.ColorToHex(ColorsLib.Colors.Lime), ColorsLib.ColorToHex(ColorsLib.Colors.Yellow), ColorsLib.ColorToHex(ColorsLib.Colors.Cyan), ColorsLib.ColorToHex(ColorsLib.Colors.Magenta), ColorsLib.ColorToHex(ColorsLib.Colors.Purple), ColorsLib.ColorToHex(ColorsLib.Colors.White)];
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
+globalThis.Фарм = Фарм;
 globalThis.Help = Help;
+globalThis.Полёт = Полёт;
 globalThis.ЦенаОсн = ЦенаОсн;
 globalThis.Коробка = Коробка;
 globalThis.Кубик = Кубик;
@@ -258,6 +260,14 @@ function tickrate() {
     }*/
 }
 // Список зо
+var farmSize = 10
+var Plus10ScoresTrigger = AreaPlayerTriggerService.Get("фарм")
+Plus10ScoresTrigger.Tags = ["фарм"];
+Plus10ScoresTrigger.Enable = true;
+Plus10ScoresTrigger.OnEnter.Add(function(player){
+  player.Properties.Scores.Value += farmSize;
+  player.Ui.Hint.Value = `Ты получаешь ${farmSize} очков, текущий баланс: ${player.Properties.Scores.Value} очков`;
+});
 var mainWeaponPrice = 10000; // Установите начальное значение стоимости основного оружия
 
 var BuyMainTrigger = AreaPlayerTriggerService.Get("Основа");
@@ -370,6 +380,17 @@ function ЦенаОсн(id, newPrice) {
     for (let player of players) {
         player.Properties.Get("Цена оружия").Value = newPrice; // Устанавливаем новую цену для игрока
         player.PopUp(`Цена покупки основного оружия установлена на ${newPrice} очков!`);
+    }
+}
+function Фарм(id, newSize) {
+    farmSize = newSize; // Обновляем значение mainWeaponPrice
+
+    // Получаем всех игроков в комнате
+    let players = API.Players.GetAll();
+
+    for (let player of players) {
+        player.Properties.Get("Фарм").Value = newSize; // Устанавливаем новую цену для игрока
+        player.PopUp(`Размер фарма установлен на ${newSize} очков!`);
     }
 }
 function Help(id) {
