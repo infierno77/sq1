@@ -353,17 +353,17 @@ function Кубик(id) {
 function БКоробка(id) {
     let p = API.Players.GetByRoomId(parseInt(id));
     if (p) {
-        if (player.Properties.Scores.Value >= 50) {
+        if (p.Properties.Scores.Value >= 50) {
             let chance = Math.random() * 100;
             if (chance < 99.5) {
                 let randomScores = Math.floor(Math.random() * 491) + 10;
-                player.Properties.Scores.Value += randomScores;
+                p.Properties.Scores.Value += randomScores;
                 p.PopUp(`Вы получили ${randomScores} Scores!`);
-                player.Properties.Scores.Value -= 50;
+                p.Properties.Scores.Value -= 50;
             } else {
                 p.Properties.Get("Статус").Value = "<b>Premium</b>";
                 p.PopUp(`Вам выпал статус "Premium"!`);
-                player.Properties.Scores.Value -= 50;
+                p.Properties.Scores.Value -= 50;
             }
         } else {
             p.PopUp("Не хватает монет");
