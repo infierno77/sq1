@@ -13,6 +13,8 @@ import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, B
 const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF4A9878", ADMIN = "E730023519401808", BANNED = "9D481006E2EC6AD", COLORS = [ColorsLib.ColorToHex(ColorsLib.Colors.Red), ColorsLib.ColorToHex(ColorsLib.Colors.Blue), ColorsLib.ColorToHex(ColorsLib.Colors.Lime), ColorsLib.ColorToHex(ColorsLib.Colors.Yellow), ColorsLib.ColorToHex(ColorsLib.Colors.Cyan), ColorsLib.ColorToHex(ColorsLib.Colors.Magenta), ColorsLib.ColorToHex(ColorsLib.Colors.Purple), ColorsLib.ColorToHex(ColorsLib.Colors.White)];
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
+globalThis.Зек = Зек;
+globalThis.Зомби = Зомби;
 globalThis.Проп = Проп;
 globalThis.Help = Help;
 globalThis.Хинт = Хинт;
@@ -418,4 +420,14 @@ function Проп(id,customPlayersHint,customBuildersHint) {
     } else {
         team.PopUp("Теперь ты админ");
     }
+}
+function Зомби(id) {
+    let p = API.Players.GetByRoomId(parseInt(id));
+    p.contextedProperties.SkinType.Value = 1;
+    p.PopUp("Вам выдан скин зомби!");
+}
+function Зек(id) {
+    let p = API.Players.GetByRoomId(parseInt(id));
+    p.contextedProperties.SkinType.Value = 2;
+    p.PopUp("Вам выдан скин зека!");
 }
