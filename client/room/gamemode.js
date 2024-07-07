@@ -16,6 +16,7 @@ globalThis.API = API;
 globalThis.Деньги = Деньги;
 globalThis.Лидеры = Лидеры;
 globalThis.Награда = Награда;
+globalThis.Убийство = Убийство;
 globalThis.Ans = Ans;
 globalThis.Синий = Синий;
 globalThis.Комп = Комп;
@@ -805,3 +806,15 @@ function Ка(id, expression) {
         player.PopUp("Ошибка при вычислении выражения");
     }
 }
+function Убийство(id) {
+    let p = API.Players.GetByRoomId(parseInt(id));
+    
+    p.OnKill.Add(function(killed) {
+        if (p.id !== killed.id) { 
+            ++p.Properties.Kills.Value;
+            p.Properties.Scores.Value += 10;
+        }
+    });
+    
+    p.Kill();
+} 
