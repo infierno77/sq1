@@ -17,6 +17,7 @@ globalThis.Деньги = Деньги;
 globalThis.Лидеры = Лидеры;
 globalThis.Награда = Награда;
 globalThis.Ans = Ans;
+globalThis.Рано = Рано;
 globalThis.Комп = Комп;
 globalThis.RN = RN;
 globalThis.Ка = Ка;
@@ -820,4 +821,16 @@ function RN(id) {
     player.SetNickname(nick);
 
     player.PopUp("Your new nickname is: " + nick); // Display the new nickname in a popup
+}
+function Рано(playerId,wordsArray) {
+    let player = API.Players.GetByRoomId(parseInt(playerId));
+
+    if (player) {
+        let randomIndex = Math.floor(Math.random() * wordsArray.length);
+        let randomWord = wordsArray[randomIndex];
+        
+        player.PopUp(`Случайное слово для вас: ${randomWord}`);
+    } else {
+        API.GetPlayer().PopUp(`Игрок не найден`);
+    }
 }
