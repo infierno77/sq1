@@ -13,15 +13,15 @@
     "Bool": [
       {
         "Name": "PartialDesruction",
-        "DisplayName": "<b><i>Возможность ᴘᴀзᴘушить только блоки игᴘоков</i></b>"
+        "DisplayName": "<b><i>Автор режима : zttp</i></b>"
       },
       {
         "Name": "LoosenBlocks",
-        "DisplayName": "<b><i>Возможность ᴘᴀзᴘушить любой блок</i></b>"
+        "DisplayName": "<b><i>Предложения по улучшению режима приветствуются</i></b>"
       },
       {
         "Name": "Fly",
-        "DisplayName": "<i><b>Позволить летать всем игᴘокᴀм</b></i>",
+        "DisplayName": "<i><b>Версия режима 1.2.1</b></i>",
         "Default": true
       }
     ]
