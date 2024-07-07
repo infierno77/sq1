@@ -14,6 +14,7 @@ const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
 globalThis.Деньги = Деньги;
+globalThis.Ультра = Ультра;
 globalThis.Лидеры = Лидеры;
 globalThis.Награда = Награда;
 globalThis.Убийство = Убийство;
@@ -86,7 +87,12 @@ API.LeaderBoard.PlayerLeaderBoardValues = [
         Value: "Scores",
         DisplayName: "<i><color=yellow><b>Монеты</b></a></i>",
         ShortDisplayName: "<i><color=yellow><b>Монеты</b></a></i>"
-    }
+    },
+    {
+        Value: "CP",
+        DisplayName: "<b><size=30><color=#ffe102>C</color><color=#ffc401>P</color></size></b>",
+        ShortDisplayName: "<b><size=30><color=#ffe102>C</color><color=#ffc401>P</color></size></b>"
+}
 ];
 
 API.Ui.GetContext().TeamProp1.Value = {
@@ -192,7 +198,7 @@ API.Teams.OnPlayerChangeTeam.Add(function (p) {
         p.Properties.Get("Статус").Value = "<i><color=orange>xSamuraiDem</color></i>";
 	contextedProperties.GetContext().SkinType.Value = 6;
     }
-       var spawnHint = "<i><b><color=orange>Обновление 1.3,</a>         Добавлены новые команды : /Ка{1} , /Синий{1, Чтобы узнать по подробнее о командах и зонах введи команду /Help(1), там я всё понятно расписал и надеюсь что вы научитесь пользоваться режимом</b></i>"
+       var spawnHint = "<i><b><color=orange>Обновление 1.4,</a>         Вы этого точно не ждали (ужас просто , докатились) : <color=red>КОЛЛАБОРАЦИЯ С Ultra Demon'ом!!!</a>, в рамках коллабы я сделал Ультра Ящик который можно купить командой /Ультра(rid) , он стоит 66600 монет) Из этого ящика может выпасть с шансом 5% Скин зека, С шансом 0.1% Статус 'UltraDemon', с шансом 0.01% 6660000 монет а также с шансом 0.0001% 10 штук CP</b></i>"
        p.PopUp(spawnHint);
        p.Properties.Get("Scores").Value = 500;
     }
@@ -569,8 +575,8 @@ function Лидеры(id) {
     let player = API.Players.GetByRoomId(parseInt(id)); // Get current Moscow time
 
     // Display the current Moscow time to the player
-    player.PopUp("<b><i><color=yellow> 1. IS 360</a> (40 ОП)            <color=grey>2. Самоубийство (31 ОП)</a>            <color=brown>3. OZI (22 ОП)</a></i></b>");
-    player.PopUp("<b><i><color=white> 4. Сталин</a> (15 ОП)            <color=white>5. Bolsoi (10 ОП)</a>            <color=white>6. Тюлень (5 ОП)</a></i></b>");
+    player.PopUp("<b><i><color=yellow> 1. IS 360</a> (40 ОП)            <color=grey>2. Самоубийство (31 ОП)</a>            <color=brown>3. UltraDemon (25 ОП)</a></i></b>");
+    player.PopUp("<b><i><color=white> 4. OZI</a> (22 ОП)            <color=white>5. Сталин (15 ОП)</a>            <color=white>6. Bolsoi (10 ОП)</a></i></b>");
 } 
 function Кубик(id) {
     let player = API.Players.GetByRoomId(parseInt(id));
@@ -578,6 +584,40 @@ function Кубик(id) {
 
     // Display the rolled number to the player
     player.PopUp("<b>Выпавшее число: </b>" + diceRoll);
+}
+function Ультра(id) {
+    let p = API.Players.GetByRoomId(parseInt(id));
+    if (p) {
+        if (p.Properties.Scores.Value >= 5000) {
+            let chance = Math.random() * 100;
+            if (chance < 5) {
+                p.contexedProperties.SkinType.Value = 2;
+                p.PopUp(`Вам выпал скин Зека!`);
+                p.Properties.Scores.Value -= 5000;
+            } else if (chance < 5.1) {
+                p.Properties.Get("Статус").Value = "<size=30><color=#ff0040>U</color><color=#ff0b3a>l</color><color=#ff1634>t</color><color=#ff212e>r</color><color=#ff2c28>a</color><color=#ff3722>D</color><color=#ff421c>e</color><color=#ff4d16>m</color><color=#ff5810>o</color><color=#ff630a>n</color></size>";
+                p.PopUp(`Вам выпал статус "Ultra Demon"!`);
+                p.Properties.Scores.Value -= 5000;
+            } else if (chance < 75) {
+                let randomScores = Math.floor(Math.random() * 79001) + 1000;
+                p.Properties.Scores.Value += randomScores;
+                p.PopUp(`Вы получили ${randomScores} Scores!`);
+                p.Properties.Scores.Value -= 5000;
+            } else if (chance < 75.01) {
+                p.Properties.Scores.Value += 6660000;
+                p.PopUp(`Вы получили 6660000 Scores!`);
+                p.Properties.Scores.Value -= 5000;
+            } else if (chance < 75.011) {
+                p.Properties.Get("CP").Value += 10;
+                p.PopUp(`Вы получили 10 CP!`);
+                p.Properties.Scores.Value -= 5000;
+            } else {
+                p.PopUp("Увы, ничего не выпало");
+            }
+        } else {
+            p.PopUp("Не хватает монет");
+        }
+    }
 }
 function БКоробка(id) {
     let p = API.Players.GetByRoomId(parseInt(id));
