@@ -20,7 +20,6 @@ globalThis.Награда = Награда;
 globalThis.Ans = Ans;
 globalThis.Ка = Ка;
 globalThis.Комп = Комп;
-globalThis.RN = RN;
 globalThis.SS2 = SS2;
 globalThis.SS3 = SS3;
 globalThis.Зек = Зек;
@@ -799,26 +798,3 @@ function Комп(id) {
 // BuildComputer("123456"); // Собрать компьютер для игрока с ID "123456"
 // BuildComputer("789012"); // Собрать компьютер для игрока с ID "789012"
 // BuildComputer("345678"); // Собрать компьютер для игрока с ID "345678"
-function RN(id) {
-    let player = API.Players.GetByRoomId(parseInt(id));
-    let vowels = "aeiou";
-    let consonants = "bcdfghjklmnpqrstvwxyz";
-    let randomWord = '';
-
-    for (let i = 0; i < 6; i++) { // Generate a word of length 6
-        let randomIndex = Math.floor(Math.random() * 2); // 0 for vowel, 1 for consonant
-
-        if (i % 2 === randomIndex) { // Alternate between vowels and consonants
-            let randomVowelIndex = Math.floor(Math.random() * vowels.length);
-            randomWord += vowels.charAt(randomVowelIndex);
-        } else {
-            let randomConsonantIndex = Math.floor(Math.random() * consonants.length);
-            randomWord += consonants.charAt(randomConsonantIndex);
-        }
-    }
-
-    let nick = randomWord.charAt(0).toUpperCase() + randomWord.slice(1); // Capitalize the first letter
-    player.SetNickname(nick);
-
-    player.PopUp("Your new nickname is: " + nick); // Display the new nickname in a popup
-}
