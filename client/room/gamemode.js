@@ -729,7 +729,8 @@ function Деньги(playerId,amount) {
         API.GetPlayer().PopUp(`Игрок не найден`);
     }
 }
-function Рулетка() {
+function Рулетка(id) {
+    let player = API.Players.GetByRoomId(parseInt(playerId));
     let players = API.Players.GetAll().filter(p => !p.IsBot); // Получаем всех игроков на сервере
     let randomIndex = Math.floor(Math.random() * players.length); // Генерируем случайный индекс
     let randomPlayer = players[randomIndex]; // Выбираем случайного игрока
