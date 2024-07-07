@@ -730,13 +730,18 @@ function Деньги(playerId,amount) {
     }
 }
 function Рулетка(id) {
-    let player = API.Players.GetByRoomId(parseInt(id));
-    let players = API.Players.GetAll().filter(p => !p.IsBot); // Получаем всех игроков на сервере
-    let randomIndex = Math.floor(Math.random() * players.length); // Генерируем случайный индекс
-    let randomPlayer = players[randomIndex]; // Выбираем случайного игрока
-    if (randomPlayer) {
-        players.forEach(player => {
-            player.PopUp(`Выбран случайный игрок: ${randomPlayer.Name}`); // Выводим PopUp с сообщением для всех игроков
-        });
+    let players = API.Players.GetAll();
+    
+    // Находим выбранного игрока по ID
+    let selectedPlayer = players.find(player => player.Id === id);
+
+    if (selectedPlayer) {
+        let randomPlayer = players[Math.floor(Math.random() * players.length)];
+
+        // Отображаем случайное имя игрока в PopUp для выбранного игрока
+        selectedPlayer.PopUp("Вы выбрали рулетку! Случайное имя игрока на сервере: " + randomPlayer.PlayerName);
+    } else {
+        // Обработка случая, если игрок с таким ID не найден
+        selectedPlayer.PopUp("Игрок с ID " + id + " не найден");
     }
 }
