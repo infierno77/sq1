@@ -192,7 +192,7 @@ API.Teams.OnPlayerChangeTeam.Add(function (p) {
         p.Properties.Get("Статус").Value = "<i><color=orange>xSamuraiDem</color></i>";
 	contextedProperties.GetContext().SkinType.Value = 6;
     }
-       var spawnHint = "<b>Версия режима 0.1, (в разработке)</b>"
+       var spawnHint = "<i><b><color=orange>Обновление 1.2,</a>      Добавлена вторая страница таблицы лидеров (Чтобы посмотреть таблицу введи команду /Лидеры(1) ), Также Украшен текст в таблице. Добавлены новые команды : /Комп(1) , /Деньги("1',"Количество денег")</b></i>"
        p.PopUp(spawnHint);
        p.Properties.Get("Scores").Value = 500;
     }
