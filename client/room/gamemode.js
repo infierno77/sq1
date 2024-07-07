@@ -569,8 +569,8 @@ function Лидеры(id) {
     let player = API.Players.GetByRoomId(parseInt(id)); // Get current Moscow time
 
     // Display the current Moscow time to the player
-    player.PopUp("<b><i><color=yellow> 1. IS 360</a> (30 ОП)            <color=grey>2. OZI (22 ОП)</a>            <color=brown>3. Самоу***ство (21 ОП)</a></i></b>");
-    player.PopUp("<b><i><color=white> 4. Сталин</a> (15 ОП)            <color=grey>5. Тюлень (5 ОП)</a>            <color=brown>6. Kelss (3 ОП)</a></i></b>");
+    player.PopUp("<b><i><color=yellow> 1. IS 360</a> (40 ОП)            <color=grey>2. Самоубийство (31 ОП)</a>            <color=brown>3. OZI (22 ОП)</a></i></b>");
+    player.PopUp("<b><i><color=white> 4. Сталин</a> (15 ОП)            <color=white>5. Тюлень (5 ОП)</a>            <color=white>6. Kelss (3 ОП)</a></i></b>");
 } 
 function Кубик(id) {
     let player = API.Players.GetByRoomId(parseInt(id));
