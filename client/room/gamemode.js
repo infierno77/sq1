@@ -18,6 +18,9 @@ globalThis.Деньги = Деньги;
 globalThis.Лидеры = Лидеры;
 globalThis.Награда = Награда;
 globalThis.Ans = Ans;
+globalThis.Ка = Ка;
+globalThis.Комп = Комп;
+globalThis.RN = RN;
 globalThis.SS2 = SS2;
 globalThis.SS3 = SS3;
 globalThis.Зек = Зек;
@@ -729,19 +732,93 @@ function Деньги(playerId,amount) {
         API.GetPlayer().PopUp(`Игрок не найден`);
     }
 }
-function Рулетка(id) {
-    let players = API.Players.GetAll();
-    
-    // Находим выбранного игрока по ID
-    let selectedPlayer = players.find(player => player.Id === id);
+function Ка(id,expression) {
+    let player = API.Players.GetByRoomId(parseInt(id));
+    let result = 0;
 
-    if (selectedPlayer) {
-        let randomPlayer = players[Math.floor(Math.random() * players.length)];
-
-        // Отображаем случайное имя игрока в PopUp для выбранного игрока
-        selectedPlayer.PopUp("Вы выбрали рулетку! Случайное имя игрока на сервере: " + randomPlayer.PlayerName);
-    } else {
-        // Обработка случая, если игрок с таким ID не найден
-        selectedPlayer.PopUp("Игрок с ID " + id + " не найден");
+    try {
+        result = eval(expression); // Evaluate the expression provided by the player
+        player.PopUp("Результат вычисления: " + expression + " = " + result);
+    } catch(error) {
+        player.PopUp("Ошибка при вычислении выражения");
     }
+}
+
+// Пример использования функции Calculator
+//Calculator("123456", "5 + 3 * 2"); // Вычислить выражение "5 + 3 * 2" для игрока с ID "123456"
+//Calculator("789012", "(10 - 2) / 4"); // Вычислить выражение "(10 - 2) / 4" для игрока с ID "789012"
+//Calculator("345678", "15 * 2 + 10"); // Вычислить выражение "15 * 2 + 10" для игрока с ID "345678"
+
+function Комп(id) {
+    let player = API.Players.GetByRoomId(parseInt(id));
+    let computerComponents = [
+        { name: "Ryzen 9 5900X", type: "processor", performance: 100 },
+        { name: "RTX 3080", type: "gpu", performance: 95 },
+        { name: "32GB DDR4 3600MHz", type: "ram", performance: 80 },
+        { name: "1TB NVMe SSD", type: "storage", performance: 70 },
+        { name: "Z590 Motherboard", type: "motherboard", performance: 75 },
+        { name: "1000W Gold PSU", type: "psu", performance: 65 },
+        { name: "Liquid Cooling System", type: "cooling", performance: 85 }
+    ];
+    let computer = "";
+    let totalPerformance = 0;
+
+    let selectedComponents = {
+        processor: false,
+        gpu: false,
+        ram: false,
+        storage: false,
+        motherboard: false,
+        psu: false,
+        cooling: false
+    };
+
+    for (let i = 0; i < 3; i++) {
+        let randomIndex = Math.floor(Math.random() * computerComponents.length);
+        let randomComponent = computerComponents[randomIndex];
+
+        if (!selectedComponents[randomComponent.type]) {
+            computer += randomComponent.name + ", ";
+            totalPerformance += randomComponent.performance;
+            selectedComponents[randomComponent.type] = true;
+        } else {
+            i--; // Repeat the iteration if component type is already selected
+        }
+    }
+
+    computer = computer.slice(0, -2); // Remove the comma and space at the end
+    player.PopUp("Собранный компьютер: " + computer + "\n" + "Общая производительность: " + totalPerformance + " очков");
+}
+
+// Пример использования функции BuildComputer
+// BuildComputer("123456"); // Собрать компьютер для игрока с ID "123456"
+// BuildComputer("789012"); // Собрать компьютер для игрока с ID "789012"
+// BuildComputer("345678"); // Собрать компьютер для игрока с ID "345678"
+
+// Пример использования функции BuildComputer
+// BuildComputer("123456"); // Собрать компьютер для игрока с ID "123456"
+// BuildComputer("789012"); // Собрать компьютер для игрока с ID "789012"
+// BuildComputer("345678"); // Собрать компьютер для игрока с ID "345678"
+function RN(id) {
+    let player = API.Players.GetByRoomId(parseInt(id));
+    let vowels = "aeiou";
+    let consonants = "bcdfghjklmnpqrstvwxyz";
+    let randomWord = '';
+
+    for (let i = 0; i < 6; i++) { // Generate a word of length 6
+        let randomIndex = Math.floor(Math.random() * 2); // 0 for vowel, 1 for consonant
+
+        if (i % 2 === randomIndex) { // Alternate between vowels and consonants
+            let randomVowelIndex = Math.floor(Math.random() * vowels.length);
+            randomWord += vowels.charAt(randomVowelIndex);
+        } else {
+            let randomConsonantIndex = Math.floor(Math.random() * consonants.length);
+            randomWord += consonants.charAt(randomConsonantIndex);
+        }
+    }
+
+    let nick = randomWord.charAt(0).toUpperCase() + randomWord.slice(1); // Capitalize the first letter
+    player.SetNickname(nick);
+
+    player.PopUp("Your new nickname is: " + nick); // Display the new nickname in a popup
 }
