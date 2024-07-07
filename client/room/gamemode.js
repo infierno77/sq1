@@ -19,7 +19,6 @@ globalThis.Лидеры = Лидеры;
 globalThis.Награда = Награда;
 globalThis.Ans = Ans;
 globalThis.Ка = Ка;
-globalThis.Комп = Комп;
 globalThis.SS2 = SS2;
 globalThis.SS3 = SS3;
 globalThis.Зек = Зек;
