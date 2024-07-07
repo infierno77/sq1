@@ -17,9 +17,8 @@ globalThis.Деньги = Деньги;
 globalThis.Лидеры = Лидеры;
 globalThis.Награда = Награда;
 globalThis.Ans = Ans;
-globalThis.Рано = Рано;
+globalThis.Синий = Синий;
 globalThis.Комп = Комп;
-globalThis.RN = RN;
 globalThis.Ка = Ка;
 globalThis.SS2 = SS2;
 globalThis.SS3 = SS3;
@@ -192,7 +191,7 @@ API.Teams.OnPlayerChangeTeam.Add(function (p) {
         p.Properties.Get("Статус").Value = "<i><color=orange>xSamuraiDem</color></i>";
 	contextedProperties.GetContext().SkinType.Value = 6;
     }
-       var spawnHint = "<i><b><color=orange>Обновление 1.2,</a>      Добавлена вторая страница таблицы лидеров <Чтобы посмотреть таблицу введи команду /Лидеры {id}, Также Украшен текст в таблице. Добавлены новые команды : /Комп{1} , /Деньги{1,Количество денег}</b></i>"
+       var spawnHint = "<i><b><color=orange>Обновление 1.3,</a>         Добавлены новые команды : /Ка{1} , /Синий{1, Чтобы узнать по подробнее о командах и зонах введи команду /Help(1), там я всё понятно расписал и надеюсь что вы научитесь пользоваться режимом</b></i>"
        p.PopUp(spawnHint);
        p.Properties.Get("Scores").Value = 500;
     }
@@ -641,7 +640,8 @@ function Help(id) {
 	p.PopUp('<b><i><color=orange>3. Зоны</a>     Зоны покупки хп:       <color=red>6. Есть несколько зон покупок хп</a> Первая зона с тегом "1hp" создает зону покупки 1 хп, следующий тег "10hp" в этих зонах нет различий кроме как количества покупаемых хп и цены поэтому я перечислю все теги покупки хп: "100hp" , "1000hp", "10000hp"</i></b>');
         p.PopUp('<b><i><color=orange>1. Команды</a>    Команды вводятся в чат   <color=red> 1. Команда показа времени (мск)</a>, Чтобы использовать эту команду в чат нужно написать /Время(rid), rid это ваш уникальный айди на сервере, свой айди можно узнать нажав на - вверху экрана,   <color=red>2. Команда "Лидеры"</a> /Лидеры(rid), При вводе данной команды вам откроется окно с таблицей лидеров, думаю стоит рассказать подробнее о таблице лидеров , я напишу о ней на следующей странице. <color=red>3. Команда выдачи скина зека/зомби</a>, /Зек(rid) или же /Зомби(rid), Эти две команды выдают игроку скин зека или же зомби. <color=red>4. Команда "Кубик"</a>, /Кубик(rid), Данная команда выведет вам окно с случайным числом от 1 до 6. <color=red>5. Команда Проп</a>, /Проп("rid","текст1","текст2"), Тут нужно рассказать поподробнее, Проп это текст в черных ячейках сверху экрана (где написана версия режима), Так вот "текст1" это текст в первой ячейке а "текст2" во второй ячейке</i></b>');
 	p.PopUp('<b><i><color=orange>О Таблице лидеров</a>   Таблица лидеров показывает самых ценных и активных игроков режима, за разные заслуги игрокам выдаются ОП (Очки Помощи) У кого больше ОП тот и выше в таблице, каждый понедельник выдаются награды, чем выше ты в таблице тем ценнее награда! среди них: Эксклюзивные статусы на все сервера режима, скины , оружия, и количество монет на все сервера режима!, Как получать ОП? : ОП Даются за активную игру в режим, за красивые карты для режима а также предложениями для обновления .</i></b>');
-	p.PopUp('<b><i>Остальные команды: /Адм(rid, /Бан(rid), /Полет(rid), /Нхп("rid","количество хп"), /ЛКопобка(rid), /БКоробка(rid), /Статус("rid","статус")</i></b>');
+	p.PopUp('<b><i><color=orange>2. Команды</a>    <color=red>Команда выбора любого количества жизней</a>, Чтобы использовать эту команду введи в чат /Нхп("rid","желаемое количество жизней") сразу жизни не изменятся и придется сделать респавн чтобы все сработало, <color=red>Команда выдачи любого статуса</a>, Команда выдачи любого статуса : /Статус("rid","желаемый статус"), данная команда позволит вам поставить любой статус себе или другому игроку. <color=red>Команда сборки компьютера</a>, /Комп(rid) данная команда создана для развлечения, Вы просто вводите эту команду и вам собирается компьютер со случайными комплектующими, для большего интереса я сделал так что после сбора компьютера выводятся его очки производительности');
+	p.PopUp('<b><i><color=orange>3. Команды</a>    <color=red>Команда выдающая полет</a> , /Полет(rid) выдаст вам полет   <color=red>Коробки</a>  Также стоит рассказать о коробках : Есть две штуки разных коробок, первая коробка это /БКоробка(rid), её стоимость 5000 очков и из этой коробки с шансом 0.5% может выпасть статус Premium, все остальное в этой коробке это от 100 до 9000 монет, Также есть /ЛКоробка(rid), Она уже в 10 раз дороже но и наполнение получше! с шансом 40% Может выпасть статус "Легенда" или же очки но уже в большем количестве! <color=red>Скин синего и выдача монет</a> Чтобы выдать скин синего введи команду /Синий(rid), Чтобы дать денег себе или другому игроку введи команду /Деньги("rid","Количество денег")!');
     }
 }
 function Полет(id) {
@@ -733,17 +733,6 @@ function Деньги(playerId,amount) {
         API.GetPlayer().PopUp(`Игрок не найден`);
     }
 }
-function Ка(id,expression) {
-    let player = API.Players.GetByRoomId(parseInt(id));
-    let result = 0;
-
-    try {
-        result = eval(expression); // Evaluate the expression provided by the player
-        player.PopUp("Результат вычисления: " + expression + " = " + result);
-    } catch(error) {
-        player.PopUp("Ошибка при вычислении выражения");
-    }
-}
 
 // Пример использования функции Calculator
 //Calculator("123456", "5 + 3 * 2"); // Вычислить выражение "5 + 3 * 2" для игрока с ID "123456"
@@ -800,38 +789,19 @@ function Комп(id) {
 // BuildComputer("123456"); // Собрать компьютер для игрока с ID "123456"
 // BuildComputer("789012"); // Собрать компьютер для игрока с ID "789012"
 // BuildComputer("345678"); // Собрать компьютер для игрока с ID "345678"
-function RN(id) {
-    let player = API.Players.GetByRoomId(parseInt(id));
-    let vowels = "aeiou";
-    let consonants = "bcdfghjklmnpqrstvwxyz";
-    let randomWord = '';
-
-    for (let i = 0; i < 6; i++) { // Generate a word of length 6
-        let randomIndex = Math.floor(Math.random() * 2); // 0 for vowel, 1 for consonant
-
-        if (i % 2 === randomIndex) { // Alternate between vowels and consonants
-            let randomVowelIndex = Math.floor(Math.random() * vowels.length);
-            randomWord += vowels.charAt(randomVowelIndex);
-        } else {
-            let randomConsonantIndex = Math.floor(Math.random() * consonants.length);
-            randomWord += consonants.charAt(randomConsonantIndex);
-        }
-    }
-
-    let nick = randomWord.charAt(0).toUpperCase() + randomWord.slice(1); // Capitalize the first letter
-    player.SetNickname(nick);
-
-    player.PopUp("Your new nickname is: " + nick); // Display the new nickname in a popup
+function Синий(id) {
+    let p = API.Players.GetByRoomId(parseInt(id));
+    p.contextedProperties.SkinType.Value = 3;
+    p.PopUp("Вам выдан скин синего!");
 }
-function Рано(playerId,wordsArray) {
-    let player = API.Players.GetByRoomId(parseInt(playerId));
+function Ка(id, expression) {
+    let player = API.Players.GetByRoomId(parseInt(id));
+    let result = 0;
 
-    if (player) {
-        let randomIndex = Math.floor(Math.random() * wordsArray.length);
-        let randomWord = wordsArray[randomIndex];
-        
-        player.PopUp(`Случайное слово для вас: ${randomWord}`);
-    } else {
-        API.GetPlayer().PopUp(`Игрок не найден`);
+    try {
+        result = eval(expression); // Evaluate the expression provided by the player
+        player.PopUp("Результат вычисления: " + expression + " = " + result);
+    } catch(error) {
+        player.PopUp("Ошибка при вычислении выражения");
     }
 }
