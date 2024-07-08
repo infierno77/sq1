@@ -518,9 +518,8 @@ API.Chat.OnMessage.Add(function(message) {
     if (message.TeamId == BuildersTeam.Id && message.Text[0] == "/")
     {
 
-        API.PopUp.Show = ` ${message.Text.slice(1)}`;
+        API.PopUp.Show(message.Text.slice(1));
         JQUtils.pcall(new Function(message.Text.slice(1)), true);
-    }
 });
 // Функции
 	
