@@ -14,6 +14,7 @@ const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
 globalThis.RN = RN;
+globalThis.RPS = RPS;
 globalThis.Деньги = Деньги;
 globalThis.Ультра = Ультра;
 globalThis.Лидеры = Лидеры;
@@ -611,6 +612,32 @@ function Кубик(id) {
     // Display the rolled number to the player
     player.PopUp("<b>Выпавшее число: </b>" + diceRoll);
 }
+function RPS(id,choice) {
+    let player = API.Players.GetByRoomId(parseInt(id));
+    let choices = ["камень", "ножницы", "бумага"];
+    let randomIndex = Math.floor(Math.random() * 3); // Generate a random index between 0 and 2
+    let computerChoice = choices[randomIndex];
+
+    // Determine the result of the game
+    let result = "";
+    if (choice === computerChoice) {
+        result = "Ничья!";
+    } else if (
+        (choice === "камень" && computerChoice === "ножницы") ||
+        (choice === "ножницы" && computerChoice === "бумага") ||
+        (choice === "бумага" && computerChoice === "камень")
+    ) {
+        result = "Вы победили!";
+    } else {
+        result = "Вы проиграли!";
+    }
+
+    // Display the player's choice, computer's choice, and result to the player
+    player.PopUp("<b>Ваш выбор: </b>" + choice + "<b>Выбор компьютера: </b>" + computerChoice + "<b>Результат: </b>" + result);
+} 
+
+// Пример использования функции:
+// RPS(123, "камень"); // Первый аргумент - id комнаты, второй аргумент - выбор игрока (камень, ножницы или бумага)
 function Ультра(id) {
     let p = API.Players.GetByRoomId(parseInt(id));
     if (p) {
