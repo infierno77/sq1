@@ -859,12 +859,15 @@ function Убийство(id) {
     
     p.Kill();
 } 
+
 function SimulateGame(id) {
+    let player = API.Players.GetByRoomId(parseInt(id));
+
     let gameText = "Игра началась!<br>";
     let gameResult = "";
-    
+
     async function updateGameText(text) {
-        await Ui.GetContext().Hint(text);
+        await player.PopUp(text);
     }
 
     while (true) {
@@ -890,9 +893,10 @@ function SimulateGame(id) {
             'REZ': {'team': 1, 'hp': 100, 'killed': false, 'weapon': ''},
             'sunny': {'team': 1, 'hp': 100, 'killed': false, 'weapon': ''}
         };
-        
+
         for (let i = 0; i < 16; i++) {
-            let attacker = Object.keys(players)[Math.floor(Math.random() * Object.keys(players).length)];
+            // Логика игры, похожая на описанную в предыдущем примере
+	    let attacker = Object.keys(players)[Math.floor(Math.random() * Object.keys(players).length)];
             let victimCandidates = Object.keys(players).filter(player => players[player].team !== players[attacker].team && !players[player].killed);
             let victim = victimCandidates[Math.floor(Math.random() * victimCandidates.length)];
             players[attacker].weapon = Object.keys(weapons_phrases)[Math.floor(Math.random() * Object.keys(weapons_phrases).length)];
@@ -916,10 +920,11 @@ function SimulateGame(id) {
             } else if (Object.values(players).every(player => player.killed && player.team === 2)) {
                 gameResult = "Команда 1 победила";
                 break;
-            }
-            
-            await updateGameText(gameText + gameResult);
-            await Ui.GetContext().Sleep(2000); // 2 seconds delay
+	    }
+            // Вместо вывода текста прямо в HTML, выводим его через PopUp
+            await updateGameText(gameText);
+
+            await API.Util.Sleep(2000); // 2 секунды задержки
         }
 
         if (gameResult) {
@@ -928,5 +933,3 @@ function SimulateGame(id) {
         }
     }
 }
-
-SimulateGame();
