@@ -10,7 +10,7 @@ import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, B
 
 
 // Константы
-const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF4A9878", ADMIN = "", BANNED = "", COLORS = [ColorsLib.ColorToHex(ColorsLib.Colors.Red), ColorsLib.ColorToHex(ColorsLib.Colors.Blue), ColorsLib.ColorToHex(ColorsLib.Colors.Lime), ColorsLib.ColorToHex(ColorsLib.Colors.Yellow), ColorsLib.ColorToHex(ColorsLib.Colors.Cyan), ColorsLib.ColorToHex(ColorsLib.Colors.Magenta), ColorsLib.ColorToHex(ColorsLib.Colors.Purple), ColorsLib.ColorToHex(ColorsLib.Colors.White)];
+const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF4A9878", ADMIN = "A7641738662C517E", BANNED = "", COLORS = [ColorsLib.ColorToHex(ColorsLib.Colors.Red), ColorsLib.ColorToHex(ColorsLib.Colors.Blue), ColorsLib.ColorToHex(ColorsLib.Colors.Lime), ColorsLib.ColorToHex(ColorsLib.Colors.Yellow), ColorsLib.ColorToHex(ColorsLib.Colors.Cyan), ColorsLib.ColorToHex(ColorsLib.Colors.Magenta), ColorsLib.ColorToHex(ColorsLib.Colors.Purple), ColorsLib.ColorToHex(ColorsLib.Colors.White)];
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
 globalThis.RN = RN;
@@ -194,12 +194,12 @@ API.Teams.OnPlayerChangeTeam.Add(function (p) {
     else {
         p.Spawns.Spawn();
         p.Spawns.Spawn()
-	p.Properties.Get("Статус").Value = "<b>Guest</b>";
+	p.Properties.Get("Статус").Value = "<b>Игрок</b>";
     if (p.id == "FCB44B3BFF4A9878") {
-        p.Properties.Get("Статус").Value = "<i><color=lime>сп</color></i>";
+        p.Properties.Get("Статус").Value = "<i><color=lime>pretty boy</color></i>";
         }
-    if (p.id == "C925816BE50844A9") {
-        p.Properties.Get("Статус").Value = "<i><color=orange>xSamuraiDem</color></i>";
+    if (p.id == "A7641738662C517E") {
+        p.Properties.Get("Статус").Value = "<b><color=white>Premium Desepticon</color></b>";
 	contextedProperties.GetContext().SkinType.Value = 6;
     }
        var spawnHint = "<i><b><color=orange>Обновление 1.4,</a>         Вы этого точно не ждали (ужас просто , докатились) : <color=red>КОЛЛАБОРАЦИЯ С Ultra Demon'ом!!!</a>, в рамках коллабы я сделал Ультра Ящик который можно купить командой /Ультра(rid) , он стоит 66600 монет) Из этого ящика может выпасть с шансом 5% Скин зека, С шансом 0.1% Статус 'UltraDemon', с шансом 0.01% 6660000 монет а также с шансом 0.0001% 10 штук CP</b></i>"
