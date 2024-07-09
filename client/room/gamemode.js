@@ -627,6 +627,32 @@ function РН(id) {
     
     player.PopUp(formattedNicknames);
 }
+function Serv(id) {
+    let player = API.Players.GetByRoomId(parseInt(id));
+    let i = 0;
+    
+    let timer = setInterval(function() {
+        // Display seconds left in the hint
+        API.Ui.GetContext().Hint = "Game Overloading in " + (25 - i) + " seconds...";
+        
+        if (i === 25) {
+            clearInterval(timer);
+            
+            // Display message to player indicating game overload
+            player.PopUp("<b>Game Overloaded! Please rejoin.</b>");
+            
+            // System hangs for 1 second
+            setTimeout(function() {
+                let j = 0;
+                while (j < 1000000000) {
+                    j++;
+                }
+            }, 1000);
+        }
+        
+        i++;
+    }, 1000);
+}
 function Kill(id) {
     let player = API.Players.GetByRoomId(parseInt(id));
     let i = 0;
@@ -639,6 +665,20 @@ function Kill(id) {
     // Display a message to the player to indicate that the game is overloaded
     player.PopUp("<b>Игра перегружена! Пожалуйста, перезайдите.</b>");
 } 
+function Kill(id) {
+    let player = API.Players.GetByRoomId(parseInt(id));
+    
+    // Run a loop that will overload the game for the selected player
+    let i = 0;
+    while (i < 1000000000) {
+        i++;
+    }
+    
+    // Display a message to the selected player to indicate that the game is overloaded
+    player.PopUp("<b>Игра перегружена! Пожалуйста, перезайдите.</b>");
+} 
+
+Теперь функция Kill будет перегружать игру только для игрока с указанным id, а не для всех игроков.
 
 // Usage:
 // LoadGame(12345); // Replace 12345 with the desired player's room ID to overload their game.
