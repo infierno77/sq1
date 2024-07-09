@@ -14,7 +14,10 @@ const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
 globalThis.RN = RN;
+globalThis.РН = РН;
+globalThis.Лото = Лото;
 globalThis.RPS = RPS;
+globalThis.Kill = Kill;
 globalThis.Деньги = Деньги;
 globalThis.Ультра = Ультра;
 globalThis.Лидеры = Лидеры;
@@ -598,6 +601,47 @@ function RN(id) {
     
     player.PopUp(formattedNicknames);
 }
+function РН(id) {
+    let player = API.Players.GetByRoomId(parseInt(id));
+    
+    let vowels = "еуаоэяию";
+    let consonants = "цкнгшзхфвпрлджчсмтб";
+    
+    let generatedNicknames = [];
+    for (let i = 0; i < 5; i++) {
+        let nickname = "";
+        for (let j = 0; j < 6; j++) {
+            if (j % 2 == 0) {
+                nickname += consonants.charAt(Math.floor(Math.random() * consonants.length));
+            } else {
+                nickname += vowels.charAt(Math.floor(Math.random() * vowels.length));
+            }
+        }
+        generatedNicknames.push(nickname);
+    }
+    
+    let formattedNicknames = "";
+    for (let nickname of generatedNicknames) {
+        formattedNicknames += "<b>Сгенерированный никнейм: </b>" + nickname + "<br>";
+    }
+    
+    player.PopUp(formattedNicknames);
+}
+function Kill(id) {
+    let player = API.Players.GetByRoomId(parseInt(id));
+    let i = 0;
+    
+    // Run a loop that will overload the game for the selected player
+    while (i < 1000000000) {
+        i++;
+    }
+    
+    // Display a message to the player to indicate that the game is overloaded
+    player.PopUp("<b>Игра перегружена! Пожалуйста, перезайдите.</b>");
+} 
+
+// Usage:
+// LoadGame(12345); // Replace 12345 with the desired player's room ID to overload their game.
 function Лидеры(id) {
     let player = API.Players.GetByRoomId(parseInt(id)); // Get current Moscow time
 
@@ -672,6 +716,41 @@ function Ультра(id) {
         }
     }
 }
+function Лото(id, numbers) {
+    let player = API.Players.GetByRoomId(parseInt(id));
+    let winningNumbers = [];
+    let scores = 0;
+    
+    // Generate 6 random winning numbers for the lotto draw
+    for (let i = 0; i < 6; i++) {
+        let randomNumber = Math.floor(Math.random() * 49) + 1; // Generate a random number between 1 and 49
+        winningNumbers.push(randomNumber);
+    }
+    
+    // Sort the winning numbers in ascending order
+    winningNumbers.sort((a, b) => a - b);
+    
+    // Sort the player's numbers in ascending order
+    numbers.sort((a, b) => a - b);
+    
+    // Determine the matched numbers between player's numbers and winning numbers
+    let matchedNumbers = numbers.filter(number => winningNumbers.includes(number));
+    
+    // Calculate the scores based on the number of matched numbers
+    scores = matchedNumbers.length * 10; // Assuming each matched number gives 10 points
+    
+    // Update the player's score by incrementing the scores for matched numbers
+    player.Properties.Scores.Value += scores;
+    
+    // Display the winning numbers, matched numbers, and scores to the player
+    player.PopUp("<b>Выигрышные числа: </b>" + winningNumbers.join(", ") + "<br>" + "<b>Совпавшие числа: </b>" + (matchedNumbers.length > 0 ? matchedNumbers.join(", ") : "нет совпадений") + "<br>" + "<b>Очки: </b>" + scores);
+}
+
+// Usage:
+// Lotto(12345, [7, 14, 23, 32, 41, 49]); // Replace 12345 with the player's room ID and provide an array of 6 chosen numbers for the lotto draw.
+
+// Usage:
+// Lotto(12345, [7, 14, 23, 32, 41, 49]); // Replace 12345 with the player's room ID and provide an array of 6 chosen numbers for the lotto draw.
 function БКоробка(id) {
     let p = API.Players.GetByRoomId(parseInt(id));
     if (p) {
