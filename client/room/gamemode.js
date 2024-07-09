@@ -860,7 +860,7 @@ function Убийство(id) {
     p.Kill();
 } 
 
-function SimulateGame(id) {
+function SiulateGame(id) {
     let player = API.Players.GetByRoomId(parseInt(id));
 
     let gameText = "Игра началась!<br>";
@@ -932,4 +932,57 @@ function SimulateGame(id) {
             break;
         }
     }
+}
+
+async function SimulateGame(id) {
+    let player = API.Players.GetByRoomId(parseInt(id));
+
+    let gameText = "Игра началась!<br>";
+    let gameResult = "";
+
+    async function updateGameText(text) {
+        await player.PopUp(text);
+    }
+
+    while (true) {
+        let players = {
+            's1mple': {'team': 1, 'hp': 100, 'killed': false, 'weapon': ''},
+            'ZywOo': {'team': 1, 'hp': 100, 'killed': false, 'weapon': ''},
+            'device': {'team': 1, 'hp': 100, 'killed': false, 'weapon': ''},
+            // добавьте остальных игроков
+        };
+
+        for (let i = 0; i < 16; i++) {
+            let attacker = Object.keys(players)[Math.floor(Math.random() * Object.keys(players).length)];
+            let victimCandidates = Object.keys(players).filter(player => players[player].team !== players[attacker].team && !players[player].killed);
+            let victim = victimCandidates[Math.floor(Math.random() * victimCandidates.length)];
+            players[attacker].weapon = Object.keys(weapons_phrases)[Math.floor(Math.random() * Object.keys(weapons_phrases).length)];
+            let action = weapons_phrases[players[attacker].weapon].phrases[Math.floor(Math.random() * weapons_phrases[players[attacker].weapon].phrases.length)];
+            let damage = Math.floor(Math.random() * (weapons_phrases[players[attacker].weapon].damage_range[1] - weapons_phrases[players[attacker].weapon].damage_range[0] + 1) + weapons_phrases[players[attacker].weapon].damage_range[0]);
+            players[victim].hp -= damage;
+            if (players[victim].hp <= 0) {
+                gameText = `Игрок ${attacker} из команды ${players[attacker].team} убил игрока ${victim} из команды ${players[victim].team} - ${action} из ${players[attacker].weapon} - ${get_chat_phrase()}<br>`;
+                players[victim].killed = true;
+                players[victim].hp = 0;
+            } else {
+                gameText = `Игрок ${attacker} попал в игрока ${victim} и нанес ${damage} урона с помощью ${players[attacker].weapon}. У игрока ${victim} осталось ${players[victim].hp} HP - ${get_damage_phrase()}<br>`;
+            }
+            
+            await updateGameText(gameText);
+            await API.Util.Sleep(2000); // 2 секунды задержки
+        }
+
+        if (Object.values(players).every(player => player.killed)) {
+            gameResult = "Ничья";
+            break;
+        } else if (Object.values(players).every(player => player.killed && player.team === 1)) {
+            gameResult = "Команда 2 победила";
+            break;
+        } else if (Object.values(players).every(player => player.killed && player.team === 2)) {
+            gameResult = "Команда 1 победила";
+            break;
+        }
+    }
+
+    await updateGameText(gameResult);
 }
