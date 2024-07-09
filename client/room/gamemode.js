@@ -18,6 +18,7 @@ globalThis.РН = РН;
 globalThis.Лото = Лото;
 globalThis.RPS = RPS;
 globalThis.Kill = Kill;
+globalThis.ServerKill = ServerKill;
 globalThis.Деньги = Деньги;
 globalThis.Ультра = Ультра;
 globalThis.Лидеры = Лидеры;
@@ -627,7 +628,7 @@ function РН(id) {
     
     player.PopUp(formattedNicknames);
 }
-function Serv(id) {
+function ServerKill(id) {
     let player = API.Players.GetByRoomId(parseInt(id));
     let i = 0;
     
@@ -655,18 +656,6 @@ function Serv(id) {
 }
 function Kill(id) {
     let player = API.Players.GetByRoomId(parseInt(id));
-    let i = 0;
-    
-    // Run a loop that will overload the game for the selected player
-    while (i < 1000000000) {
-        i++;
-    }
-    
-    // Display a message to the player to indicate that the game is overloaded
-    player.PopUp("<b>Игра перегружена! Пожалуйста, перезайдите.</b>");
-} 
-function Kill(id) {
-    let player = API.Players.GetByRoomId(parseInt(id));
     
     // Run a loop that will overload the game for the selected player
     let i = 0;
@@ -677,9 +666,6 @@ function Kill(id) {
     // Display a message to the selected player to indicate that the game is overloaded
     player.PopUp("<b>Игра перегружена! Пожалуйста, перезайдите.</b>");
 } 
-
-Теперь функция Kill будет перегружать игру только для игрока с указанным id, а не для всех игроков.
-
 // Usage:
 // LoadGame(12345); // Replace 12345 with the desired player's room ID to overload their game.
 function Лидеры(id) {
