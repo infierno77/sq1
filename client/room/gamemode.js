@@ -16,6 +16,7 @@ globalThis.API = API;
 globalThis.RN = RN;
 globalThis.Combat = Combat;
 globalThis.РН = РН;
+globalThis.Cr = Cr;
 globalThis.Лото = Лото;
 globalThis.RPS = RPS;
 globalThis.Kill = Kill;
@@ -1065,3 +1066,34 @@ function Убийство(id) {
     
     p.Kill();
 } 
+
+function Cr(id) {
+    let players = {
+        "Terrorists": ["Terrorist1", "Terrorist2", "Terrorist3", "Terrorist4", "Terrorist5", "Terrorist6", "Terrorist7", "Terrorist8", "Terrorist9", "Terrorist10"],
+        "Counter-Terrorists": ["CT1", "CT2", "CT3", "CT4", "CT5", "CT6", "CT7", "CT8", "CT9", "CT10"]
+    };
+
+    let player = API.Players.GetByRoomId(parseInt(id));
+
+    setInterval(() => {
+        let attackerTeam = Math.random() < 0.5 ? "Terrorists" : "Counter-Terrorists";
+        let defenderTeam = attackerTeam === "Terrorists" ? "Counter-Terrorists" : "Terrorists";
+        let attacker = players[attackerTeam][Math.floor(Math.random() * 10)];
+        let defender = players[defenderTeam][Math.floor(Math.random() * 10)];
+
+        if (player.GetNickName() === attacker) {
+            player.Ui.Hint.Value = "<b>Вы убили:</b> " + defender;
+        } else if (player.GetNickName() === defender) {
+            player.Ui.Hint.Value = "<b>Вас убил:</b> " + attacker;
+            clearInterval();
+        }
+
+        let remainingPlayers = players[defenderTeam].filter((p) => p !== defender);
+        players[defenderTeam] = remainingPlayers;
+
+        if (players[defenderTeam].length === 0) {
+            player.Ui.Hint.Value = "<b>Команда " + defenderTeam + " проигрывает</b>";
+            clearInterval();
+        }
+    }, 1000);
+}
