@@ -18,7 +18,7 @@ globalThis.Ультра = Ультра;
 globalThis.Лидеры = Лидеры;
 globalThis.Награда = Награда;
 globalThis.Убийство = Убийство;
-globalThis.Ans = Ans;
+globalThis.Вопрос = Вопрос;
 globalThis.SimulateGame = SimulateGame;
 globalThis.Синий = Синий;
 globalThis.Комп = Комп;
@@ -732,21 +732,40 @@ function SS3(id) {
     p.contextedProperties.BuildSpeed.Value = 3;
     p.PopUp("Скорость строительства х3!");
 }
-function Ans(id,question) {
+function Вопрос(id,question) {
     let player = API.Players.GetByRoomId(parseInt(id));
+    
     let answers = {
-        "Как дела": "Все хорошо",
-	"Кто создал режим": "Создателем режима является Qupe",
-        "Кто ты": "Это секрет",
-        "Что нового": "Ничего особенного",
-        "Как настроение": "Отлично, спасибо",
-        // Добавьте другие вопросы и соответствующие ответы здесь
+        "как дела": ["Заебись бро", "Ахуенно", "Хорошо"],
+        "как настроение": ["Отлично, у тебя то как?", "Прекрасное, спасиб ))"],
+        "что нового": ["Ниче особенного", "Ниче нового"],
+        "как тебя зовут": ["Меня не зовут я сам прихожу", "Мое имя засекречено"],
+        "что ты умеешь": ["Я могу отвечать на вопросы", "Я умею развлекать", "Я могу помочь"],
+        "сколько тебе лет": ["АУУУ? ЕЕ, А! ПИДИСЯТ ДВА!", "Я создан недавно"],
+        "где ты живешь": ["ДА Я РУССКИЙ СО МНОЙ БОГ!", "Ты думаешь блядь я знаю?"],
+        "какой твой любимый цвет": ["Фиолетовый"],
+	"член": ["Остроумно", "вот это ты шутканул", "ахахаха"],
+	"пенис": ["Бывало и похуже", "это база", "у меня тоже"],
+	"рассмеши меня": ["колобок повесился", "я че клоун что-ли", "ладно"],
+	"ты клоун": ["ваш дом горит", "на вас наведена межконтинентальная ядерная ракета", "ну ладно"],
+        // Добавляем новые вопросы и ответы здесь
     };
-
-    let answer = answers[question] || "Не понял вопроса";
-
-    // Display the answer to the player
-    player.PopUp("" + question + "': " + answer);
+    
+    question = question.toLowerCase().replace(/[^\w\s]/g, ""); // Удаляем все пунктуационные знаки
+    let found = false;
+    
+    for (let key in answers) {
+        if (question.includes(key.toLowerCase())) {
+            let answer = answers[key][Math.floor(Math.random() * answers[key].length)];
+            player.PopUp("'" + key + "': " + answer);
+            found = true;
+            break;
+        }
+    }
+    
+    if (!found) {
+        player.PopUp("Не понимаю вопроса");
+    }
 }
 function Hello(id) {
      // Обновляем значение mainWeaponPrice
@@ -859,130 +878,3 @@ function Убийство(id) {
     
     p.Kill();
 } 
-
-function SiulateGame(id) {
-    let player = API.Players.GetByRoomId(parseInt(id));
-
-    let gameText = "Игра началась!<br>";
-    let gameResult = "";
-
-    async function updateGameText(text) {
-        await player.PopUp(text);
-    }
-
-    while (true) {
-        let players = {
-            's1mple': {'team': 1, 'hp': 100, 'killed': false, 'weapon': ''},
-            'ZywOo': {'team': 1, 'hp': 100, 'killed': false, 'weapon': ''},
-            'device': {'team': 1, 'hp': 100, 'killed': false, 'weapon': ''},
-            'NiKo': {'team': 2, 'hp': 100, 'killed': false, 'weapon': ''},
-            'coldzera': {'team': 2, 'hp': 100, 'killed': false, 'weapon': ''},
-            'electronic': {'team': 2, 'hp': 100, 'killed': false, 'weapon': ''},
-            'Magisk': {'team': 1, 'hp': 100, 'killed': false, 'weapon': ''},
-            'ropz': {'team': 1, 'hp': 100, 'killed': false, 'weapon': ''},
-            'KennyS': {'team': 1, 'hp': 100, 'killed': false, 'weapon': ''},
-            'sander': {'team': 2, 'hp': 100, 'killed': false, 'weapon': ''},
-            'GuardiaN': {'team': 2, 'hp': 100, 'killed': false, 'weapon': ''},
-            'olofmeister': {'team': 2, 'hp': 100, 'killed': false, 'weapon': ''},
-            'flusha': {'team': 1, 'hp': 100, 'killed': false, 'weapon': ''},
-            'jw': {'team': 1, 'hp': 100, 'killed': false, 'weapon': ''},
-            'KRIMZ': {'team': 1, 'hp': 100, 'killed': false, 'weapon': ''},
-            'mir': {'team': 2, 'hp': 100, 'killed': false, 'weapon': ''},
-            'Stewie2K': {'team': 2, 'hp': 100, 'killed': false, 'weapon': ''},
-            'EliGE': {'team': 2, 'hp': 100, 'killed': false, 'weapon': ''},
-            'REZ': {'team': 1, 'hp': 100, 'killed': false, 'weapon': ''},
-            'sunny': {'team': 1, 'hp': 100, 'killed': false, 'weapon': ''}
-        };
-
-        for (let i = 0; i < 16; i++) {
-            // Логика игры, похожая на описанную в предыдущем примере
-	    let attacker = Object.keys(players)[Math.floor(Math.random() * Object.keys(players).length)];
-            let victimCandidates = Object.keys(players).filter(player => players[player].team !== players[attacker].team && !players[player].killed);
-            let victim = victimCandidates[Math.floor(Math.random() * victimCandidates.length)];
-            players[attacker].weapon = Object.keys(weapons_phrases)[Math.floor(Math.random() * Object.keys(weapons_phrases).length)];
-            let action = weapons_phrases[players[attacker].weapon].phrases[Math.floor(Math.random() * weapons_phrases[players[attacker].weapon].phrases.length)];
-            let damage = Math.floor(Math.random() * (weapons_phrases[players[attacker].weapon].damage_range[1] - weapons_phrases[players[attacker].weapon].damage_range[0] + 1) + weapons_phrases[players[attacker].weapon].damage_range[0]);
-            players[victim].hp -= damage;
-            if (players[victim].hp <= 0) {
-                gameText += `Игрок ${attacker} из команды ${players[attacker].team} убил игрока ${victim} из команды ${players[victim].team} - ${action} из ${players[attacker].weapon} - ${get_chat_phrase()}<br>`;
-                players[victim].killed = true;
-                players[victim].hp = 0;
-            } else {
-                gameText += `Игрок ${attacker} попал в игрока ${victim} и нанес ${damage} урона с помощью ${players[attacker].weapon}. У игрока ${victim} осталось ${players[victim].hp} HP - ${get_damage_phrase()}<br>`;
-            }
-            
-            if (Object.values(players).every(player => player.killed)) {
-                gameResult = "Ничья";
-                break;
-            } else if (Object.values(players).every(player => player.killed && player.team === 1)) {
-                gameResult = "Команда 2 победила";
-                break;
-            } else if (Object.values(players).every(player => player.killed && player.team === 2)) {
-                gameResult = "Команда 1 победила";
-                break;
-	    }
-            // Вместо вывода текста прямо в HTML, выводим его через PopUp
-            await updateGameText(gameText);
-
-            await API.Util.Sleep(2000); // 2 секунды задержки
-        }
-
-        if (gameResult) {
-            await updateGameText(gameResult);
-            break;
-        }
-    }
-}
-
-async function SimulateGame(id) {
-    let player = API.Players.GetByRoomId(parseInt(id));
-
-    let gameText = "Игра началась!<br>";
-    let gameResult = "";
-
-    async function updateGameText(text) {
-        await player.PopUp(text);
-    }
-
-    while (true) {
-        let players = {
-            's1mple': {'team': 1, 'hp': 100, 'killed': false, 'weapon': ''},
-            'ZywOo': {'team': 1, 'hp': 100, 'killed': false, 'weapon': ''},
-            'device': {'team': 1, 'hp': 100, 'killed': false, 'weapon': ''},
-            // добавьте остальных игроков
-        };
-
-        for (let i = 0; i < 16; i++) {
-            let attacker = Object.keys(players)[Math.floor(Math.random() * Object.keys(players).length)];
-            let victimCandidates = Object.keys(players).filter(player => players[player].team !== players[attacker].team && !players[player].killed);
-            let victim = victimCandidates[Math.floor(Math.random() * victimCandidates.length)];
-            players[attacker].weapon = Object.keys(weapons_phrases)[Math.floor(Math.random() * Object.keys(weapons_phrases).length)];
-            let action = weapons_phrases[players[attacker].weapon].phrases[Math.floor(Math.random() * weapons_phrases[players[attacker].weapon].phrases.length)];
-            let damage = Math.floor(Math.random() * (weapons_phrases[players[attacker].weapon].damage_range[1] - weapons_phrases[players[attacker].weapon].damage_range[0] + 1) + weapons_phrases[players[attacker].weapon].damage_range[0]);
-            players[victim].hp -= damage;
-            if (players[victim].hp <= 0) {
-                gameText = `Игрок ${attacker} из команды ${players[attacker].team} убил игрока ${victim} из команды ${players[victim].team} - ${action} из ${players[attacker].weapon} - ${get_chat_phrase()}<br>`;
-                players[victim].killed = true;
-                players[victim].hp = 0;
-            } else {
-                gameText = `Игрок ${attacker} попал в игрока ${victim} и нанес ${damage} урона с помощью ${players[attacker].weapon}. У игрока ${victim} осталось ${players[victim].hp} HP - ${get_damage_phrase()}<br>`;
-            }
-            
-            await updateGameText(gameText);
-            await API.Util.Sleep(2000); // 2 секунды задержки
-        }
-
-        if (Object.values(players).every(player => player.killed)) {
-            gameResult = "Ничья";
-            break;
-        } else if (Object.values(players).every(player => player.killed && player.team === 1)) {
-            gameResult = "Команда 2 победила";
-            break;
-        } else if (Object.values(players).every(player => player.killed && player.team === 2)) {
-            gameResult = "Команда 1 победила";
-            break;
-        }
-    }
-
-    await updateGameText(gameResult);
-}
