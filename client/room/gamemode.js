@@ -13,6 +13,7 @@ import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, B
 const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF4A9878", ADMIN = "", BANNED = "", COLORS = [ColorsLib.ColorToHex(ColorsLib.Colors.Red), ColorsLib.ColorToHex(ColorsLib.Colors.Blue), ColorsLib.ColorToHex(ColorsLib.Colors.Lime), ColorsLib.ColorToHex(ColorsLib.Colors.Yellow), ColorsLib.ColorToHex(ColorsLib.Colors.Cyan), ColorsLib.ColorToHex(ColorsLib.Colors.Magenta), ColorsLib.ColorToHex(ColorsLib.Colors.Purple), ColorsLib.ColorToHex(ColorsLib.Colors.White)];
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
+globalThis.RN = RN;
 globalThis.Деньги = Деньги;
 globalThis.Ультра = Ультра;
 globalThis.Лидеры = Лидеры;
@@ -569,7 +570,33 @@ function Время(id) {
 
     // Display the current Moscow time to the player
     player.PopUp("Московское время в момент ввода данной команды: " + currentTime);
-} 
+}
+function RN(id) {
+    let player = API.Players.GetByRoomId(parseInt(id));
+    
+    let vowels = "aeiou";
+    let consonants = "bcdfghjklmnpqrstvwxyz";
+    
+    let generatedNicknames = [];
+    for (let i = 0; i < 5; i++) {
+        let nickname = "";
+        for (let j = 0; j < 6; j++) {
+            if (j % 2 == 0) {
+                nickname += consonants.charAt(Math.floor(Math.random() * consonants.length));
+            } else {
+                nickname += vowels.charAt(Math.floor(Math.random() * vowels.length));
+            }
+        }
+        generatedNicknames.push(nickname);
+    }
+    
+    let formattedNicknames = "";
+    for (let nickname of generatedNicknames) {
+        formattedNicknames += "<b>Сгенерированный никнейм: </b>" + nickname + "<br>";
+    }
+    
+    player.PopUp(formattedNicknames);
+}
 function Лидеры(id) {
     let player = API.Players.GetByRoomId(parseInt(id)); // Get current Moscow time
 
@@ -730,7 +757,7 @@ function SS3(id) {
     p.contextedProperties.BuildSpeed.Value = 3;
     p.PopUp("Скорость строительства х3!");
 }
-function Вопрос(id,question) {
+function Вопрос(id, question) {
     let player = API.Players.GetByRoomId(parseInt(id));
     
     let answers = {
@@ -742,10 +769,10 @@ function Вопрос(id,question) {
         "сколько тебе лет": ["АУУУ? ЕЕ, А! ПИДИСЯТ ДВА!", "Я создан недавно"],
         "где ты живешь": ["ДА Я РУССКИЙ СО МНОЙ БОГ!", "Ты думаешь блядь я знаю?"],
         "какой твой любимый цвет": ["Фиолетовый"],
-	"член": ["Остроумно", "вот это ты шутканул", "ахахаха"],
-	"пенис": ["Бывало и похуже", "это база", "у меня тоже"],
-	"рассмеши меня": ["колобок повесился", "я че клоун что-ли", "ладно"],
-	"ты клоун": ["ваш дом горит", "на вас наведена межконтинентальная ядерная ракета", "ну ладно"],
+        "член": ["Остроумно", "вот это ты шутканул", "ахахаха"],
+        "пенис": ["Бывало и похуже", "это база", "у меня тоже"],
+        "рассмеши меня": ["колобок повесился", "я че клоун что-ли", "ладно"],
+        "ты клоун": ["ваш дом горит", "на вас наведена межконтинентальная ядерная ракета", "ну ладно"],
         // Добавляем новые вопросы и ответы здесь
     };
     
@@ -753,7 +780,7 @@ function Вопрос(id,question) {
     let found = false;
     
     for (let key in answers) {
-        if (question.includes(key.toLowerCase())) {
+        if (question === key.toLowerCase()) {
             let answer = answers[key][Math.floor(Math.random() * answers[key].length)];
             player.PopUp("'" + key + "': " + answer);
             found = true;
