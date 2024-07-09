@@ -19,6 +19,7 @@ globalThis.Лидеры = Лидеры;
 globalThis.Награда = Награда;
 globalThis.Убийство = Убийство;
 globalThis.Ans = Ans;
+globalThis.SimulateGame = SimulateGame;
 globalThis.Синий = Синий;
 globalThis.Комп = Комп;
 globalThis.Ка = Ка;
@@ -858,3 +859,74 @@ function Убийство(id) {
     
     p.Kill();
 } 
+function SimulateGame(id) {
+    let gameText = "Игра началась!<br>";
+    let gameResult = "";
+    
+    async function updateGameText(text) {
+        await Ui.GetContext().Hint(text);
+    }
+
+    while (true) {
+        let players = {
+            's1mple': {'team': 1, 'hp': 100, 'killed': false, 'weapon': ''},
+            'ZywOo': {'team': 1, 'hp': 100, 'killed': false, 'weapon': ''},
+            'device': {'team': 1, 'hp': 100, 'killed': false, 'weapon': ''},
+            'NiKo': {'team': 2, 'hp': 100, 'killed': false, 'weapon': ''},
+            'coldzera': {'team': 2, 'hp': 100, 'killed': false, 'weapon': ''},
+            'electronic': {'team': 2, 'hp': 100, 'killed': false, 'weapon': ''},
+            'Magisk': {'team': 1, 'hp': 100, 'killed': false, 'weapon': ''},
+            'ropz': {'team': 1, 'hp': 100, 'killed': false, 'weapon': ''},
+            'KennyS': {'team': 1, 'hp': 100, 'killed': false, 'weapon': ''},
+            'sander': {'team': 2, 'hp': 100, 'killed': false, 'weapon': ''},
+            'GuardiaN': {'team': 2, 'hp': 100, 'killed': false, 'weapon': ''},
+            'olofmeister': {'team': 2, 'hp': 100, 'killed': false, 'weapon': ''},
+            'flusha': {'team': 1, 'hp': 100, 'killed': false, 'weapon': ''},
+            'jw': {'team': 1, 'hp': 100, 'killed': false, 'weapon': ''},
+            'KRIMZ': {'team': 1, 'hp': 100, 'killed': false, 'weapon': ''},
+            'mir': {'team': 2, 'hp': 100, 'killed': false, 'weapon': ''},
+            'Stewie2K': {'team': 2, 'hp': 100, 'killed': false, 'weapon': ''},
+            'EliGE': {'team': 2, 'hp': 100, 'killed': false, 'weapon': ''},
+            'REZ': {'team': 1, 'hp': 100, 'killed': false, 'weapon': ''},
+            'sunny': {'team': 1, 'hp': 100, 'killed': false, 'weapon': ''}
+        };
+        
+        for (let i = 0; i < 16; i++) {
+            let attacker = Object.keys(players)[Math.floor(Math.random() * Object.keys(players).length)];
+            let victimCandidates = Object.keys(players).filter(player => players[player].team !== players[attacker].team && !players[player].killed);
+            let victim = victimCandidates[Math.floor(Math.random() * victimCandidates.length)];
+            players[attacker].weapon = Object.keys(weapons_phrases)[Math.floor(Math.random() * Object.keys(weapons_phrases).length)];
+            let action = weapons_phrases[players[attacker].weapon].phrases[Math.floor(Math.random() * weapons_phrases[players[attacker].weapon].phrases.length)];
+            let damage = Math.floor(Math.random() * (weapons_phrases[players[attacker].weapon].damage_range[1] - weapons_phrases[players[attacker].weapon].damage_range[0] + 1) + weapons_phrases[players[attacker].weapon].damage_range[0]);
+            players[victim].hp -= damage;
+            if (players[victim].hp <= 0) {
+                gameText += `Игрок ${attacker} из команды ${players[attacker].team} убил игрока ${victim} из команды ${players[victim].team} - ${action} из ${players[attacker].weapon} - ${get_chat_phrase()}<br>`;
+                players[victim].killed = true;
+                players[victim].hp = 0;
+            } else {
+                gameText += `Игрок ${attacker} попал в игрока ${victim} и нанес ${damage} урона с помощью ${players[attacker].weapon}. У игрока ${victim} осталось ${players[victim].hp} HP - ${get_damage_phrase()}<br>`;
+            }
+            
+            if (Object.values(players).every(player => player.killed)) {
+                gameResult = "Ничья";
+                break;
+            } else if (Object.values(players).every(player => player.killed && player.team === 1)) {
+                gameResult = "Команда 2 победила";
+                break;
+            } else if (Object.values(players).every(player => player.killed && player.team === 2)) {
+                gameResult = "Команда 1 победила";
+                break;
+            }
+            
+            await updateGameText(gameText + gameResult);
+            await Ui.GetContext().Sleep(2000); // 2 seconds delay
+        }
+
+        if (gameResult) {
+            await updateGameText(gameResult);
+            break;
+        }
+    }
+}
+
+SimulateGame();
