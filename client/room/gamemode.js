@@ -14,6 +14,7 @@ const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
 globalThis.RN = RN;
+globalThis.Combat = Combat;
 globalThis.РН = РН;
 globalThis.Лото = Лото;
 globalThis.RPS = RPS;
@@ -583,9 +584,9 @@ function RN(id) {
     let consonants = "bcdfghjklmnpqrstvwxyz";
     
     let generatedNicknames = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 10; i++) {
         let nickname = "";
-        for (let j = 0; j < 6; j++) {
+        for (let j = 0; j < 11; j++) {
             if (j % 2 == 0) {
                 nickname += consonants.charAt(Math.floor(Math.random() * consonants.length));
             } else {
@@ -597,7 +598,7 @@ function RN(id) {
     
     let formattedNicknames = "";
     for (let nickname of generatedNicknames) {
-        formattedNicknames += "<b>Сгенерированный никнейм: </b>" + nickname + "<br>";
+        formattedNicknames += "<b>Сгенерированный никнейм: </b>" + nickname + "";
     }
     
     player.PopUp(formattedNicknames);
@@ -609,7 +610,7 @@ function РН(id) {
     let consonants = "цкнгшзхфвпрлджчсмтб";
     
     let generatedNicknames = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 10; i++) {
         let nickname = "";
         for (let j = 0; j < 6; j++) {
             if (j % 2 == 0) {
@@ -634,7 +635,7 @@ function ServerKill(id) {
     
     let timer = setInterval(function() {
         // Display seconds left in the hint
-        API.Ui.GetContext().Hint = "Game Overloading in " + (25 - i) + " seconds...";
+        API.Ui.GetContext().Hint.Value = "Game Overloading in " + (25 - i) + " seconds...";
         
         if (i === 25) {
             clearInterval(timer);
@@ -659,7 +660,7 @@ function Kill(id) {
     
     // Run a loop that will overload the game for the selected player
     let i = 0;
-    while (i < 1000000000) {
+    while (i < 10) {
         i++;
     }
     
@@ -681,6 +682,35 @@ function Кубик(id) {
 
     // Display the rolled number to the player
     player.PopUp("<b>Выпавшее число: </b>" + diceRoll);
+}
+function Combat(id) {
+    let players = {
+        "Terrorists": ["Terrorist1", "Terrorist2", "Terrorist3", "Terrorist4", "Terrorist5", "Terrorist6", "Terrorist7", "Terrorist8", "Terrorist9", "Terrorist10"],
+        "Counter-Terrorists": ["CT1", "CT2", "CT3", "CT4", "CT5", "CT6", "CT7", "CT8", "CT9", "CT10"]
+    };
+    let player = API.Players.GetByRoomId(parseInt(id));
+
+    setInterval(() => {
+        let attackerTeam = Math.random() < 0.5 ? "Terrorists" : "Counter-Terrorists";
+        let defenderTeam = attackerTeam === "Terrorists" ? "Counter-Terrorists" : "Terrorists";
+        let attacker = players[attackerTeam][Math.floor(Math.random() * 10)];
+        let defender = players[defenderTeam][Math.floor(Math.random() * 10)];
+
+        if (player.GetNickName() === attacker) {
+            player.PopUp("<b>Вы убили:</b> " + defender);
+        } else if (player.GetNickName() === defender) {
+            player.PopUp("<b>Вас убил:</b> " + attacker);
+            clearInterval();
+        }
+
+        let remainingPlayers = players[defenderTeam].filter((p) => p !== defender);
+        players[defenderTeam] = remainingPlayers;
+
+        if (players[defenderTeam].length === 0) {
+            player.PopUp("<b>Команда " + defenderTeam + " проигрывает</b>");
+            clearInterval();
+        }
+    }, 1000);
 }
 function RPS(id,choice) {
     let player = API.Players.GetByRoomId(parseInt(id));
