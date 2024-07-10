@@ -945,9 +945,6 @@ function Вопрос(id, question) {
         // Добавляем новые вопросы и ответы здесь
     };
     
-    question = question.toLowerCase().replace(/[^\w\s]/g, ""); // Приводим вопрос к нижнему регистру и удаляем пунктуацию
-    let found = false;
-    
     for (let key in answers) {
         if (question === key.toLowerCase()) {
             let answer = answers[key][Math.floor(Math.random() * answers[key].length)];
