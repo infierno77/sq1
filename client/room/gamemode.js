@@ -119,7 +119,8 @@ function e_join(p) {
             p.Properties.Get("banned").Value = API.Properties.GetContext().Get("banned" + p.Id).Value || false;
             p.Properties.Get("rid").Value = p.IdInRoom;
             p.Properties.Get("Time").Value = 0; // Инициализация игрового времени
-            p.Properties.Get("Scores").Value = 500; // Инициализация очков
+            p.Properties.Get("Scores").Value = 500;
+	    p.Properties.Get("CP").Value = 0; // Инициализация очков
             let team = API.Properties.GetContext().Get("team" + p.Id).Value || "players";
             API.Teams.Get(team).Add(p);
         }
@@ -139,7 +140,8 @@ API.Players.OnPlayerConnected.Add(function (p) {
             let team = API.Properties.GetContext().Get("team" + p.Id).Value || "players";
             API.Teams.Get(team).Add(p);
             let timePlayed = p.Properties.Get("Time").Value || 0;
-            let scores = p.Properties.Get("Scores").Value || 0;
+            let scores = p.Properties.Get("Scores").Value || 500;
+	    let cp = p.Properties.Get("CP").Value || 0;
             let tim = p.Timers.Get("999999");
             tim.RestartLoop(1, function() {
                 timePlayed++; // Увеличиваем игровое время на каждой итерации
@@ -156,7 +158,8 @@ API.Players.OnPlayerConnected.Add(function (p) {
             p.Properties.Get("hours").Value = 0;
             p.Properties.Get("minutes").Value = 0;
             // Инициализация для Scores
-            p.Properties.Get("Scores").Value = 0;
+            p.Properties.Get("Scores").Value = 500;
+	    p.Properties.Get("CP").Value = 0;
             
             let tim = p.Timers.Get("g");
             tim.RestartLoop(60, function() {
@@ -186,7 +189,8 @@ function formatTime(hours, minutes) {
     return formattedHours + ":" + formattedMinutes;
 }
 
-API.contextedProperties.GetContext(BuildersTeam).MaxHp.Value = 100;
+API.contextedProperties.GetContext(BuildersTeam).MaxHp.Value = 10000;
+API.Build.GetContext(BuildersTeam).FlyEnable.Value = true;
 API.contextedProperties.GetContext(BuildersTeam).SkinType.Value = 0;
 
 API.Teams.OnPlayerChangeTeam.Add(function (p) {
