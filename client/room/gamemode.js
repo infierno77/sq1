@@ -16,7 +16,6 @@ globalThis.API = API;
 globalThis.RN = RN;
 globalThis.Combat = Combat;
 globalThis.РН = РН;
-globalThis.Cr = Cr;
 globalThis.Лото = Лото;
 globalThis.RPS = RPS;
 globalThis.Kill = Kill;
