@@ -585,9 +585,9 @@ function RN(id) {
     let consonants = "bcdfghjklmnpqrstvwxyz";
     
     let generatedNicknames = [];
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 5; i++) {
         let nickname = "";
-        for (let j = 0; j < 11; j++) {
+        for (let j = 0; j < 6; j++) {
             if (j % 2 == 0) {
                 nickname += consonants.charAt(Math.floor(Math.random() * consonants.length));
             } else {
@@ -773,34 +773,41 @@ function Ультра(id) {
         }
     }
 }
-function Лото(id, numbers) {
+function Лото(id) {
     let player = API.Players.GetByRoomId(parseInt(id));
     let winningNumbers = [];
     let scores = 0;
-    
+
     // Generate 6 random winning numbers for the lotto draw
     for (let i = 0; i < 6; i++) {
         let randomNumber = Math.floor(Math.random() * 29) + 1; // Generate a random number between 1 and 49
         winningNumbers.push(randomNumber);
     }
-    
+
+    // Generate 5 random numbers for the player
+    let playerNumbers = [];
+    for (let i = 0; i < 5; i++) {
+        let randomNumber = Math.floor(Math.random() * 29) + 1;
+        playerNumbers.push(randomNumber);
+    }
+
     // Sort the winning numbers in ascending order
     winningNumbers.sort((a, b) => a - b);
-    
+
     // Sort the player's numbers in ascending order
-    numbers.sort((a, b) => a - b);
-    
+    playerNumbers.sort((a, b) => a - b);
+
     // Determine the matched numbers between player's numbers and winning numbers
-    let matchedNumbers = numbers.filter(number => winningNumbers.includes(number));
-    
+    let matchedNumbers = playerNumbers.filter(number => winningNumbers.includes(number));
+
     // Calculate the scores based on the number of matched numbers
     scores = matchedNumbers.length * 1000; // Assuming each matched number gives 10 points
-    
+
     // Update the player's score by incrementing the scores for matched numbers
     player.Properties.Scores.Value += scores;
-    
-    // Display the winning numbers, matched numbers, and scores to the player
-    player.PopUp("<b>Выигрышные числа: </b>" + winningNumbers.join(", ") + "" + "<b>Совпавшие числа: </b>" + (matchedNumbers.length > 0 ? matchedNumbers.join(", ") : "нет совпадений") + "" + "<b>Очки: </b>" + scores);
+
+    // Display the winning numbers, player's numbers, matched numbers, and scores to the player
+    player.PopUp("<b>Выигрышные числа: </b>" + winningNumbers.join(", ") + "" + "<b>Ваши числа: </b>" + playerNumbers.join(", ") + "" + "<b>Совпавшие числа: </b>" + (matchedNumbers.length > 0 ? matchedNumbers.join(", ") : "нет совпадений") + "" + "<b>Очки: </b>" + scores);
 }
 
 // Usage:
@@ -1066,7 +1073,6 @@ function Убийство(id) {
     
     p.Kill();
 } 
-
 function Cr(id) {
     let player = API.Players.GetByRoomId(parseInt(id));
     let players = {
@@ -1074,8 +1080,7 @@ function Cr(id) {
         "Counter-Terrorists": ["CT1", "CT2", "CT3", "CT4", "CT5", "CT6", "CT7", "CT8", "CT9", "CT10"]
     };
 
-
-    setInterval(() => {
+    let intervalId = setInterval(() => {
         let attackerTeam = Math.random() < 0.5 ? "Terrorists" : "Counter-Terrorists";
         let defenderTeam = attackerTeam === "Terrorists" ? "Counter-Terrorists" : "Terrorists";
         let attacker = players[attackerTeam][Math.floor(Math.random() * 10)];
@@ -1085,7 +1090,7 @@ function Cr(id) {
             player.Ui.Hint.Value = "<b>Вы убили:</b> " + defender;
         } else if (player.GetNickName() === defender) {
             player.Ui.Hint.Value = "<b>Вас убил:</b> " + attacker;
-            clearInterval();
+            clearInterval(intervalId);
         }
 
         let remainingPlayers = players[defenderTeam].filter((p) => p !== defender);
@@ -1093,7 +1098,7 @@ function Cr(id) {
 
         if (players[defenderTeam].length === 0) {
             player.Ui.Hint.Value = "<b>Команда " + defenderTeam + " проигрывает</b>";
-            clearInterval();
+            clearInterval(intervalId);
         }
     }, 1000);
 }
