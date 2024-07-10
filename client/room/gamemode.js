@@ -203,7 +203,12 @@ API.Teams.OnPlayerChangeTeam.Add(function (p) {
     if (p.id == "A7641738662C517E") {
         p.Properties.Get("Статус").Value = "<b><color=white>Premium Плюшка</color></b>";
 	contextedProperties.GetContext().SkinType.Value = 6;
-    }
+        }
+    if (p.id == "CAF85394925F6DC0") {
+        p.Properties.Get("Статус").Value = "<b><color=brown>БРОНЗА</color></b>";
+	p.Properties.Scores.Value += 75000;
+	
+        }
        var spawnHint = "<i><b><color=orange>Обновление 1.4,</a>         Вы этого точно не ждали (ужас просто , докатились) : <color=red>КОЛЛАБОРАЦИЯ С Ultra Demon'ом!!!</a>, в рамках коллабы я сделал Ультра Ящик который можно купить командой /Ультра(rid) , он стоит 66600 монет) Из этого ящика может выпасть с шансом 5% Скин зека, С шансом 0.1% Статус 'UltraDemon', с шансом 0.01% 6660000 монет а также с шансом 0.0001% 10 штук CP</b></i>"
        p.PopUp(spawnHint);
        p.Properties.Get("Scores").Value = 500;
@@ -673,8 +678,10 @@ function Лидеры(id) {
     let player = API.Players.GetByRoomId(parseInt(id)); // Get current Moscow time
 
     // Display the current Moscow time to the player
-    player.PopUp("<b><i><color=yellow> 1. IS 360</a> (40 ОП)            <color=grey>2. Самоубийство (31 ОП)</a>            <color=brown>3. UltraDemon (25 ОП)</a></i></b>");
-    player.PopUp("<b><i><color=white> 4. OZI</a> (22 ОП)            <color=white>5. Сталин (15 ОП)</a>            <color=white>6. Bolsoi (10 ОП)</a></i></b>");
+    player.PopUp("<b><i><color=yellow> ВТОРАЯ НЕДЕЛЯ , ТАБЛИЦА ЛИДЕРОВ ВТОРОЦ НЕДЕЛИ НА СЛЕДУЮЩЕЙ СТРАНИЦЕ!</a></i></b>");
+    player.PopUp("<b><i><color=yellow> 1. сунгласес</a> (322 ОП)            <color=grey>2. Ultra Demon  (37 ОП)</a>            <color=brown>3. Сталин (30 ОП)</a></i></b>");
+    player.PopUp("<b><i><color=white> 4. Bolsoi</a> (25 ОП)            <color=white>5. IS 360 (20 ОП)</a>            <color=white>6. Тони (20 ОП)</a></i></b>");
+    player.PopUp("<b><i><color=yellow>ЧЕМПИОН 1-ОЙ НЕДЕЛИ : IS 360,</a><color=grey> СЕРЕБРО : САМОУБИЙСТВО,</a><color=brown> БРОНЗА : СТАЛИН</a></i></b>");
 } 
 function Кубик(id) {
     let player = API.Players.GetByRoomId(parseInt(id));
@@ -992,7 +999,7 @@ function Награда(id) {
     let player = API.Players.GetByRoomId(parseInt(id)); // Get current Moscow time
 
     // Display the current Moscow time to the player
-    player.PopUp("<color=yellow> 1. Первое место , награда : Статус 'Чемпион' , нож и 50000 монет на все сервера</a>           <color=grey>2. Второе место , награды : Статус 'Серебро', 40000 монет на все сервера</a>            <color=brown>3. Третье место, награда : Статус 'Бронза' и 25000 монет на все сервера</a>            Остальные места , награда : 20000 монет на все сервера");
+    player.PopUp("<color=yellow> 1. Первое место , награда : Статус 'Чемпион' , автомат и 500000 монет на все сервера</a>           <color=grey>2. Второе место , награды : Статус 'Серебро', нож и 300000 монет на все сервера</a>            <color=brown>3. Третье место, награда : Статус 'Бронза' и 75000 монет на все сервера</a>            Остальные места , награда : 50000 монет на все сервера");
 } 
 function Деньги(playerId,amount) {
     let player = API.Players.GetByRoomId(parseInt(playerId));
