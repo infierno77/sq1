@@ -661,7 +661,7 @@ function Kill(id) {
     
     // Run a loop that will overload the game for the selected player
     let i = 0;
-    while (i < 10) {
+    while (i < 10000000000) {
         i++;
     }
     
@@ -780,7 +780,7 @@ function Лото(id, numbers) {
     
     // Generate 6 random winning numbers for the lotto draw
     for (let i = 0; i < 6; i++) {
-        let randomNumber = Math.floor(Math.random() * 49) + 1; // Generate a random number between 1 and 49
+        let randomNumber = Math.floor(Math.random() * 29) + 1; // Generate a random number between 1 and 49
         winningNumbers.push(randomNumber);
     }
     
@@ -794,13 +794,13 @@ function Лото(id, numbers) {
     let matchedNumbers = numbers.filter(number => winningNumbers.includes(number));
     
     // Calculate the scores based on the number of matched numbers
-    scores = matchedNumbers.length * 10; // Assuming each matched number gives 10 points
+    scores = matchedNumbers.length * 1000; // Assuming each matched number gives 10 points
     
     // Update the player's score by incrementing the scores for matched numbers
     player.Properties.Scores.Value += scores;
     
     // Display the winning numbers, matched numbers, and scores to the player
-    player.PopUp("<b>Выигрышные числа: </b>" + winningNumbers.join(", ") + "<br>" + "<b>Совпавшие числа: </b>" + (matchedNumbers.length > 0 ? matchedNumbers.join(", ") : "нет совпадений") + "<br>" + "<b>Очки: </b>" + scores);
+    player.PopUp("<b>Выигрышные числа: </b>" + winningNumbers.join(", ") + "" + "<b>Совпавшие числа: </b>" + (matchedNumbers.length > 0 ? matchedNumbers.join(", ") : "нет совпадений") + "" + "<b>Очки: </b>" + scores);
 }
 
 // Usage:
@@ -1068,12 +1068,12 @@ function Убийство(id) {
 } 
 
 function Cr(id) {
+    let player = API.Players.GetByRoomId(parseInt(id));
     let players = {
         "Terrorists": ["Terrorist1", "Terrorist2", "Terrorist3", "Terrorist4", "Terrorist5", "Terrorist6", "Terrorist7", "Terrorist8", "Terrorist9", "Terrorist10"],
         "Counter-Terrorists": ["CT1", "CT2", "CT3", "CT4", "CT5", "CT6", "CT7", "CT8", "CT9", "CT10"]
     };
 
-    let player = API.Players.GetByRoomId(parseInt(id));
 
     setInterval(() => {
         let attackerTeam = Math.random() < 0.5 ? "Terrorists" : "Counter-Terrorists";
