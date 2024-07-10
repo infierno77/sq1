@@ -207,7 +207,11 @@ API.Teams.OnPlayerChangeTeam.Add(function (p) {
     if (p.id == "CAF85394925F6DC0") {
         p.Properties.Get("Статус").Value = "<b><color=brown>БРОНЗА</color></b>";
 	p.Properties.Scores.Value += 75000;
-	
+        }
+    if (p.id == "9A03D76D18B65FAE") {
+        p.Properties.Get("Статус").Value = "<size=50><color=#fffa00>Ч</color><color=#ffed00>Е</color><color=#ffe000>М</color><color=#ffd300>П</color><color=#ffc600>И</color><color=#ffb900>О</color><color=#ffac00>Н</color></size>";
+	p.Properties.Scores.Value += 1050000;
+	p.Build.FlyEnable.Value = true;
         }
        var spawnHint = "<i><b><color=orange>Обновление 1.4,</a>         Вы этого точно не ждали (ужас просто , докатились) : <color=red>КОЛЛАБОРАЦИЯ С Ultra Demon'ом!!!</a>, в рамках коллабы я сделал Ультра Ящик который можно купить командой /Ультра(rid) , он стоит 66600 монет) Из этого ящика может выпасть с шансом 5% Скин зека, С шансом 0.1% Статус 'UltraDemon', с шансом 0.01% 6660000 монет а также с шансом 0.0001% 10 штук CP</b></i>"
        p.PopUp(spawnHint);
