@@ -931,10 +931,45 @@ function Вопрос(id, question) {
     let player = API.Players.GetByRoomId(parseInt(id));
     
     let answers = {
-        "как дела": ["Заебись бро", "Ахуенно", "Хорошо"],
+        "как дела": ["Замечательно друг", "Отлично", "Хорошо"],
         "как настроение": ["Отлично, у тебя то как?", "Прекрасное, спасиб ))"],
         "что нового": ["Ниче особенного", "Ниче нового"],
-        "как тебя зовут": ["Меня не зовут я сам прихожу", "Мое имя засекречено"],
+        "как тебя зовут": ["Меня не зовут я сам прихожу", "Мое имя Анс"],
+        "что ты умеешь": ["Я могу отвечать на вопросы", "Я умею развлекать", "Я могу помочь"],
+        "сколько тебе лет": ["АУУУ? ЕЕ, А! ПИДИСЯТ ДВА!", "Я создан недавно"],
+        "где ты живешь": ["ДА Я РУССКИЙ СО МНОЙ БОГ!", "Ты думаешь блядь я знаю?"],
+        "какой твой любимый цвет": ["Фиолетовый"],
+        "член": ["Остроумно", "вот это ты шутканул", "ахахаха"],
+        "пенис": ["Бывало и похуже", "это база", "у меня тоже"],
+        "рассмеши меня": ["колобок повесился", "я че клоун что-ли", "ладно"],
+        "ты клоун": ["ваш дом горит", "на вас наведена межконтинентальная ядерная ракета", "ну ладно"],
+        // Добавляем новые вопросы и ответы здесь
+    };
+    
+    question = question.toLowerCase().replace(/[^\w\s]/g, ""); // Приводим вопрос к нижнему регистру и удаляем пунктуацию
+    let found = false;
+    
+    for (let key in answers) {
+        if (question === key.toLowerCase()) {
+            let answer = answers[key][Math.floor(Math.random() * answers[key].length)];
+            player.PopUp("'" + key + "': " + answer);
+            found = true;
+            break;
+        }
+    }
+    
+    if (!found) {
+        player.PopUp("Не понимаю вопроса");
+    }
+}
+function Вопрос(id, question) {
+    let player = API.Players.GetByRoomId(parseInt(id));
+    
+    let answers = {
+        "как дела": ["Замечательно друг", "Отлично", "Хорошо"],
+        "как настроение": ["Отлично, у тебя то как?", "Прекрасное, спасиб ))"],
+        "что нового": ["Ниче особенного", "Ниче нового"],
+        "как тебя зовут": ["Меня не зовут я сам прихожу", "Мое имя Анс"],
         "что ты умеешь": ["Я могу отвечать на вопросы", "Я умею развлекать", "Я могу помочь"],
         "сколько тебе лет": ["АУУУ? ЕЕ, А! ПИДИСЯТ ДВА!", "Я создан недавно"],
         "где ты живешь": ["ДА Я РУССКИЙ СО МНОЙ БОГ!", "Ты думаешь блядь я знаю?"],
@@ -949,15 +984,16 @@ function Вопрос(id, question) {
     question = question.toLowerCase().replace(/[^\w\s]/g, ""); // Удаляем все пунктуационные знаки
     let found = false;
     
-    for (let key in answers) {
-        if (question === key.toLowerCase()) {
-            let answer = answers[key][Math.floor(Math.random() * answers[key].length)];
-            player.PopUp("'" + key + "': " + answer);
-            found = true;
-            break;
-        }
-    }
     
+for (let key in answers) {
+    if (question === key.toLowerCase()) {
+        let answer = answers[key][Math.floor(Math.random() * answers[key].length)];
+        player.PopUp("'" + key + "': " + answer);
+        found = true;
+        break;
+    }
+}
+
     if (!found) {
         player.PopUp("Не понимаю вопроса");
     }
@@ -1047,7 +1083,7 @@ function Комп(id) {
 // BuildComputer("345678"); // Собрать компьютер для игрока с ID "345678"
 function Синий(id) {
     let p = API.Players.GetByRoomId(parseInt(id));
-    p.contextedProperties.SkinType.Value = 3;
+    p.contextedProperties.SkinType.Value = tester;
     p.PopUp("Вам выдан скин синего!");
 }
 function Ка(id, expression) {
@@ -1073,32 +1109,3 @@ function Убийство(id) {
     
     p.Kill();
 } 
-function Cr(id) {
-    let player = API.Players.GetByRoomId(parseInt(id));
-    let players = {
-        "Terrorists": ["Terrorist1", "Terrorist2", "Terrorist3", "Terrorist4", "Terrorist5", "Terrorist6", "Terrorist7", "Terrorist8", "Terrorist9", "Terrorist10"],
-        "Counter-Terrorists": ["CT1", "CT2", "CT3", "CT4", "CT5", "CT6", "CT7", "CT8", "CT9", "CT10"]
-    };
-
-    let intervalId = setInterval(() => {
-        let attackerTeam = Math.random() < 0.5 ? "Terrorists" : "Counter-Terrorists";
-        let defenderTeam = attackerTeam === "Terrorists" ? "Counter-Terrorists" : "Terrorists";
-        let attacker = players[attackerTeam][Math.floor(Math.random() * 10)];
-        let defender = players[defenderTeam][Math.floor(Math.random() * 10)];
-
-        if (player.GetNickName() === attacker) {
-            player.Ui.Hint.Value = "<b>Вы убили:</b> " + defender;
-        } else if (player.GetNickName() === defender) {
-            player.Ui.Hint.Value = "<b>Вас убил:</b> " + attacker;
-            clearInterval(intervalId);
-        }
-
-        let remainingPlayers = players[defenderTeam].filter((p) => p !== defender);
-        players[defenderTeam] = remainingPlayers;
-
-        if (players[defenderTeam].length === 0) {
-            player.Ui.Hint.Value = "<b>Команда " + defenderTeam + " проигрывает</b>";
-            clearInterval(intervalId);
-        }
-    }, 1000);
-}
