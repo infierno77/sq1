@@ -742,10 +742,8 @@ function Лидеры(id) {
     let player = API.Players.GetByRoomId(parseInt(id)); // Get current Moscow time
 
     // Display the current Moscow time to the player
-    player.PopUp("<b><i><color=yellow> ВТОРАЯ НЕДЕЛЯ , ТАБЛИЦА ЛИДЕРОВ ВТОРОЦ НЕДЕЛИ НА СЛЕДУЮЩЕЙ СТРАНИЦЕ!</a></i></b>");
-    player.PopUp("<b><i><color=yellow> 1. сунгласес</a> (322 ОП)            <color=grey>2. Ultra Demon  (37 ОП)</a>            <color=brown>3. Сталин (30 ОП)</a></i></b>");
-    player.PopUp("<b><i><color=white> 4. Bolsoi</a> (25 ОП)            <color=white>5. IS 360 (20 ОП)</a>            <color=white>6. Тони (20 ОП)</a></i></b>");
-    player.PopUp("<b><i><color=yellow>ЧЕМПИОН 1-ОЙ НЕДЕЛИ : IS 360,</a><color=grey> СЕРЕБРО : САМОУБИЙСТВО,</a><color=brown> БРОНЗА : СТАЛИН</a></i></b>");
+    player.PopUp("<b><i><color=yellow> 1. сигма памидор </a> (420 ОП)            <color=grey>2. Terdo  (224 ОП)</a>            <color=brown>3. Bolsoi (120 ОП)</a></i></b>");
+    player.PopUp("<b><i><color=white> 4. Сталин</a> (35 ОП)            <color=white>5. IS 360 (30 ОП)</a>            <color=white>6. Тони (30 ОП)</a></i></b>");
 } 
 function Кубик(id) {
     let player = API.Players.GetByRoomId(parseInt(id));
