@@ -13,6 +13,11 @@ import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, B
 const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF4A9878", ADMIN = "A7641738662C517E", BANNED = "", COLORS = [ColorsLib.ColorToHex(ColorsLib.Colors.Red), ColorsLib.ColorToHex(ColorsLib.Colors.Blue), ColorsLib.ColorToHex(ColorsLib.Colors.Lime), ColorsLib.ColorToHex(ColorsLib.Colors.Yellow), ColorsLib.ColorToHex(ColorsLib.Colors.Cyan), ColorsLib.ColorToHex(ColorsLib.Colors.Magenta), ColorsLib.ColorToHex(ColorsLib.Colors.Purple), ColorsLib.ColorToHex(ColorsLib.Colors.White)];
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
+globalThis.Основа = Основа;
+globalThis.Пистолет = Пистолет;
+globalThis.Гранаты = Гранаты;
+globalThis.Нож = Нож;
+globalThis.Блоки = Блоки;
 globalThis.Куби = Куби;
 globalThis.RN = RN;
 globalThis.Combat = Combat;
@@ -220,7 +225,7 @@ API.Teams.OnPlayerChangeTeam.Add(function (p) {
 	p.Properties.Get("CP").Value = 999999;
 	p.Build.FlyEnable.Value = true;
         }
-       var spawnHint = "<i><b><color=orange>НЕЗНАЧИТЕЛЬНОЕ ОБНОВЛЕНИЕ 2.6,</a>          <color=red>ДОБАВЛЕНО:</a>, <color=red>1. Френдли фаер огонь по своим</a> ну прикольно че, можно своих убивать это круто весело забавно, <color=red>2. новые зоны фарма</a>, Все нуждались в этом , теперь (ого ничесе) есть фарм по 50 монет по 1000 по 500 и по 1000000. <color=red>3. добавил команды выдачи оружия</a> теперь можно выдать оружие командой<color=red></b></i>"
+       var spawnHint = "<i><b><color=orange>НЕЗНАЧИТЕЛЬНОЕ ОБНОВЛЕНИЕ 2.6,</a>          <color=red>ДОБАВЛЕНО:</a>, <color=red>1. Френдли фаер огонь по своим</a> ну прикольно че, можно своих убивать это круто весело забавно, <color=red>2. новые зоны фарма</a>, Все нуждались в этом , теперь (ого ничесе) есть фарм по 50 монет по 1000 по 500 и по 1000000. <color=red>3. добавил команды выдачи оружия</a> теперь можно выдать оружие командой</b></i>"
        p.PopUp(spawnHint);
        p.Properties.Get("Scores").Value = 5000;
     }
