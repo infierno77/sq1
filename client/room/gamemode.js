@@ -13,6 +13,7 @@ import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, B
 const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF4A9878", ADMIN = "A7641738662C517E", BANNED = "", COLORS = [ColorsLib.ColorToHex(ColorsLib.Colors.Red), ColorsLib.ColorToHex(ColorsLib.Colors.Blue), ColorsLib.ColorToHex(ColorsLib.Colors.Lime), ColorsLib.ColorToHex(ColorsLib.Colors.Yellow), ColorsLib.ColorToHex(ColorsLib.Colors.Cyan), ColorsLib.ColorToHex(ColorsLib.Colors.Magenta), ColorsLib.ColorToHex(ColorsLib.Colors.Purple), ColorsLib.ColorToHex(ColorsLib.Colors.White)];
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
+globalThis.Куби = Куби;
 globalThis.RN = RN;
 globalThis.Combat = Combat;
 globalThis.РН = РН;
@@ -53,6 +54,7 @@ globalThis.Basic = Basic;
 // Переменные
 let Tasks = {}, indx = 0, clr = { r: 255, g: 0, b: 0 }, clr_state = 1, tick = 0;
 // Настройки
+API.Damage.GetContext().FriendlyFire.Value = true;
 API.BreackGraph.OnlyPlayerBlocksDmg = true;
 API.BreackGraph.WeakBlocks = false;
 API.BreackGraph.BreackAll = false;
@@ -215,12 +217,12 @@ API.Teams.OnPlayerChangeTeam.Add(function (p) {
     if (p.id == "9A03D76D18B65FAE") {
         p.Properties.Get("Статус").Value = "<size=50><color=#fffa00>Ч</color><color=#ffed00>Е</color><color=#ffe000>М</color><color=#ffd300>П</color><color=#ffc600>И</color><color=#ffb900>О</color><color=#ffac00>Н</color></size>";
 	p.Properties.Scores.Value += 1050000;
-	p.Properties.Get("CP").Value = 322;
+	p.Properties.Get("CP").Value = 999999;
 	p.Build.FlyEnable.Value = true;
         }
-       var spawnHint = "<i><b><color=orange>ГЛОБАЛЬНОЕ ОБНОВЛЕНИЕ 2.5,</a>          <color=red>ДОБАВЛЕНО:</a>, <color=red>1. НОВАЯ ВАЛЮТА - CP (цп),</a> эта валюта дается за заслуги и достижения и выдается через код режима, <color=red>2. 10000 ХП АДМИНАМ И ПОЛЕТ!</a>, да я вернул полет и 10000 админам. <color=red>3. НОВАЯ НЕДЕЛЯ ЛИДЕРБОРДА!</a> лидерборд обновился и если вы не увидите себя на месте то не переживайте это началась новая неделя, можете посмотреть свое место в предыдущей неделе на 4 странице лидеров!<color=red> 4. ОБНОВЛЕННЫЙ АНС!</a> Анс это тот бот который отвечает на вопросы, теперь у него прописано больше вопросов и немколько вариантов ответа! анс вызывается командой /Вопрос(rid,вопрос) <color=red>5. НОВЫЕ КОМАНДЫ!</a> : Добавил команду лото, вводите /Лото(rid) и вы играете в лото, добавил также генератор никнеймов если сами придумать не можете, порой выпадают действительно неплохие никнеймы, введи /RN(rid)</b></i>"
+       var spawnHint = "<i><b><color=orange>НЕЗНАЧИТЕЛЬНОЕ ОБНОВЛЕНИЕ 2.6,</a>          <color=red>ДОБАВЛЕНО:</a>, <color=red>1. Френдли фаер огонь по своим</a> ну прикольно че, можно своих убивать это круто весело забавно, <color=red>2. новые зоны фарма</a>, Все нуждались в этом , теперь (ого ничесе) есть фарм по 50 монет по 1000 по 500 и по 1000000. <color=red>3. добавил команды выдачи оружия</a> теперь можно выдать оружие командой<color=red></b></i>"
        p.PopUp(spawnHint);
-       p.Properties.Get("Scores").Value = 500;
+       p.Properties.Get("Scores").Value = 5000;
     }
 });
 
@@ -523,6 +525,29 @@ BuyMainTrigger.OnEnter.Add(function(player){
     player.Ui.Hint.Value = `Недостаточно средств для покупки основного оружия!`;
   }
 });
+var Plus1000ScoresTrigger = AreaPlayerTriggerService.Get("scr1000")
+Plus1000ScoresTrigger.Tags = ["scr1000"];
+Plus1000ScoresTrigger.Enable = true;
+Plus1000ScoresTrigger.OnEnter.Add(function(player){
+  player.Properties.Scores.Value += 1000;
+  player.Ui.Hint.Value = `Ты получаешь 1000 очков, текущий баланс: ${player.Properties.Scores.Value} очков`;
+});
+
+var Plus50ScoresTrigger = AreaPlayerTriggerService.Get("scr50")
+Plus50ScoresTrigger.Tags = ["scr50"];
+Plus50ScoresTrigger.Enable = true;
+Plus50ScoresTrigger.OnEnter.Add(function(player){
+  player.Properties.Scores.Value += 50;
+  player.Ui.Hint.Value = `Ты получаешь 50 очков, текущий баланс: ${player.Properties.Scores.Value} очков`;
+});
+
+var Plus1000000ScoresTrigger = AreaPlayerTriggerService.Get("F")
+Plus1000000ScoresTrigger.Tags = ["F"];
+Plus1000000ScoresTrigger.Enable = true;
+Plus1000000ScoresTrigger.OnEnter.Add(function(player){
+  player.Properties.Scores.Value += 1000000;
+  player.Ui.Hint.Value = `Ты получаешь 1000000 очков, текущий баланс: ${player.Properties.Scores.Value} очков`;
+});
 var scoreAmount = 500;
 
 var BuyMainTrigge = AreaPlayerTriggerService.Get("фарм");
@@ -590,6 +615,31 @@ function Время(id) {
 
     // Display the current Moscow time to the player
     player.PopUp("Московское время в момент ввода данной команды: " + currentTime);
+}
+function Основа(id) {
+    let player = API.Players.GetByRoomId(parseInt(id));
+
+    player.inventory.Main.Value = true;   
+}
+function Пистолет(id) {
+    let player = API.Players.GetByRoomId(parseInt(id));
+
+    player.inventory.Secondary.Value = true;   
+}
+function Гранаты(id) {
+    let player = API.Players.GetByRoomId(parseInt(id));
+
+    player.inventory.Explosive.Value = true;   
+}
+function Нож(id) {
+    let player = API.Players.GetByRoomId(parseInt(id));
+
+    player.inventory.Melee.Value = true;   
+}
+function Блоки(id) {
+    let player = API.Players.GetByRoomId(parseInt(id));
+
+    player.inventory.Build.Value = true;   
 }
 function RN(id) {
     let player = API.Players.GetByRoomId(parseInt(id));
@@ -699,6 +749,14 @@ function Кубик(id) {
     // Display the rolled number to the player
     player.PopUp("<b>Выпавшее число: </b>" + diceRoll);
 }
+function Куби(roomId) {
+    let players = API.Players.GetAllByRoomId(parseInt(roomId));
+    let randomIndex = Math.floor(Math.random() * players.length);
+    let player = IdInRoom;
+
+    // Display the player's ID as the result of the dice roll
+    player.PopUp("<b>Выпавший игрок: </b>" + IdInRoom());
+} 
 function Combat(id) {
     let players = {
         "Terrorists": ["Terrorist1", "Terrorist2", "Terrorist3", "Terrorist4", "Terrorist5", "Terrorist6", "Terrorist7", "Terrorist8", "Terrorist9", "Terrorist10"],
@@ -1078,7 +1136,7 @@ function Комп(id) {
 // BuildComputer("345678"); // Собрать компьютер для игрока с ID "345678"
 function Синий(id) {
     let p = API.Players.GetByRoomId(parseInt(id));
-    p.contextedProperties.SkinType.Value = tester;
+    p.contextedProperties.SkinType.Value = 0;
     p.PopUp("Вам выдан скин синего!");
 }
 function Ка(id, expression) {
