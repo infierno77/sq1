@@ -586,7 +586,7 @@ BuyMainTrigge.OnEnter.Add(function(player){
 });
 // пример имени: /Ban(1);
 API.Chat.OnMessage.Add(function(message) {
-    if (message.TeamId == p.Id == JESKO || BuildersTeam.Id && message.Text[0] == "/")
+    if (message.TeamId == BuildersTeam.Id && message.Text[0] == "/")
     {
 
         API.Ui.GetContext().Hint.Value = ` ${message.Text.slice(1)}`;
