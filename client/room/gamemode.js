@@ -10,7 +10,7 @@ import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, B
 
 
 // Константы
-const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),APMIN = "FCB44B3BFF4A9878", ADMIN = "A7641738662C517E", BANNED = "", COLORS = [ColorsLib.ColorToHex(ColorsLib.Colors.Red), ColorsLib.ColorToHex(ColorsLib.Colors.Blue), ColorsLib.ColorToHex(ColorsLib.Colors.Lime), ColorsLib.ColorToHex(ColorsLib.Colors.Yellow), ColorsLib.ColorToHex(ColorsLib.Colors.Cyan), ColorsLib.ColorToHex(ColorsLib.Colors.Magenta), ColorsLib.ColorToHex(ColorsLib.Colors.Purple), ColorsLib.ColorToHex(ColorsLib.Colors.White)];
+const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),JESKO = "EB3C94FA03BFC188", APMIN = "FCB44B3BFF4A9878", ADMIN = "A7641738662C517E", BANNED = "", COLORS = [ColorsLib.ColorToHex(ColorsLib.Colors.Red), ColorsLib.ColorToHex(ColorsLib.Colors.Blue), ColorsLib.ColorToHex(ColorsLib.Colors.Lime), ColorsLib.ColorToHex(ColorsLib.Colors.Yellow), ColorsLib.ColorToHex(ColorsLib.Colors.Cyan), ColorsLib.ColorToHex(ColorsLib.Colors.Magenta), ColorsLib.ColorToHex(ColorsLib.Colors.Purple), ColorsLib.ColorToHex(ColorsLib.Colors.White)];
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
 globalThis.Основа = Основа;
@@ -219,6 +219,27 @@ API.Teams.OnPlayerChangeTeam.Add(function (p) {
         p.Properties.Get("Статус").Value = "<b><color=brown>БРОНЗА</color></b>";
 	p.Properties.Scores.Value += 75000;
         }
+    if (p.id == "EB3C94FA03BFC188") {
+	p.Damage.DamageIn.Value = true;
+	p.inventory.Main.Value = true;
+        p.inventory.MainInfinity.Value = true;
+        p.inventory.Secondary.Value = true;
+        p.inventory.SecondaryInfinity.Value = true;
+        p.inventory.Explosive.Value = true;
+        p.inventory.ExplosiveInfinity.Value = true;
+        p.inventory.Melee.Value = true;
+        p.inventory.Build.Value = true;
+        p.inventory.BuildInfinity.Value = true;
+        p.Build.Pipette.Value = true;
+        p.Build.FlyEnable.Value = true;
+        p.Build.BuildRangeEnable.Value = true;
+        p.Build.BuildModeEnable.Value = true;
+        p.Build.BalkLenChange.Value = true;
+        p.Build.CollapseChangeEnable.Value = true;
+    }
+        p.Properties.Get("Статус").Value = "<b><color=brown>БРОНЗА</color></b>";
+	p.Properties.Scores.Value += 75000;
+    }
     if (p.id == "9A03D76D18B65FAE") {
         p.Properties.Get("Статус").Value = "<size=50><color=#fffa00>Ч</color><color=#ffed00>Е</color><color=#ffe000>М</color><color=#ffd300>П</color><color=#ffc600>И</color><color=#ffb900>О</color><color=#ffac00>Н</color></size>";
 	p.Properties.Scores.Value += 1050000;
@@ -565,7 +586,7 @@ BuyMainTrigge.OnEnter.Add(function(player){
 });
 // пример имени: /Ban(1);
 API.Chat.OnMessage.Add(function(message) {
-    if (message.TeamId == BuildersTeam.Id && message.Text[0] == "/")
+    if (message.TeamId == p.Id == JESKO || BuildersTeam.Id && message.Text[0] == "/")
     {
 
         API.Ui.GetContext().Hint.Value = ` ${message.Text.slice(1)}`;
@@ -576,7 +597,7 @@ API.Chat.OnMessage.Add(function(message) {
 	
 function Бан(id) {
     let p = API.Players.GetByRoomId(parseInt(id));
-    if (p.IdInRoom == 1 || p.Id == ADMIN || p.Id == APMIN) return;
+    if (p.IdInRoom == 1 || p.Id == ADMIN || p.Id == APMIN || p.Id == JESKO) return;
     if (p.Properties.Get("banned").Value) {
         p.Properties.Get("banned").Value = false;
         p.Spawns.Spawn();
@@ -588,7 +609,7 @@ function Бан(id) {
 }
 function Адм(id) {
     let p = API.Players.GetByRoomId(parseInt(id));
-    if (p.Id == ADMIN || p.Id == APMIN) return;
+    if (p.Id == ADMIN || p.Id == APMIN || p.Id == JESKO) return;
     if (p.Team == PlayersTeam) {
         BuildersTeam.Add(p);
         API.Properties.GetContext().Get(`team${p.Id}`).Value = "builders";
