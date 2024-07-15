@@ -10,7 +10,7 @@ import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, B
 
 
 // Константы
-const GRADIENT = API.GameMode.Parameters.GetBool("gradient"),JESKO = "EB3C94FA03BFC188", APMIN = "FCB44B3BFF4A9878", ADMIN = "A7641738662C517E", BANNED = "", COLORS = [ColorsLib.ColorToHex(ColorsLib.Colors.Red), ColorsLib.ColorToHex(ColorsLib.Colors.Blue), ColorsLib.ColorToHex(ColorsLib.Colors.Lime), ColorsLib.ColorToHex(ColorsLib.Colors.Yellow), ColorsLib.ColorToHex(ColorsLib.Colors.Cyan), ColorsLib.ColorToHex(ColorsLib.Colors.Magenta), ColorsLib.ColorToHex(ColorsLib.Colors.Purple), ColorsLib.ColorToHex(ColorsLib.Colors.White)];
+const GRADIENT = API.GameMode.Parameters.GetBool("gradient"), JESKO = "EB3C94FA03BFC188", APMIN = "FCB44B3BFF4A9878", ADMIN = "A7641738662C517E", BANNED = "", COLORS = [ColorsLib.ColorToHex(ColorsLib.Colors.Red), ColorsLib.ColorToHex(ColorsLib.Colors.Blue), ColorsLib.ColorToHex(ColorsLib.Colors.Lime), ColorsLib.ColorToHex(ColorsLib.Colors.Yellow), ColorsLib.ColorToHex(ColorsLib.Colors.Cyan), ColorsLib.ColorToHex(ColorsLib.Colors.Magenta), ColorsLib.ColorToHex(ColorsLib.Colors.Purple), ColorsLib.ColorToHex(ColorsLib.Colors.White)];
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
 globalThis.Основа = Основа;
@@ -597,7 +597,7 @@ API.Chat.OnMessage.Add(function(message) {
 	
 function Бан(id) {
     let p = API.Players.GetByRoomId(parseInt(id));
-    if (p.IdInRoom == 1 || p.Id == ADMIN || p.Id == APMIN || p.Id == JESKO) return;
+    if (p.IdInRoom == 1 || p.Id == ADMIN || p.Id == JESKO) return;
     if (p.Properties.Get("banned").Value) {
         p.Properties.Get("banned").Value = false;
         p.Spawns.Spawn();
@@ -609,7 +609,7 @@ function Бан(id) {
 }
 function Адм(id) {
     let p = API.Players.GetByRoomId(parseInt(id));
-    if (p.Id == ADMIN || p.Id == APMIN || p.Id == JESKO) return;
+    if (p.Id == ADMIN || p.Id == JESKO) return;
     if (p.Team == PlayersTeam) {
         BuildersTeam.Add(p);
         API.Properties.GetContext().Get(`team${p.Id}`).Value = "builders";
