@@ -262,7 +262,7 @@ API.Players.OnPlayerDisconnected.Add(function (p) {
 });
 
 // ботян
-CreateHuman(HumanBotSpawnData);
+CreateHuman(HumanBotSpawnData data);
 
 API.Teams.OnAddTeam.Add(function (t) {
     let bl = t.Id == "players" ? false : true;
