@@ -5,7 +5,7 @@ import * as API from 'pixel_combats/room';
 import * as ColorsLib from './colorslib.js';
 import * as JQUtils from './jqutils.js';
 import { contextedProperties, Properties, Players } from 'pixel_combats/room';
-import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, BreackGraph, 
+import { Game, Players, Bots, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, BreackGraph, 
         Ui, Properties, GameMode, Spawns, Timers, TeamsBalancer, Build, AreaPlayerTriggerService } from 'pixel_combats/room';
 
 
@@ -262,8 +262,7 @@ API.Players.OnPlayerDisconnected.Add(function (p) {
 });
 
 // ботян
-Vector3.Position(1,3)
-Vector2.Rotation(1,3)
+CreateHuman(HumanBotSpawnData);
 
 API.Teams.OnAddTeam.Add(function (t) {
     let bl = t.Id == "players" ? false : true;
