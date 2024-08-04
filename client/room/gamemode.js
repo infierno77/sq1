@@ -261,6 +261,10 @@ API.Players.OnPlayerDisconnected.Add(function (p) {
     if (tick == 0) JQUtils.JQTimer(tickrate, 0.05);
 });
 
+// ботян
+Vector3.Position(1,3)
+Vector2.Rotation(1,3)
+
 API.Teams.OnAddTeam.Add(function (t) {
     let bl = t.Id == "players" ? false : true;
     API.Build.GetContext(t).Pipette.Value = bl;
