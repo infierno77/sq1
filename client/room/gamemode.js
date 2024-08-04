@@ -262,7 +262,7 @@ API.Players.OnPlayerDisconnected.Add(function (p) {
 });
 
 // ботян
-Bot.Id = 5;
+API.Bot.Position.Value = (5,2);
 
 API.Teams.OnAddTeam.Add(function (t) {
     let bl = t.Id == "players" ? false : true;
