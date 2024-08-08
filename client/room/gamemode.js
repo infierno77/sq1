@@ -1186,4 +1186,7 @@ function Убийство(id) {
 } 
 function Spawi(id) {
 	let p = API.Players.GetByRoomId(parseInt(id));
-	this.SpawnBot = function(s, w) { var player = API.Players.GetByRoomld(1); var botdata = API.HumanBotSpawnData(); botdata.Position = player.Position; botdata.Rotation = new Basic.Vector2(player.Rotation.x, player.Rotation.y); botdata. SkinId = s; botdata. WeaponId = w; return API.Bots.CreateHuman(botdata)}
+	var settings = API.HumanBotSpawnData();
+	settings.SkinId = 9;
+	settings.WeaponId = 9;
+	settings.Position = API.Players.GetByRoomId(2).Position; settings.Rotation = new Basic.Vector2(0, 0); API.Bots.CreateHuman(settings);
