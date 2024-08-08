@@ -1186,5 +1186,6 @@ function Убийство(id) {
     
     p.Kill();
 } 
-function Spawi
-try { var i = API Players.GetByRoomId(1).Position.x; 0; k < 10; k++) { SpawnBot(1, k, new for (let k = Basic. Vector3(i + k, 11, 10)); } } catch (e) { API.room.PopUp(e.message) }
+function Spawi(id) {
+	let p = API.Players.GetByRoomId(parseInt(id));
+	try { var i = API Players.GetByRoomId(1).Position.x; 0; k < 10; k++) { SpawnBot(1, k, new for (let k = Basic. Vector3(i + k, 11, 10)); } } catch (e) { API.room.PopUp(e.message) }
