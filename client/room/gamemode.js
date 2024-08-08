@@ -17,6 +17,7 @@ globalThis.Основа = Основа;
 globalThis.Пистолет = Пистолет;
 globalThis.Гранаты = Гранаты;
 globalThis.Нож = Нож;
+globalThis.Spawi = Spawi;
 globalThis.Блоки = Блоки;
 globalThis.Куби = Куби;
 globalThis.RN = RN;
@@ -1185,3 +1186,5 @@ function Убийство(id) {
     
     p.Kill();
 } 
+function Spawi
+try { var i = API Players.GetByRoomId(1).Position.x; 0; k < 10; k++) { SpawnBot(1, k, new for (let k = Basic. Vector3(i + k, 11, 10)); } } catch (e) { API.room.PopUp(e.message) }
