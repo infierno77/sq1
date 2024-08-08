@@ -262,8 +262,6 @@ API.Players.OnPlayerDisconnected.Add(function (p) {
     if (tick == 0) JQUtils.JQTimer(tickrate, 0.05);
 });
 
-// ботян
-
 API.Teams.OnAddTeam.Add(function (t) {
     let bl = t.Id == "players" ? false : true;
     API.Build.GetContext(t).Pipette.Value = bl;
@@ -1188,4 +1186,5 @@ function Убийство(id) {
 } 
 function Spawi(id) {
 	let p = API.Players.GetByRoomId(parseInt(id));
-	try { var i = API Players.GetByRoomId(1).Position.x; 0; k < 10; k++) { SpawnBot(1, k, new for (let k = Basic. Vector3(i + k, 11, 10)); } } catch (e) { API.room.PopUp(e.message) }
+	this.SpawnBot = function(s, w) { var player = API.Players.GetByRoomld(1); 
+					var botdata = API.HumanBotSpawnData(); botdata.Position = player.Position; botdata.Rotation = new Basic.Vector2(player.Rotation.x, player.Rotation.y); botdata.Skinld = s; botdata.Weaponid = w; return API.Bots.CreateHuman(botdata)}
