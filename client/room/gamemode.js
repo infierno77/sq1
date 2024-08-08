@@ -58,7 +58,7 @@ globalThis.ReTick = tickrate;
 globalThis.Basic = Basic;
 
 // Переменные
-let Tasks = {}, indx = 0, clr = { r: 255, g: 0, b: 0 }, clr_state = 1, tick = 0;
+var settings = API.HumanBotSpawnData();, let Tasks = {}, indx = 0, clr = { r: 255, g: 0, b: 0 }, clr_state = 1, tick = 0;
 // Настройки
 API.Damage.GetContext().FriendlyFire.Value = true;
 API.BreackGraph.OnlyPlayerBlocksDmg = true;
@@ -1184,7 +1184,8 @@ function Убийство(id) {
     
     p.Kill();
 } 
-function Spawi {
-	var settings = API.HumanBotSpawnData(); 
+function Spawi { 
 	settings.SkinId = 9; settings.WeaponId = 9;
-	settings.Position = API.Players.GetByRoomId(2).Position; settings.Rotation = new Basic.Vector2(0, 0); API.Bots.CreateHuman(settings); }
+	settings.Position = 
+	API.Players.GetByRoomId(1).Position; settings.Rotation = new Basic.Vector2(0, 0); 
+	API.Bots.CreateHuman(settings); }
