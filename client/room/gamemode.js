@@ -5,7 +5,7 @@ import * as API from 'pixel_combats/room';
 import * as ColorsLib from './colorslib.js';
 import * as JQUtils from './jqutils.js';
 import { contextedProperties, Properties, Players } from 'pixel_combats/room';
-import { Game, Players, Bots, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, BreackGraph, 
+import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, BreackGraph, 
         Ui, Properties, GameMode, Spawns, Timers, TeamsBalancer, Build, AreaPlayerTriggerService } from 'pixel_combats/room';
 
 
@@ -17,7 +17,6 @@ globalThis.Основа = Основа;
 globalThis.Пистолет = Пистолет;
 globalThis.Гранаты = Гранаты;
 globalThis.Нож = Нож;
-globalThis.Spawi = Spawi;
 globalThis.Блоки = Блоки;
 globalThis.Куби = Куби;
 globalThis.RN = RN;
