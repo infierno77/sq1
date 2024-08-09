@@ -1183,8 +1183,3 @@ function Убийство(id) {
     
     p.Kill();
 } 
-function Spawi { 
-	settings.SkinId = 9; settings.WeaponId = 9;
-	settings.Position = 
-	API.Players.GetByRoomId(1).Position; settings.Rotation = new Basic.Vector2(0, 0); 
-	API.Bots.CreateHuman(settings); }
