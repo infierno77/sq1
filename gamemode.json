@@ -1,19 +1,19 @@
 {
   "ApiVersion": 2,
-  "Name": "<b><color=orange>Eɴɢ</a>ɪɴᴇ 2 Релиз</b> <i>«ᴀᴘɪ 2.0»</i>",
-  "Description": "<i><color=white><b>( !!! РЕЖИМ СДЕЛАН ДО КОНЦА И ПОЛНОСТЬЮ ГОТОВ !!! ) В данном режиме вы имеете возможность создать свой небольшой режим какой вы только сможете придумать</b></a></i>",
+  "Name": "<b><color=purple>Eɴɢ</a>ɪɴᴇ 3</b> <i>«ᴀᴘɪ 2.0»</i>",
+  "Description": "<i><color=white><b>( !!! Версия 3 в разработке !!! ) В данном режиме вы имеете возможность создать свой небольшой режим какой вы только сможете придумать</b></a></i>",
   "StartClientVersion": 574,
   "MapLists": [
     {
       "MapListId": 17030,
-      "Name": "<b><i>Список карт для режима <color=orange>Eng</a>ine 2</i></b>"
+      "Name": "<b><i>Список карт для режима <color=purple>Eng</a>ine 3</i></b>"
     }
   ],
   "Parameters": {
     "Bool": [
       {
         "Name": "PartialDesruction",
-        "DisplayName": "<b><i>Автор режима : zttp</i></b>"
+        "DisplayName": "<b><i>Приятной игры!</i></b>"
       },
       {
         "Name": "LoosenBlocks",
@@ -21,7 +21,7 @@
       },
       {
         "Name": "Fly",
-        "DisplayName": "<i><b>Версия режима 1.2.1</b></i>",
+        "DisplayName": "<i><b>Версия режима 3.0</b></i>",
         "Default": true
       }
     ]
