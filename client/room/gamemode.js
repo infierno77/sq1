@@ -27,7 +27,6 @@ globalThis.RPS = RPS;
 globalThis.Kill = Kill;
 globalThis.ServerKill = ServerKill;
 globalThis.Деньги = Деньги;
-globalThis.Ультра = Ультра;
 globalThis.Лидеры = Лидеры;
 globalThis.Награда = Награда;
 globalThis.Вопрос = Вопрос;
@@ -83,8 +82,8 @@ if (API.GameMode.Parameters.GetBool("godmode_people")) PlayersTeam.DamageIn.Valu
 API.LeaderBoard.PlayerLeaderBoardValues = [
     {
         Value: "Статус",
-        DisplayName: "<color=lime><i><b>Статус</b></i></a>",
-        ShortDisplayName: "<color=lime><i><b>Статус</b></i></a>"
+        DisplayName: "<color=gray><i><b>Титул</b></i></a>",
+        ShortDisplayName: "<color=gray><i><b>Титул</b></i></a>"
     },
     {
         Value: "rid",
@@ -98,8 +97,8 @@ API.LeaderBoard.PlayerLeaderBoardValues = [
     },
     {
         Value: "Scores",
-        DisplayName: "<i><color=yellow><b>Монеты</b></a></i>",
-        ShortDisplayName: "<i><color=yellow><b>Монеты</b></a></i>"
+        DisplayName: "<i><color=lime><b>₽</b></a></i>",
+        ShortDisplayName: "<i><color=lime><b>₽</b></a></i>"
     },
     {
         Value: "CP",
@@ -115,8 +114,8 @@ API.Ui.GetContext().TeamProp2.Value = {
     Team: "players", Prop: "hint"
 };
 
-Teams.Get("players").Properties.Get("hint").Value = "<size=70><color=orange>Eɴɢ</a>ɪɴᴇ 2</size>";
-Teams.Get("builders").Properties.Get("hint").Value = "<size=70><color=orange>Введи команду</a> /Help(1) для помощи</size>";
+Teams.Get("players").Properties.Get("hint").Value = "<size=70><color=purple>Eɴɢ</a>ɪɴᴇ 3</size>";
+Teams.Get("builders").Properties.Get("hint").Value = "<size=70><color=purple>Введи команду</a> /Help(1) для помощи</size>";
 // События
 
 function e_join(p) {
@@ -236,16 +235,12 @@ API.Teams.OnPlayerChangeTeam.Add(function (p) {
         p.Build.BuildModeEnable.Value = true;
         p.Build.BalkLenChange.Value = true;
         p.Build.CollapseChangeEnable.Value = true;
-    }
+        }
     if (p.id == "9A03D76D18B65FAE") {
         p.Properties.Get("Статус").Value = "<size=50><color=#fffa00>Ч</color><color=#ffed00>Е</color><color=#ffe000>М</color><color=#ffd300>П</color><color=#ffc600>И</color><color=#ffb900>О</color><color=#ffac00>Н</color></size>";
 	p.Properties.Scores.Value += 1050000;
 	p.Properties.Get("CP").Value = 999999;
 	p.Build.FlyEnable.Value = true;
-        }
-       var spawnHint = "<i><b><color=orange>НЕЗНАЧИТЕЛЬНОЕ ОБНОВЛЕНИЕ 2.6,</a>          <color=red>ДОБАВЛЕНО:</a>, <color=red>1. Френдли фаер огонь по своим</a> ну прикольно че, можно своих убивать это круто весело забавно, <color=red>2. новые зоны фарма</a>, Все нуждались в этом , теперь (ого ничесе) есть фарм по 50 монет по 1000 по 500 и по 1000000. <color=red>3. добавил команды выдачи оружия</a> теперь можно выдать оружие командой</b></i>"
-       p.PopUp(spawnHint);
-       p.Properties.Get("Scores").Value = 5000;
     }
 });
 
@@ -833,7 +828,7 @@ function RPS(id,choice) {
 
 // Пример использования функции:
 // RPS(123, "камень"); // Первый аргумент - id комнаты, второй аргумент - выбор игрока (камень, ножницы или бумага)
-function Ультра(id) {
+function Гипер(id) {
     let p = API.Players.GetByRoomId(parseInt(id));
     if (p) {
         if (p.Properties.Scores.Value >= 5000) {
@@ -843,8 +838,8 @@ function Ультра(id) {
                 p.PopUp(`Вам выпал скин Зека!`);
                 p.Properties.Scores.Value -= 5000;
             } else if (chance < 5.1) {
-                p.Properties.Get("Статус").Value = "<size=30><color=#ff0040>U</color><color=#ff0b3a>l</color><color=#ff1634>t</color><color=#ff212e>r</color><color=#ff2c28>a</color><color=#ff3722>D</color><color=#ff421c>e</color><color=#ff4d16>m</color><color=#ff5810>o</color><color=#ff630a>n</color></size>";
-                p.PopUp(`Вам выпал статус "Ultra Demon"!`);
+                p.Properties.Get("Статус").Value = "<size=30><color=#ff0040>Г</color><color=#ff0b3a>l</color><color=#ff1634>t</color><color=#ff212e>r</color><color=#ff2c28>a</color><color=#ff3722>D</color><color=#ff421c>e</color><color=#ff4d16>m</color><color=#ff5810>o</color><color=#ff630a>n</color></size>";
+                p.PopUp(`Вам выпал статус "Гипер"!`);
                 p.Properties.Scores.Value -= 5000;
             } else if (chance < 75) {
                 let randomScores = Math.floor(Math.random() * 79001) + 1000;
@@ -966,7 +961,7 @@ function Help(id) {
     let p = API.Players.GetByRoomId(parseInt(id));
     if (p) {
         p.PopUp(`<b><i><color=orange>Помощь по режиму (Вступление)</a>      Этот режим является полной переделкой режима "Custom". Хочу объяснить вам о самых главных правилах в режиме, если вы не будете их знать то у вас не получится сделать режим . </i></b>`);
-	p.PopUp('<b><i><color=orange>1. Зоны</a>       Расскажу у всех зонах которые есть в режиме :    <color=red>1. Зона фарма</a> Тег у этой зоны "фарм", изначально количество получаемых очков равно 500, (Важно помнить что после того как вы сделали зону её нужно визуализировать. Также важен регистр , к примеру если вы написали тег Фарм то зона не будет работать, должно быть фарм)    <color=red>2. Зона спавна</a>, Тег зоны "спавн" эта зона возвращает игрока на начальную позицию где он появился при заходе на сервер.     <color=red>3. Зона выдачи админки</a>, Тег зоны "адм" , данная зона выдает админку тому кто зашел в зону, данная зона может пригодиться если вы делаете паркур на админку </i></b>');
+	p.PopUp('<b><i><color=orange>1. Зоны</a>       Расскажу о всех зонах которые есть в режиме :    <color=red>1. Зона фарма</a> Тег у этой зоны "фарм", изначально количество получаемых очков равно 500, (Важно помнить что после того как вы сделали зону её нужно визуализировать. Также важен регистр , к примеру если вы написали тег Фарм то зона не будет работать, должно быть фарм)    <color=red>2. Зона спавна</a>, Тег зоны "спавн" эта зона возвращает игрока на начальную позицию где он появился при заходе на сервер.     <color=red>3. Зона выдачи админки</a>, Тег зоны "адм" , данная зона выдает админку тому кто зашел в зону, данная зона может пригодиться если вы делаете паркур на админку </i></b>');
 	p.PopUp('<b><i><color=orange>2. Зоны</a>    Зоны покупки оружия:    <color=red>4. Зона покупки основного оружия </a> Тег у зоны "Основа", также тег зоны покупки бесконечных боеприпасов на основное оружие "Mainf"    <color=red>5. Зона покупки пистолета</a>, Тег зоны "Pst" , также тег зоны для покупки бесконечных боеприпасов на пистолет "Pstf".  <color=red>3. Зона покупки ножа</a>, Тег зоны "Kn" , позволит вам купить нож,    <color=red>4. Зона покупки гранат</a> Тег зоны "гран" также тег зоны покупки бесконечных гранат "Grf"</i></b>');
 	p.PopUp('<b><i><color=orange>3. Зоны</a>     Зоны покупки хп:       <color=red>6. Есть несколько зон покупок хп</a> Первая зона с тегом "1hp" создает зону покупки 1 хп, следующий тег "10hp" в этих зонах нет различий кроме как количества покупаемых хп и цены поэтому я перечислю все теги покупки хп: "100hp" , "1000hp", "10000hp"</i></b>');
         p.PopUp('<b><i><color=orange>1. Команды</a>    Команды вводятся в чат   <color=red> 1. Команда показа времени (мск)</a>, Чтобы использовать эту команду в чат нужно написать /Время(rid), rid это ваш уникальный айди на сервере, свой айди можно узнать нажав на - вверху экрана,   <color=red>2. Команда "Лидеры"</a> /Лидеры(rid), При вводе данной команды вам откроется окно с таблицей лидеров, думаю стоит рассказать подробнее о таблице лидеров , я напишу о ней на следующей странице. <color=red>3. Команда выдачи скина зека/зомби</a>, /Зек(rid) или же /Зомби(rid), Эти две команды выдают игроку скин зека или же зомби. <color=red>4. Команда "Кубик"</a>, /Кубик(rid), Данная команда выведет вам окно с случайным числом от 1 до 6. <color=red>5. Команда Проп</a>, /Проп("rid","текст1","текст2"), Тут нужно рассказать поподробнее, Проп это текст в черных ячейках сверху экрана (где написана версия режима), Так вот "текст1" это текст в первой ячейке а "текст2" во второй ячейке</i></b>');
@@ -1072,17 +1067,6 @@ function Вопрос(id, question) {
         player.PopUp("Не понимаю вопроса");
     }
 }
-function Hello(id) {
-     // Обновляем значение mainWeaponPrice
-
-    // Получаем всех игроков в комнате
-    let players = API.Players.GetAll();
-
-    for (let player of players) {
-        // Устанавливаем новую цену для игрока
-    p.PopUp("Привет всем от");
-    }
-}
 function Награда(id) {
     let player = API.Players.GetByRoomId(parseInt(id)); // Get current Moscow time
 
@@ -1171,15 +1155,3 @@ function Ка(id, expression) {
         player.PopUp("Ошибка при вычислении выражения");
     }
 }
-function Убийство(id) {
-    let p = API.Players.GetByRoomId(parseInt(id));
-    
-    p.OnKill.Add(function(killed) {
-        if (p.id !== killed.id) { 
-            ++p.Properties.Kills.Value;
-            p.Properties.Scores.Value += 10;
-        }
-    });
-    
-    p.Kill();
-} 
