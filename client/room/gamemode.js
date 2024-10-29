@@ -18,7 +18,6 @@ globalThis.Пистолет = Пистолет;
 globalThis.Гранаты = Гранаты;
 globalThis.Нож = Нож;
 globalThis.Блоки = Блоки;
-globalThis.Куби = Куби;
 globalThis.RN = RN;
 globalThis.РН = РН;
 globalThis.Лото = Лото;
