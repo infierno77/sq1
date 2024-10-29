@@ -287,7 +287,7 @@ API.Teams.OnAddTeam.Add(function (t) {
     API.Inventory.GetContext(t).Explosive.Value = bl;
     API.Inventory.GetContext(t).ExplosiveInfinity.Value = bl;
 });
-HintTeam.Properties.Get("hint").Value = `<size=120><b><i><color=orange>Eɴɢ</a>ɪɴᴇ 2</i></b></size>`;
+HintTeam.Properties.Get("hint").Value = `<size=120><b><i><color=purple>Eɴɢ</a>ɪɴᴇ 3</i></b></size>`;
 
 function tickrate() {
     tick++;
