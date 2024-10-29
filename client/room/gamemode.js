@@ -10,7 +10,7 @@ import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, B
 
 
 // Константы
-const GRADIENT = API.GameMode.Parameters.GetBool("gradient"), JESKO = "EB3C94FA03BFC188", APMIN = "FCB44B3BFF4A9878", ADMIN = "A7641738662C517E", BANNED = "", COLORS = [ColorsLib.ColorToHex(ColorsLib.Colors.Red), ColorsLib.ColorToHex(ColorsLib.Colors.Blue), ColorsLib.ColorToHex(ColorsLib.Colors.Lime), ColorsLib.ColorToHex(ColorsLib.Colors.Yellow), ColorsLib.ColorToHex(ColorsLib.Colors.Cyan), ColorsLib.ColorToHex(ColorsLib.Colors.Magenta), ColorsLib.ColorToHex(ColorsLib.Colors.Purple), ColorsLib.ColorToHex(ColorsLib.Colors.White)];
+const GRADIENT = API.GameMode.Parameters.GetBool("gradient"), JESKO = "EB3C94FA03BFC188", APMIN = "FCB44B3BFF4A9878", ADMIN = "D411BD94CAE31F89", BANNED = "", COLORS = [ColorsLib.ColorToHex(ColorsLib.Colors.Red), ColorsLib.ColorToHex(ColorsLib.Colors.Blue), ColorsLib.ColorToHex(ColorsLib.Colors.Lime), ColorsLib.ColorToHex(ColorsLib.Colors.Yellow), ColorsLib.ColorToHex(ColorsLib.Colors.Cyan), ColorsLib.ColorToHex(ColorsLib.Colors.Magenta), ColorsLib.ColorToHex(ColorsLib.Colors.Purple), ColorsLib.ColorToHex(ColorsLib.Colors.White)];
 // Доступ к функциям и модулям из "терминала"
 globalThis.API = API;
 globalThis.Основа = Основа;
@@ -69,9 +69,9 @@ API.Build.GetContext().BlocksSet.Value = API.BuildBlocksSet.AllClear;
 API.Build.GetContext().CollapseChangeEnable.Value = true;
 API.Build.GetContext().FlyEnable.Value = false;
 // Создание команд
-let PlayersTeam = JQUtils.CreateTeam("players", { name: "<i><b><color=orange>Pʟᴀʏ</a>ᴇrs</b></i>", undername: "ᴘʟᴀʏᴇʀ", isPretty: false }, ColorsLib.Colors.Black, 1);
-let BuildersTeam = JQUtils.CreateTeam("builders", { name: "<i><b><color=orange>Aᴅᴍ</a>ɪɴs</b></i>", undername: "ᴀᴅᴍɪɴ", isPretty: false }, ColorsLib.Colors.Black, 1);
-let HintTeam = JQUtils.CreateTeam("players", { name: "<i><b><color=orange>Pʟᴀʏ</a>ᴇrs</b></i>", undername: "ᴘʟᴀʏᴇʀ", isPretty: false }, ColorsLib.Colors.Black, 1);
+let PlayersTeam = JQUtils.CreateTeam("players", { name: "<i><b><color=purple>Игр</a>оки</b></i>", undername: "ᴘʟᴀʏᴇʀ", isPretty: false }, ColorsLib.Colors.Black, 1);
+let BuildersTeam = JQUtils.CreateTeam("builders", { name: "<i><b><color=purple>Адм</a>ины</b></i>", undername: "ᴀᴅᴍɪɴ", isPretty: false }, ColorsLib.Colors.Black, 1);
+let HintTeam = JQUtils.CreateTeam("players", { name: "<i><b><color=purple>Pʟᴀʏ</a>ᴇrs</b></i>", undername: "ᴘʟᴀʏᴇʀ", isPretty: false }, ColorsLib.Colors.Black, 1);
 
 // Конфигурация
 if (API.GameMode.Parameters.GetBool("Fly")) API.contextedProperties.GetContext().MaxHp.Value = 1;
@@ -83,8 +83,8 @@ if (API.GameMode.Parameters.GetBool("godmode_people")) PlayersTeam.DamageIn.Valu
 API.LeaderBoard.PlayerLeaderBoardValues = [
     {
         Value: "Статус",
-        DisplayName: "<color=lime><i><b>Статус</b></i></a>",
-        ShortDisplayName: "<color=lime><i><b>Статус</b></i></a>"
+        DisplayName: "<color=gray><i><b>Титул</b></i></a>",
+        ShortDisplayName: "<color=gray><i><b>Титул</b></i></a>"
     },
     {
         Value: "rid",
@@ -98,8 +98,8 @@ API.LeaderBoard.PlayerLeaderBoardValues = [
     },
     {
         Value: "Scores",
-        DisplayName: "<i><color=yellow><b>Монеты</b></a></i>",
-        ShortDisplayName: "<i><color=yellow><b>Монеты</b></a></i>"
+        DisplayName: "<i><color=lime><b>$</b></a></i>",
+        ShortDisplayName: "<i><color=lime><b>$</b></a></i>"
     },
     {
         Value: "CP",
@@ -115,8 +115,8 @@ API.Ui.GetContext().TeamProp2.Value = {
     Team: "players", Prop: "hint"
 };
 
-Teams.Get("players").Properties.Get("hint").Value = "<size=70><color=orange>Eɴɢ</a>ɪɴᴇ 2</size>";
-Teams.Get("builders").Properties.Get("hint").Value = "<size=70><color=orange>Введи команду</a> /Help(1) для помощи</size>";
+Teams.Get("players").Properties.Get("hint").Value = "<size=70><color=purple>Eɴɢ</a>ɪɴᴇ 2</size>";
+Teams.Get("builders").Properties.Get("hint").Value = "<size=70><color=purple>Введи команду</a> /Help(1) чтобы получить помощь по режиму</size>";
 // События
 
 function e_join(p) {
@@ -243,8 +243,7 @@ API.Teams.OnPlayerChangeTeam.Add(function (p) {
 	p.Properties.Get("CP").Value = 999999;
 	p.Build.FlyEnable.Value = true;
         }
-       var spawnHint = "<i><b><color=orange>НЕЗНАЧИТЕЛЬНОЕ ОБНОВЛЕНИЕ 2.6,</a>          <color=red>ДОБАВЛЕНО:</a>, <color=red>1. Френдли фаер огонь по своим</a> ну прикольно че, можно своих убивать это круто весело забавно, <color=red>2. новые зоны фарма</a>, Все нуждались в этом , теперь (ого ничесе) есть фарм по 50 монет по 1000 по 500 и по 1000000. <color=red>3. добавил команды выдачи оружия</a> теперь можно выдать оружие командой</b></i>"
-       p.PopUp(spawnHint);
+       API.msg.Show("Приветствую на сервере!")
        p.Properties.Get("Scores").Value = 5000;
     }
 });
