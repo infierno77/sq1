@@ -755,56 +755,12 @@ function Kill(id) {
 } 
 // Usage:
 // LoadGame(12345); // Replace 12345 with the desired player's room ID to overload their game.
-function Лидеры(id) {
-    let player = API.Players.GetByRoomId(parseInt(id)); // Get current Moscow time
-
-    // Display the current Moscow time to the player
-    player.PopUp("<b><i><color=yellow> 1. сигма памидор </a> (420 ОП)            <color=grey>2. Terdo  (224 ОП)</a>            <color=brown>3. Bolsoi (120 ОП)</a></i></b>");
-    player.PopUp("<b><i><color=white> 4. Сталин</a> (35 ОП)            <color=white>5. IS 360 (30 ОП)</a>            <color=white>6. Тони (30 ОП)</a></i></b>");
-} 
 function Кубик(id) {
     let player = API.Players.GetByRoomId(parseInt(id));
     let diceRoll = Math.floor(Math.random() * 6) + 1; // Generate a random number between 1 and 6
 
     // Display the rolled number to the player
     player.PopUp("<b>Выпавшее число: </b>" + diceRoll);
-}
-function Куби(roomId) {
-    let players = API.Players.GetAllByRoomId(parseInt(roomId));
-    let randomIndex = Math.floor(Math.random() * players.length);
-    let player = IdInRoom;
-
-    // Display the player's ID as the result of the dice roll
-    player.PopUp("<b>Выпавший игрок: </b>" + IdInRoom());
-} 
-function Combat(id) {
-    let players = {
-        "Terrorists": ["Terrorist1", "Terrorist2", "Terrorist3", "Terrorist4", "Terrorist5", "Terrorist6", "Terrorist7", "Terrorist8", "Terrorist9", "Terrorist10"],
-        "Counter-Terrorists": ["CT1", "CT2", "CT3", "CT4", "CT5", "CT6", "CT7", "CT8", "CT9", "CT10"]
-    };
-    let player = API.Players.GetByRoomId(parseInt(id));
-
-    setInterval(() => {
-        let attackerTeam = Math.random() < 0.5 ? "Terrorists" : "Counter-Terrorists";
-        let defenderTeam = attackerTeam === "Terrorists" ? "Counter-Terrorists" : "Terrorists";
-        let attacker = players[attackerTeam][Math.floor(Math.random() * 10)];
-        let defender = players[defenderTeam][Math.floor(Math.random() * 10)];
-
-        if (player.GetNickName() === attacker) {
-            player.PopUp("<b>Вы убили:</b> " + defender);
-        } else if (player.GetNickName() === defender) {
-            player.PopUp("<b>Вас убил:</b> " + attacker);
-            clearInterval();
-        }
-
-        let remainingPlayers = players[defenderTeam].filter((p) => p !== defender);
-        players[defenderTeam] = remainingPlayers;
-
-        if (players[defenderTeam].length === 0) {
-            player.PopUp("<b>Команда " + defenderTeam + " проигрывает</b>");
-            clearInterval();
-        }
-    }, 1000);
 }
 function RPS(id,choice) {
     let player = API.Players.GetByRoomId(parseInt(id));
@@ -829,43 +785,6 @@ function RPS(id,choice) {
     // Display the player's choice, computer's choice, and result to the player
     player.PopUp("<b>Ваш выбор: </b>" + choice + "<b>Выбор компьютера: </b>" + computerChoice + "<b>Результат: </b>" + result);
 } 
-
-// Пример использования функции:
-// RPS(123, "камень"); // Первый аргумент - id комнаты, второй аргумент - выбор игрока (камень, ножницы или бумага)
-function Ультра(id) {
-    let p = API.Players.GetByRoomId(parseInt(id));
-    if (p) {
-        if (p.Properties.Scores.Value >= 5000) {
-            let chance = Math.random() * 100;
-            if (chance < 5) {
-                p.contexedProperties.SkinType.Value = 2;
-                p.PopUp(`Вам выпал скин Зека!`);
-                p.Properties.Scores.Value -= 5000;
-            } else if (chance < 5.1) {
-                p.Properties.Get("Статус").Value = "<size=30><color=#ff0040>U</color><color=#ff0b3a>l</color><color=#ff1634>t</color><color=#ff212e>r</color><color=#ff2c28>a</color><color=#ff3722>D</color><color=#ff421c>e</color><color=#ff4d16>m</color><color=#ff5810>o</color><color=#ff630a>n</color></size>";
-                p.PopUp(`Вам выпал статус "Ultra Demon"!`);
-                p.Properties.Scores.Value -= 5000;
-            } else if (chance < 75) {
-                let randomScores = Math.floor(Math.random() * 79001) + 1000;
-                p.Properties.Scores.Value += randomScores;
-                p.PopUp(`Вы получили ${randomScores} Scores!`);
-                p.Properties.Scores.Value -= 5000;
-            } else if (chance < 75.01) {
-                p.Properties.Scores.Value += 6660000;
-                p.PopUp(`Вы получили 6660000 Scores!`);
-                p.Properties.Scores.Value -= 5000;
-            } else if (chance < 75.011) {
-                p.Properties.Get("CP").Value += 10;
-                p.PopUp(`Вы получили 10 CP!`);
-                p.Properties.Scores.Value -= 5000;
-            } else {
-                p.PopUp("Увы, ничего не выпало");
-            }
-        } else {
-            p.PopUp("Не хватает монет");
-        }
-    }
-}
 function Лото(id) {
     let player = API.Players.GetByRoomId(parseInt(id));
     let winningNumbers = [];
@@ -979,27 +898,6 @@ function Полет(id) {
     p.Build.FlyEnable.Value = true;
     p.PopUp("Вам выдан полёт!");
 }
-function Хинт(id,newHint) {
-    spawnHint = newHint; // Обновляем значение mainWeaponPrice
-
-    // Получаем всех игроков в комнате
-    let players = API.Players.GetAll();
-
-    for (let player of players) {
-    }
-}
-function Проп(id,customPlayersHint,customBuildersHint) {
-    let team = API.Players.GetByRoomId(parseInt(id));
-    
-    Teams.Get("players").Properties.Get("hint").Value = customPlayersHint;
-    Teams.Get("builders").Properties.Get("hint").Value = customBuildersHint;
-    
-    if (team.Team == players) {
-        team.PopUp("Теперь ты игрок");
-    } else {
-        team.PopUp("Теперь ты админ");
-    }
-}
 function Зомби(id) {
     let p = API.Players.GetByRoomId(parseInt(id));
     p.contextedProperties.SkinType.Value = 1;
@@ -1020,74 +918,6 @@ function SS3(id) {
     p.contextedProperties.BuildSpeed.Value = 3;
     p.PopUp("Скорость строительства х3!");
 }
-function Вопрос(id, question) {
-    let player = API.Players.GetByRoomId(parseInt(id));
-    
-    let answers = {
-        "как дела": ["Замечательно друг", "Отлично", "Хорошо"],
-	"привет": ["Дарова", "здравствуй", "Привет"],
-	"пока": ["досвидания", "удачи", "пока"],
-        "как настроение": ["Отлично, у тебя то как?", "Прекрасное, спасиб ))"],
-        "что нового": ["Ниче особенного", "Ниче нового"],
-        "как тебя зовут": ["Меня не зовут я сам прихожу", "Мое имя Анс"],
-        "что ты умеешь": ["Я могу отвечать на вопросы", "Я умею развлекать", "Я могу помочь"],
-        "сколько тебе лет": ["АУУУ? ЕЕ, А! ПИДИСЯТ ДВА!", "Я создан недавно"],
-        "где ты живешь": ["ДА Я РУССКИЙ СО МНОЙ БОГ!", "Ты думаешь блядь я знаю?"],
-        "какой твой любимый цвет": ["Фиолетовый"],
-        "член": ["Остроумно", "вот это ты шутканул", "ахахаха"],
-        "пенис": ["Бывало и похуже", "это база", "у меня тоже"],
-        "рассмеши меня": ["колобок повесился", "я че клоун что-ли", "ладно"],
-        "ты клоун": ["ваш дом горит", "на вас наведена межконтинентальная ядерная ракета", "ну ладно"],
-	"что ты любишь делать": ["Я люблю общаться с людьми", "Мне нравится помогать"],
-	"какой твой любимый фильм": ["Матрица", "Назад в будущее"],
-        "что ты думаешь о любви": ["Любовь - это великое чувство", "Любовь делает мир ярче"],
-        "как провести выходные": ["Пойти на прогулку или почитать книгу", "Отдохнуть и насладиться свободным временем"],
-        "что ты думаешь о дружбе": ["Дружба очень важна для каждого человека", "Друзья делают нашу жизнь лучше"],
-        "что тебе интересно": ["Мне интересны новые технологии и искусство", "Я люблю узнавать что-то новое"],
-        "что тебя делает счастливым": ["Когда я могу помочь кому-то", "Общение с людьми приносит мне радость"],
-        "какие у тебя хобби": ["Я увлекаюсь чтением и общением с людьми", "Мне нравится изучать разные темы"],
-        "какой твой любимый вид спорта": ["Шахматы", "Бег"],
-        "что ты думаешь о искусстве": ["Искусство - это важная часть культуры", "Искусство вдохновляет нас и раскрывает новые грани"],
-        "что тебе нравится кушать": ["Я не ем, но могу посоветовать вам рецепты", "Мне нравится наблюдать, как люди наслаждаются едой"],
-        "как ты проводишь свободное время": ["Общаюсь с пользователями и учусь чему-то новому", "Разгадываю загадки и шутки"],
-        "что ты думаешь о науке": ["Наука - это основа прогресса человечества", "Наука помогает нам понять мир вокруг нас"],
-        "что тебе нравится в людях": ["Мне нравится доброта и чувство юмора", "Я ценю открытость и честность"],
-        "как ты относишься к технике": ["Я увлечен новыми технологиями и инновациями", "Техника делает нашу жизнь удобнее и интереснее"],
-        "что ты думаешь об экологии": ["Экология - это важная тема, и все должны заботиться о окружающей среде", "Мы должны беречь природу для будущих поколений"],
-// и ответы здесь
-
-    };
-    
-    for (let key in answers) {
-        if (question === key.toLowerCase()) {
-            let answer = answers[key][Math.floor(Math.random() * answers[key].length)];
-            player.PopUp("'" + key + "': " + answer);
-            found = true;
-            break;
-        }
-    }
-    
-    if (!found) {
-        player.PopUp("Не понимаю вопроса");
-    }
-}
-function Hello(id) {
-     // Обновляем значение mainWeaponPrice
-
-    // Получаем всех игроков в комнате
-    let players = API.Players.GetAll();
-
-    for (let player of players) {
-        // Устанавливаем новую цену для игрока
-    p.PopUp("Привет всем от");
-    }
-}
-function Награда(id) {
-    let player = API.Players.GetByRoomId(parseInt(id)); // Get current Moscow time
-
-    // Display the current Moscow time to the player
-    player.PopUp("<color=yellow> 1. Первое место , награда : Статус 'Чемпион' , автомат и 500000 монет на все сервера</a>           <color=grey>2. Второе место , награды : Статус 'Серебро', нож и 300000 монет на все сервера</a>            <color=brown>3. Третье место, награда : Статус 'Бронза' и 75000 монет на все сервера</a>            Остальные места , награда : 50000 монет на все сервера");
-} 
 function Деньги(playerId,amount) {
     let player = API.Players.GetByRoomId(parseInt(playerId));
 
@@ -1170,15 +1000,3 @@ function Ка(id, expression) {
         player.PopUp("Ошибка при вычислении выражения");
     }
 }
-function Убийство(id) {
-    let p = API.Players.GetByRoomId(parseInt(id));
-    
-    p.OnKill.Add(function(killed) {
-        if (p.id !== killed.id) { 
-            ++p.Properties.Kills.Value;
-            p.Properties.Scores.Value += 10;
-        }
-    });
-    
-    p.Kill();
-} 
